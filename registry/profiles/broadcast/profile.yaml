@@ -1,0 +1,9 @@
+id: broadcast
+version: 0.1.0
+status: experimental
+definition: One-to-many publication to an audience such as a channel, mailing list or feed.
+applies_to:
+  - capability: communication.publish
+excludes:
+  - Delivery to specific recipients, which is communication.send.
+rfc: "0001"

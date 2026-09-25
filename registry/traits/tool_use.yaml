@@ -1,0 +1,5 @@
+id: tool_use
+version: 0.1.0
+status: experimental
+definition: The provider may propose capability requests for the caller to evaluate; it never executes them itself, and proposals carry no authority.
+rfc: "0001"

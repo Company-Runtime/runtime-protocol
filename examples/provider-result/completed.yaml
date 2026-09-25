@@ -1,0 +1,19 @@
+protocol: runtime/0.1
+invocation_id: inv_01
+status: completed
+output:
+  message: { ref: resource://example-provider/outbox/msg-1 }
+  accepted_recipients: [identity://customer/981]
+evidence:
+  - type: provider_receipt
+    claims: [execution]
+    observed_at: 2026-01-01T00:00:01Z
+    subject: { ref: resource://example-provider/outbox/msg-1 }
+    data: { accepted_at: 2026-01-01T00:00:01Z, recipients: 1 }
+  - type: provider_receipt
+    claims: [delivery]
+    observed_at: 2026-01-01T00:00:01Z
+    subject: { ref: resource://example-provider/outbox/msg-1 }
+    data: { delivered: [identity://customer/981], delivered_at: 2026-01-01T00:00:01Z }
+cost: { amount: 0.001, currency: USD }
+observed_at: 2026-01-01T00:00:01Z

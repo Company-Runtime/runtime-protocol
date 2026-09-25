@@ -1,0 +1,11 @@
+id: start
+version: 0.1.0
+status: experimental
+definition: Begin work or an activity on an item.
+past_tense: started
+mutating: true
+rejected_synonyms: [begin, kickoff, launch, initiate]
+distinct_from:
+  - verb: resume
+    difference: resume continues an activity that was paused
+rfc: "0001"

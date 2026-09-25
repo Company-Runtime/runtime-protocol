@@ -1,0 +1,27 @@
+protocol: runtime/0.1
+provider:
+  id: example-provider
+  version: 1.0.0
+  name: Example Provider
+  description: In-memory reference provider used by the examples and the conformance suite.
+adapter: { id: example-adapter, version: 1.0.0, system: in-memory }
+implements:
+  - capability: communication.send
+    versions: ["^0.1"]
+    profiles: [email, chat]
+    traits: [attachments, delivery_receipt, idempotency]
+    evidence: { claims: [execution, delivery], types: [provider_receipt] }
+    cost: { estimate: { amount: 0.001, currency: USD } }
+    regions: [eu, us]
+    reconciliation: supported
+  - capability: knowledge.search
+    versions: ["^0.1"]
+    evidence: { claims: [execution], types: [provider_receipt] }
+    regions: [eu]
+  - capability: reasoning.classify
+    versions: ["^0.1"]
+    traits: [batch]
+    evidence: { claims: [execution], types: [provider_receipt] }
+credentials: { required: true, accepts: [organization, runtime] }
+bindings:
+  - { type: in_process }

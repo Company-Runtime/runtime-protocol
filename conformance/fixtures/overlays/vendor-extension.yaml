@@ -1,0 +1,34 @@
+protocol: runtime/0.1
+id: vendor-extension
+description: A valid vendor extension with its own domain and a canonical verb.
+domains:
+  - id: ledger
+    version: 0.1.0
+    status: experimental
+    definition: Accounting ledgers of the vendor's bookkeeping system.
+    excludes: [General resources, which use resource.*]
+capabilities:
+  - id: vendor.acme.ledger.record
+    version: 0.1.0
+    status: experimental
+    domain: ledger
+    verb: record
+    description: Record an entry in the vendor's ledger.
+    input:
+      schema:
+        type: object
+        additionalProperties: false
+        required: [amount]
+        properties: { amount: { type: number } }
+    output:
+      schema:
+        type: object
+        required: [entry]
+        properties: { entry: { type: string } }
+    profiles: []
+    traits: { optional: [idempotency] }
+    authority: { required: true }
+    evidence: { supported: true, claims: [execution] }
+    risk: { default: medium }
+    effects: { mutating: true }
+    emits: []

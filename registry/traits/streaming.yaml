@@ -1,0 +1,7 @@
+id: streaming
+version: 0.1.0
+status: experimental
+definition: The provider can deliver partial output incrementally while the execution runs, through bindings that support streaming.
+excludes:
+  - Asynchronous completion after the invocation returns (async).
+rfc: "0001"

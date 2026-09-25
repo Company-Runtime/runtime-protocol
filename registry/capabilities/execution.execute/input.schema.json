@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:execution.execute:0.1.0:input",
+  "title": "execution.execute input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "procedure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "language": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]{0,63}$"
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000000
+            }
+          },
+          "required": ["language", "code"]
+        }
+      },
+      "oneOf": [
+        {
+          "required": ["ref"]
+        },
+        {
+          "required": ["source"]
+        }
+      ]
+    },
+    "arguments": {
+      "type": "object"
+    },
+    "environment": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600000
+    }
+  },
+  "required": ["procedure"]
+}

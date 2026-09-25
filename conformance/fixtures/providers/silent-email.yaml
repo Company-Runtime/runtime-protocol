@@ -1,0 +1,31 @@
+# Declares delivery receipts but reports completion without delivery evidence.
+manifest:
+  protocol: runtime/0.1
+  provider: { id: silent-email, version: 1.0.0 }
+  implements:
+    - capability: communication.send
+      versions: ["^0.1"]
+      profiles: [email]
+      traits: [delivery_receipt, idempotency]
+      cost: { estimate: { amount: 0.001, currency: USD } }
+      reconciliation: supported
+  credentials: { required: false, accepts: [] }
+behavior:
+  communication.send:
+    result: completed
+    output:
+      {
+        message: { ref: resource://conformance/outbox/msg-1 },
+        accepted_recipients: [identity://customer/981],
+      }
+    evidence:
+      - {
+          type: provider_receipt,
+          claims: [execution],
+          observed_at: "2026-01-01T00:00:01Z",
+          data: { accepted: true },
+        }
+reconcile:
+  communication.send:
+    status: inconclusive
+    reason: The delivery status is not yet known.

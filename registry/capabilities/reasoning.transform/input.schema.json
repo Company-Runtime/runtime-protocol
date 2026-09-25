@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:reasoning.transform:0.1.0:input",
+  "title": "reasoning.transform input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "input": {
+      "type": ["string", "object"]
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": ["summarize", "translate", "extract", "reformat", "rewrite"]
+        },
+        "instructions": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "target_language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+        },
+        "target_format": {
+          "type": "string",
+          "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+        }
+      },
+      "required": ["kind"]
+    },
+    "output_schema": {
+      "type": "object",
+      "description": "JSON Schema the produced content must satisfy."
+    }
+  },
+  "required": ["input", "transformation"]
+}

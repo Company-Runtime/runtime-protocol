@@ -1,0 +1,11 @@
+id: authorize
+version: 0.1.0
+status: experimental
+definition: Grant an actor rights to act on resources or capabilities.
+past_tense: authorized
+mutating: true
+rejected_synonyms: [grant, permit, allow, entitle]
+distinct_from:
+  - verb: decide
+    difference: decide answers a single pending request
+rfc: "0001"

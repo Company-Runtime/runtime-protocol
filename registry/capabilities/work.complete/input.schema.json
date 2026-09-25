@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:work.complete:0.1.0:input",
+  "title": "work.complete input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "work": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "resolution": {
+      "type": "string",
+      "maxLength": 10000
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": ["work"]
+}

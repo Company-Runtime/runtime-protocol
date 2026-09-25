@@ -1,0 +1,21 @@
+{
+  "specversion": "1.0",
+  "id": "evt_01",
+  "source": "runtime://example-runtime",
+  "type": "communication.sent",
+  "time": "2026-01-01T00:00:01Z",
+  "subject": "resource://example-provider/outbox/msg-1",
+  "datacontenttype": "application/json",
+  "runtimeprotocol": "runtime/0.1",
+  "executionid": "exec_01",
+  "requestid": "req_01",
+  "correlationid": "case-1234",
+  "data": {
+    "capability": { "id": "communication.send", "version": "0.1.0" },
+    "profile": "email",
+    "output": {
+      "message": { "ref": "resource://example-provider/outbox/msg-1" },
+      "accepted_recipients": ["identity://customer/981"]
+    }
+  }
+}

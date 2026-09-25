@@ -1,0 +1,8 @@
+protocol: runtime/0.1
+id: obs_01
+subject: { ref: resource://plant/machine-7, type: machine }
+property: temperature
+value: 92
+unit: Cel
+observed_at: 2026-01-01T00:00:00Z
+observer: { ref: identity://sensor/thermo-3 }

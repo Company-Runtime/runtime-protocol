@@ -1,0 +1,14 @@
+id: knowledge
+version: 0.1.0
+status: experimental
+definition: >-
+  Information curated for reuse and meaning — articles, documentation, policies as text,
+  facts — retrieved with provenance and citations, published, and validated for quality.
+excludes:
+  - Object management by attributes (resource).
+  - Producing new content from instructions (reasoning).
+  - Messages addressed to recipients (communication).
+examples:
+  - Search the help center for password reset instructions.
+  - Publish a new version of an onboarding guide.
+rfc: "0001"

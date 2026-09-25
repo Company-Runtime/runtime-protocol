@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:binding",
+  "title": "Binding descriptor",
+  "description": "How a runtime reaches a provider or a caller reaches a runtime. Bindings never change semantics. See bindings/.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "in_process" },
+        "module": { "type": "string", "minLength": 1, "maxLength": 512 }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "anyOf": [{ "required": ["url"] }, { "required": ["ref"] }],
+      "properties": {
+        "type": { "const": "http" },
+        "version": { "const": "0.1" },
+        "url": { "type": "string", "maxLength": 2048, "pattern": "^https?://[^\\s]+$" },
+        "ref": { "type": "string", "pattern": "^\\./[A-Za-z0-9._/-]+\\.(?:ya?ml|json)$" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "transport"],
+      "properties": {
+        "type": { "const": "mcp" },
+        "version": { "const": "0.1" },
+        "transport": { "enum": ["stdio", "streamable_http"] },
+        "command": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "args": { "type": "array", "items": { "type": "string", "maxLength": 512 } },
+        "url": { "type": "string", "maxLength": 2048, "pattern": "^https?://[^\\s]+$" },
+        "ref": { "type": "string", "pattern": "^\\./[A-Za-z0-9._/-]+\\.(?:ya?ml|json)$" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "format"],
+      "properties": {
+        "type": { "const": "events" },
+        "version": { "const": "0.1" },
+        "format": { "const": "cloudevents/1.0" },
+        "endpoint": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri" }
+      }
+    }
+  ]
+}

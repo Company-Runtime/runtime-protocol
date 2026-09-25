@@ -1,0 +1,7 @@
+id: structured_output
+version: 0.1.0
+status: experimental
+definition: The provider guarantees that the produced content validates against the JSON Schema supplied in output_schema.
+excludes:
+  - The structured profile, which is a communication context for machine recipients.
+rfc: "0001"

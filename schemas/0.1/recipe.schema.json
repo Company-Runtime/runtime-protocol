@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:recipe",
+  "title": "Recipe",
+  "description": "A composition of capability requests (level L2). Recipes are never primitives. See spec/0.1/capabilities.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "status", "level", "description", "steps"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^(?:[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)+|(?:experimental|(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*)(?:\\.[a-z][a-z0-9_]*){2,3})$"
+    },
+    "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+    "status": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/status" },
+    "level": { "const": "L2" },
+    "description": { "type": "string", "minLength": 10, "maxLength": 600 },
+    "inputs": { "type": "object", "description": "JSON Schema of the recipe inputs." },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "capability", "input"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$" },
+          "description": { "type": "string", "maxLength": 300 },
+          "capability": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+          "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/versionRange" },
+          "profile": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyId" },
+          "traits": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "required": {
+                "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList"
+              }
+            }
+          },
+          "input": { "type": "object" }
+        }
+      }
+    },
+    "outputs": { "type": "object" }
+  }
+}

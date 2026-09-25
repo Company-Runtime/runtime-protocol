@@ -1,0 +1,8 @@
+id: push
+version: 0.1.0
+status: experimental
+definition: A notification delivered to a device or application of each recipient.
+applies_to:
+  - capability: communication.send
+    input: { schema_ref: ./communication.send.input.schema.json }
+rfc: "0001"

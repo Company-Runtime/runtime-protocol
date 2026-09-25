@@ -1,0 +1,14 @@
+id: work
+version: 0.1.0
+status: experimental
+definition: >-
+  Units of work — tasks, tickets, issues — and their lifecycle: creation, assignment,
+  start, completion and cancellation.
+excludes:
+  - Desired outcomes and success criteria (objective).
+  - Accountable decisions (approval).
+  - Running programs or jobs (execution).
+examples:
+  - Create a follow-up task for a support case.
+  - Assign an issue to an engineer.
+rfc: "0001"

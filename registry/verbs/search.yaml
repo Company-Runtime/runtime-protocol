@@ -1,0 +1,13 @@
+id: search
+version: 0.1.0
+status: experimental
+definition: Find items that match a query or criteria within a larger set.
+past_tense: searched
+mutating: false
+rejected_synonyms: [query, find, seek]
+distinct_from:
+  - verb: resolve
+    difference: resolve determines the single canonical referent of an identifier
+  - verb: list
+    difference: list enumerates a collection without a relevance query
+rfc: "0001"

@@ -1,0 +1,19 @@
+id: resource.update
+version: 0.1.0
+status: experimental
+domain: resource
+verb: update
+description: Change an existing resource while preserving its identity.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: [resource.updated]
+relations:
+  related: [resource.create]
+rfc: "0001"

@@ -1,0 +1,9 @@
+id: chat
+version: 0.1.0
+status: experimental
+definition: Conversational message delivery in channels or direct conversations, typically short and immediate.
+applies_to:
+  - capability: communication.send
+  - capability: communication.receive
+  - capability: communication.publish
+rfc: "0001"

@@ -1,0 +1,18 @@
+protocol: runtime/0.1
+id: shadow-core
+capabilities:
+  - id: vendor.acme.communication.send
+    version: 0.1.0
+    status: experimental
+    domain: communication
+    verb: send
+    description: A vendor copy of the core capability.
+    input: { schema: { type: object } }
+    output: { schema: { type: object } }
+    profiles: []
+    traits: {}
+    authority: { required: true }
+    evidence: { supported: true, claims: [execution] }
+    risk: { default: low }
+    effects: { mutating: true }
+    emits: []

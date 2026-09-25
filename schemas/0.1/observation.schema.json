@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:observation",
+  "title": "Observation",
+  "description": "A measured fact about a subject at a point in time. Observations are not events and not actions. See spec/0.1/execution.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "id", "subject", "property", "value", "observed_at", "observer"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "subject": { "$ref": "urn:runtime-protocol:schemas:0.1:resource" },
+    "property": { "type": "string", "pattern": "^[a-z][a-z0-9_.]{0,127}$" },
+    "value": { "type": ["number", "string", "boolean", "object", "array"] },
+    "unit": { "type": "string", "minLength": 1, "maxLength": 32 },
+    "observed_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "observer": {
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [{ "required": ["ref"] }, { "required": ["provider"] }],
+      "properties": {
+        "ref": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef" },
+        "provider": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerId" }
+      }
+    },
+    "evidence": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef" },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  }
+}

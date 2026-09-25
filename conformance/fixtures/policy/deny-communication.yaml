@@ -1,0 +1,9 @@
+protocol: runtime/0.1
+id: policy://conformance/deny-communication
+version: 1
+default: allow
+rules:
+  - id: no-outbound-messages
+    match: { capabilities: ["communication.*"] }
+    effect: deny
+    reason: Outbound messages are frozen.

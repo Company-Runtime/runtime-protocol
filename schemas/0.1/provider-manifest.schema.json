@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:provider-manifest",
+  "title": "ProviderManifest",
+  "description": "Declares which capabilities a provider implements. Never contains secret material. See spec/0.1/providers.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "provider", "implements"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerId" },
+        "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 500 },
+        "publisher": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+            "url": { "type": "string", "maxLength": 2048, "pattern": "^https://[^\\s]+$" }
+          }
+        }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerId" },
+        "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+        "system": { "type": "string", "minLength": 1, "maxLength": 120 }
+      }
+    },
+    "implements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/implementation" }
+    },
+    "credentials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "accepts"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "accepts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/credentialOwner" }
+        }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:binding" }
+    },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  },
+  "$defs": {
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability", "versions"],
+      "properties": {
+        "capability": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+        "versions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/versionRange" }
+        },
+        "profiles": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "traits": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "claims": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/claimList" },
+            "types": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceType" }
+            }
+          }
+        },
+        "risk": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/risk" },
+        "cost": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["estimate"],
+          "properties": {
+            "estimate": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" }
+          }
+        },
+        "regions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/regionCode" }
+        },
+        "reconciliation": { "enum": ["supported", "unsupported"] },
+        "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:evidence.verify:0.1.0:input",
+  "title": "evidence.verify input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "evidence": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "enum": ["integrity", "signature", "source", "claims"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": ["evidence"]
+}

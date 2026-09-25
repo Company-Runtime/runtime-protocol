@@ -1,0 +1,13 @@
+id: transform
+version: 0.1.0
+status: experimental
+definition: Convert content into another form while preserving its meaning — summarize, translate, reformat, extract.
+past_tense: transformed
+mutating: false
+rejected_synonyms: [convert, translate, summarize, reformat, extract, rewrite, map]
+distinct_from:
+  - verb: generate
+    difference: generate produces new content
+  - verb: update
+    difference: update changes a stored item
+rfc: "0001"

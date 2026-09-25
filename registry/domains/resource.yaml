@@ -1,0 +1,16 @@
+id: resource
+version: 0.1.0
+status: experimental
+definition: >-
+  Addressable objects managed by systems — records, files, documents, accounts,
+  deployments — independent of their type: reading, searching, creating, updating and
+  deleting them.
+excludes:
+  - Retrieving information by meaning with provenance and citations (knowledge).
+  - Messages in transit between actors (communication).
+  - Units of work and their lifecycle (work).
+examples:
+  - Read a customer record.
+  - Create a file in a storage bucket.
+  - Delete an obsolete deployment.
+rfc: "0001"

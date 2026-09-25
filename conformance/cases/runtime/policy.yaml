@@ -1,0 +1,86 @@
+- id: RP-POLICY-001
+  title: A policy deny rejects the request before resolution
+  category: policy_denial
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/example-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/deny-communication.yaml
+    credentials:
+      [{ provider: example-email, ref: secret://organization/providers/example-production }]
+    secrets: { secret://organization/providers/example-production: canary-policy-key-0001 }
+  request: fixtures/requests/send-email.yaml
+  expect:
+    state: rejected
+    error: { code: policy_denied }
+    provider_invocations: 0
+    receipt: { status: rejected, provider: null, has: [policy] }
+- id: RP-APPROVAL-001
+  title: Policy requires approval; an approver approves; the execution completes
+  category: approval
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/records.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/approve-high-risk.yaml
+  request: fixtures/requests/delete-record.yaml
+  expect_initial: { state: awaiting_approval, provider_invocations: 0 }
+  then:
+    - approve: { decided_by: identity://user/founder, decision: approved }
+  expect:
+    state: completed
+    history: [pending, awaiting_approval, authorized, running, completed]
+    provider_invocations: 1
+    evidence_claims: [approval, execution, state]
+    events: [resource.deleted]
+    receipt: { status: completed, has: [approval] }
+- id: RP-APPROVAL-002
+  title: A rejected approval rejects the execution without invoking a provider
+  category: policy_denial
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/records.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/approve-high-risk.yaml
+  request: fixtures/requests/delete-record.yaml
+  then:
+    - approve: { decided_by: identity://user/founder, decision: rejected }
+  expect:
+    state: rejected
+    error: { code: policy_denied, detail: approval_rejected }
+    provider_invocations: 0
+- id: RP-APPROVAL-003
+  title: The requester cannot approve its own request, and non-approvers are refused
+  category: approval
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/records.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/approve-high-risk.yaml
+  request: fixtures/requests/delete-record.yaml
+  then:
+    - approve: { decided_by: identity://agent/support-agent, decision: approved }
+  expect:
+    state: awaiting_approval
+    provider_invocations: 0
+- id: RP-CANCEL-001
+  title: An execution awaiting approval can be cancelled without effects
+  category: cancellation
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/records.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/approve-high-risk.yaml
+  request: fixtures/requests/delete-record.yaml
+  then:
+    - cancel: true
+  expect:
+    state: cancelled
+    error: { code: cancelled }
+    provider_invocations: 0
+    receipt: { status: cancelled, provider: null }

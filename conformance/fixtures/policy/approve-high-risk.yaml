@@ -1,0 +1,9 @@
+protocol: runtime/0.1
+id: policy://conformance/approve-high-risk
+version: 1
+default: allow
+rules:
+  - id: approve-high-risk
+    match: { risk: { at_least: high } }
+    effect: require_approval
+    obligations: { approvers: [identity://user/founder] }

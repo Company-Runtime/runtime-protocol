@@ -1,0 +1,13 @@
+id: publish
+version: 0.1.0
+status: experimental
+definition: Make information available to an audience rather than to specific recipients.
+past_tense: published
+mutating: true
+rejected_synonyms: [broadcast, post, announce, share]
+distinct_from:
+  - verb: send
+    difference: send targets specific recipients
+  - verb: create
+    difference: create brings an item into existence without making it available
+rfc: "0001"

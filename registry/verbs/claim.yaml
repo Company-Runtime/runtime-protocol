@@ -1,0 +1,11 @@
+id: claim
+version: 0.1.0
+status: experimental
+definition: Take responsibility for an unassigned item oneself.
+past_tense: claimed
+mutating: true
+rejected_synonyms: [take, grab, pick]
+distinct_from:
+  - verb: assign
+    difference: assign gives responsibility to another actor
+rfc: "0001"

@@ -1,0 +1,14 @@
+protocol: runtime/0.1
+capability: { id: communication.send, version: 0.1.0 }
+eligible:
+  - provider: { id: example-provider, version: 1.0.0 }
+    credential_owner: organization
+rejected:
+  - provider: { id: chat-only-provider, version: 2.1.0 }
+    stage: 3
+    code: unsupported_profile
+    detail: profile_email_not_supported
+  - provider: { id: legacy-provider, version: 0.9.0 }
+    stage: 6
+    code: policy_denied
+    detail: rule_no_legacy_provider

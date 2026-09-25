@@ -1,0 +1,22 @@
+id: communication.receive
+version: 0.1.0
+status: experimental
+domain: communication
+verb: receive
+description: Obtain messages addressed to the actor or its channels.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: [email, chat, sms, structured]
+traits:
+  optional: [threading]
+  input_gates:
+    threading: [thread]
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: medium }
+effects: { mutating: false }
+emits: []
+relations:
+  requires: [identity]
+  related: [communication.send, event.subscribe]
+rfc: "0001"

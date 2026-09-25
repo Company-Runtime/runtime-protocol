@@ -1,0 +1,6 @@
+protocol: runtime/0.1
+execution_id: exec_07
+decision: approved
+decided_by: { ref: identity://user/founder, type: human }
+decided_at: 2026-01-01T00:05:00Z
+rationale: The customer requested the deletion in ticket 1234.

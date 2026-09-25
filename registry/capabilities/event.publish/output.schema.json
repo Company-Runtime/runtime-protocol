@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:event.publish:0.1.0:output",
+  "title": "event.publish output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier"
+        },
+        "published_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "required": ["id", "published_at"]
+    }
+  },
+  "required": ["event"]
+}

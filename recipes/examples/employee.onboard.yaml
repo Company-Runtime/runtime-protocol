@@ -1,0 +1,45 @@
+id: employee.onboard
+version: 0.1.0
+status: experimental
+level: L2
+description: >-
+  Onboard a new employee: create their identity record, grant access, provision a
+  workspace, send a welcome message and open an onboarding checklist for the manager.
+inputs:
+  type: object
+  required: [person, grant, workspace, manager]
+  properties:
+    person: { type: object, description: Identity record content. }
+    grant: { type: object, description: Access to grant, as identity.authorize expects. }
+    workspace: { type: object, description: Workspace resource content. }
+    manager: { type: string, description: Identity reference of the manager. }
+steps:
+  - id: create_identity
+    description: Identity records are resources; the identity domain covers resolution, verification, authentication and authorization.
+    capability: resource.create
+    version: "^0.1"
+    input: { type: identity, content: { $from: inputs.person } }
+  - id: grant_access
+    capability: identity.authorize
+    version: "^0.1"
+    input:
+      subject: { $from: steps.create_identity.output.resource.ref }
+      grant: { $from: inputs.grant }
+  - id: provision_workspace
+    capability: resource.create
+    version: "^0.1"
+    input: { type: workspace, content: { $from: inputs.workspace } }
+  - id: welcome
+    capability: communication.send
+    version: "^0.1"
+    profile: email
+    input:
+      recipients: [{ $from: steps.create_identity.output.resource.ref }]
+      subject: Welcome aboard
+      content: Your accounts are ready. Your manager will reach out today.
+  - id: checklist
+    capability: work.create
+    version: "^0.1"
+    input:
+      title: Onboarding checklist
+      assignee: { $from: inputs.manager }

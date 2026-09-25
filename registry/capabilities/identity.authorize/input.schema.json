@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:identity.authorize:0.1.0:input",
+  "title": "identity.authorize input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "subject": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+    },
+    "grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_.-]*\\*?$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "minProperties": 1
+    },
+    "expires_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": ["subject", "grant"]
+}

@@ -1,0 +1,20 @@
+id: approval.decide
+version: 0.1.0
+status: experimental
+domain: approval
+verb: decide
+description: Record an accountable decision on a pending approval.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, approval] }
+risk: { default: high }
+effects: { mutating: true }
+emits: [approval.decided]
+relations:
+  requires: [identity]
+  related: [approval.request, policy.evaluate]
+rfc: "0001"

@@ -1,0 +1,40 @@
+- id: RP-SCHEMA-001
+  title: A request without an actor is rejected by schema validation
+  category: schema_validation
+  level: document
+  kind: request
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { actor: null } }
+  expect: { error: { code: invalid_request, detail: schema_invalid } }
+- id: RP-SCHEMA-002
+  title: A version range outside the defined grammar is rejected
+  category: schema_validation
+  level: document
+  kind: request
+  request:
+    { $base: fixtures/requests/send-email.yaml, $patch: { capability: { version: ">=0.1.0" } } }
+  expect: { error: { code: invalid_request, detail: schema_invalid } }
+- id: RP-SCHEMA-003
+  title: A completed receipt must name its provider
+  category: schema_validation
+  level: document
+  kind: document
+  document_type: execution-receipt
+  document:
+    { $base: ../examples/execution-receipt/completed.yaml, $patch: { receipt: { provider: null } } }
+  expect: { valid: false }
+- id: RP-SCHEMA-004
+  title: Evidence cannot claim what its type cannot prove
+  category: schema_validation
+  level: document
+  kind: document
+  document_type: evidence
+  document:
+    { $base: ../examples/evidence/artifact-screenshot.yaml, $patch: { claims: [execution] } }
+  expect: { valid: false }
+- id: RP-SCHEMA-005
+  title: The smoke request is valid
+  category: schema_validation
+  level: document
+  kind: request
+  request: fixtures/requests/send-email.yaml
+  expect: { valid: true }

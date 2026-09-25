@@ -1,0 +1,37 @@
+- id: RP-PROFILE-001
+  title: Unknown profiles are rejected
+  category: unknown_profiles
+  level: document
+  kind: request
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { profile: fax } }
+  expect: { error: { code: unsupported_profile, detail: unknown_profile } }
+- id: RP-PROFILE-002
+  title: A profile the capability does not accept is rejected
+  category: unknown_profiles
+  level: document
+  kind: request
+  request: { $base: fixtures/requests/search.yaml, $patch: { profile: email } }
+  expect: { error: { code: unsupported_profile, detail: profile_not_accepted } }
+- id: RP-TRAIT-001
+  title: A required trait the capability does not declare is missing
+  category: missing_traits
+  level: document
+  kind: request
+  request:
+    { $base: fixtures/requests/send-email.yaml, $patch: { traits: { required: [streaming] } } }
+  expect: { error: { code: missing_trait, detail: trait_not_declared } }
+- id: RP-VERSION-001
+  title: No registry version satisfies the requested range
+  category: version_mismatch
+  level: document
+  kind: request
+  request:
+    { $base: fixtures/requests/send-email.yaml, $patch: { capability: { version: "^1.0.0" } } }
+  expect: { error: { code: unsupported_version, detail: no_matching_version } }
+- id: RP-VERSION-002
+  title: An unsupported protocol version is rejected
+  category: version_mismatch
+  level: document
+  kind: request
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { protocol: runtime/0.2 } }
+  expect: { error: { code: unsupported_version, detail: unsupported_protocol } }

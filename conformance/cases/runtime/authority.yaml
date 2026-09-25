@@ -1,0 +1,49 @@
+- id: RP-AUTH-001
+  title: An actor without a matching grant is denied before any provider is invoked
+  category: authority_denial
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/example-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+    credentials:
+      [{ provider: example-email, ref: secret://organization/providers/example-production }]
+    secrets: { secret://organization/providers/example-production: canary-auth-key-0001 }
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { actor: { ref: identity://agent/intruder, on_behalf_of: null }, authority: null }
+  expect:
+    state: rejected
+    error: { code: authority_denied, detail: no_matching_grant }
+    provider_invocations: 0
+    receipt: { status: rejected, provider: null, lacks: [started_at, policy] }
+- id: RP-AUTH-002
+  title: Naming an authority the actor does not hold is a denial
+  category: authority_denial
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/example-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { authority: { ref: authority://company/triage } }
+  expect:
+    state: rejected
+    error: { code: authority_denied, detail: authority_not_held }
+    provider_invocations: 0
+- id: RP-AUTH-003
+  title: Without any authority configured, every request is denied
+  category: authority_denial
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/kb-eu.yaml]
+    policy: fixtures/policy/allow-all.yaml
+  request: fixtures/requests/search.yaml
+  expect:
+    state: rejected
+    error: { code: authority_denied }
+    provider_invocations: 0

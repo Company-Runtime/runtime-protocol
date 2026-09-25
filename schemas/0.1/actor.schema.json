@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:actor",
+  "title": "Actor",
+  "description": "Who requests or performs an action. See spec/0.1/requests.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ref"],
+  "properties": {
+    "ref": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef" },
+    "type": { "enum": ["human", "agent", "service", "system"] },
+    "on_behalf_of": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef" },
+    "display_name": { "type": "string", "minLength": 1, "maxLength": 200 }
+  }
+}

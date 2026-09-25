@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:profile:structured:0.1.0:communication.send:input",
+  "title": "structured profile constraints for communication.send input",
+  "type": "object",
+  "required": ["data"]
+}

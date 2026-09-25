@@ -1,0 +1,11 @@
+id: assign
+version: 0.1.0
+status: experimental
+definition: Give responsibility for an item to an actor.
+past_tense: assigned
+mutating: true
+rejected_synonyms: [delegate, allocate, route]
+distinct_from:
+  - verb: claim
+    difference: claim is taken by the actor itself
+rfc: "0001"

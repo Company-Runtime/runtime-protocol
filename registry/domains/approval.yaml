@@ -1,0 +1,13 @@
+id: approval
+version: 0.1.0
+status: experimental
+definition: >-
+  Requests for accountable decisions and the recording of those decisions by the actors
+  entitled to make them.
+excludes:
+  - Evaluating rules automatically (policy).
+  - Granting standing access rights (identity).
+examples:
+  - Ask the founder to approve a production deployment.
+  - Record the rejection of a refund request.
+rfc: "0001"

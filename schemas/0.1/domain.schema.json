@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:domain",
+  "title": "Domain",
+  "description": "A bounded area of meaning with a definition and explicit exclusions. See spec/0.1/capabilities.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "status", "definition", "excludes"],
+  "properties": {
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/domainId" },
+    "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+    "status": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/status" },
+    "definition": { "type": "string", "minLength": 10, "maxLength": 600 },
+    "excludes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 5, "maxLength": 300 }
+    },
+    "examples": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+    },
+    "rfc": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/rfc" }
+  }
+}

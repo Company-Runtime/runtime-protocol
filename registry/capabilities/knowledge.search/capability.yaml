@@ -1,0 +1,18 @@
+id: knowledge.search
+version: 0.1.0
+status: experimental
+domain: knowledge
+verb: search
+description: Find information relevant to a question, with provenance and citations.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [resource.search]
+rfc: "0001"

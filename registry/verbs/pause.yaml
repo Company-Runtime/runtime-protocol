@@ -1,0 +1,11 @@
+id: pause
+version: 0.1.0
+status: experimental
+definition: Temporarily suspend an activity so that it can be resumed.
+past_tense: paused
+mutating: true
+rejected_synonyms: [suspend, hold, freeze]
+distinct_from:
+  - verb: cancel
+    difference: cancel ends the activity for good
+rfc: "0001"

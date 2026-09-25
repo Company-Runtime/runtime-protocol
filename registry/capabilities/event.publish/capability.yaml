@@ -1,0 +1,19 @@
+id: event.publish
+version: 0.1.0
+status: experimental
+domain: event
+verb: publish
+description: Publish a fact as an event for subscribers to react to.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: []
+relations:
+  related: [communication.publish, event.subscribe]
+rfc: "0001"

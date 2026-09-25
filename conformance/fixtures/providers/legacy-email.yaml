@@ -1,0 +1,32 @@
+manifest:
+  protocol: runtime/0.1
+  provider: { id: legacy-email, version: 0.9.0 }
+  implements:
+    - capability: communication.send
+      versions: ["^0.1"]
+      profiles: [email]
+      traits: [delivery_receipt, idempotency]
+      evidence: { claims: [execution, delivery], types: [provider_receipt] }
+      cost: { estimate: { amount: 0.002, currency: USD } }
+  credentials: { required: true, accepts: [runtime] }
+behavior:
+  communication.send:
+    result: completed
+    output:
+      {
+        message: { ref: resource://conformance/outbox/msg-1 },
+        accepted_recipients: [identity://customer/981],
+      }
+    evidence:
+      - {
+          type: provider_receipt,
+          claims: [execution],
+          observed_at: "2026-01-01T00:00:01Z",
+          data: { accepted: true },
+        }
+      - {
+          type: provider_receipt,
+          claims: [delivery],
+          observed_at: "2026-01-01T00:00:01Z",
+          data: { delivered: [identity://customer/981] },
+        }

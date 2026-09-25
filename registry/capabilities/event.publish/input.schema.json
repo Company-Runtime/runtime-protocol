@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:event.publish:0.1.0:input",
+  "title": "event.publish input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/eventType"
+        },
+        "subject": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:resource"
+        },
+        "data": {
+          "type": "object"
+        },
+        "correlation_id": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier"
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "channel": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    }
+  },
+  "required": ["event"]
+}

@@ -1,0 +1,14 @@
+id: reasoning
+version: 0.1.0
+status: experimental
+definition: >-
+  Cognitive operations over information, performed by models or people: generating,
+  classifying, evaluating and transforming content.
+excludes:
+  - Retrieving information (knowledge) or objects (resource).
+  - Running code or jobs (execution).
+  - Accountable decisions (approval).
+examples:
+  - Classify a support ticket by topic.
+  - Summarize a long thread.
+rfc: "0001"

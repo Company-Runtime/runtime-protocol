@@ -1,0 +1,14 @@
+id: event
+version: 0.1.0
+status: experimental
+definition: >-
+  Facts that occurred, expressed as events for systems to react to: publishing events and
+  subscribing to them.
+excludes:
+  - Information addressed to people (communication).
+  - Requests to act — an event never authorizes an action (capability requests).
+  - Measurements before anyone declared a fact (observations).
+examples:
+  - Publish machine.overheated after a threshold is crossed.
+  - Subscribe to communication.sent events.
+rfc: "0001"

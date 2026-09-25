@@ -1,0 +1,27 @@
+manifest:
+  protocol: runtime/0.1
+  provider: { id: kb-us, version: 1.0.0 }
+  implements:
+    - capability: knowledge.search
+      versions: ["^0.1"]
+      evidence: { claims: [execution], types: [provider_receipt] }
+      cost: { estimate: { amount: 0.02, currency: USD } }
+      regions: [us]
+  credentials: { required: false, accepts: [] }
+behavior:
+  knowledge.search:
+    result: completed
+    output:
+      results:
+        - {
+            source: resource://kb/articles/reset-password,
+            title: Reset your password,
+            excerpt: Open Settings and choose Reset password.,
+          }
+    evidence:
+      - {
+          type: provider_receipt,
+          claims: [execution],
+          observed_at: "2026-01-01T00:00:01Z",
+          data: { index: us, hits: 1 },
+        }

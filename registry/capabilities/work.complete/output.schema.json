@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:work.complete:0.1.0:output",
+  "title": "work.complete output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "work": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        }
+      },
+      "required": ["ref"]
+    },
+    "completed_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["work", "completed_at"]
+}

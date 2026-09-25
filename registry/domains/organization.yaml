@@ -1,0 +1,14 @@
+id: organization
+version: 0.1.0
+status: experimental
+definition: >-
+  The structure of an organization as data: units, roles, memberships, responsibilities
+  and reporting lines.
+excludes:
+  - Identities themselves and their credentials (identity).
+  - Units of work and their assignment (work).
+  - Rules that govern actions (policy).
+examples:
+  - The members of a support team.
+  - The role responsible for approving refunds.
+rfc: "0001"

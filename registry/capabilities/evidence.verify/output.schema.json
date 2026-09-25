@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:evidence.verify:0.1.0:output",
+  "title": "evidence.verify output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verified": {
+      "type": "boolean"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "check": {
+            "enum": ["integrity", "signature", "source", "claims"]
+          },
+          "result": {
+            "enum": ["pass", "fail", "not_applicable"]
+          },
+          "detail": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "required": ["check", "result"]
+      }
+    },
+    "verified_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["verified", "checks", "verified_at"]
+}

@@ -1,0 +1,11 @@
+id: execute
+version: 0.1.0
+status: experimental
+definition: Run a defined procedure, program or job.
+past_tense: executed
+mutating: varies
+rejected_synonyms: [run, invoke, perform, trigger]
+distinct_from:
+  - verb: start
+    difference: start begins work on an item tracked for people
+rfc: "0001"

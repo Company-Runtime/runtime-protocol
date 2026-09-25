@@ -1,0 +1,18 @@
+protocol: runtime/0.1
+id: unknown-domain-verb
+capabilities:
+  - id: vendor.acme.ledgr.book
+    version: 0.1.0
+    status: experimental
+    domain: ledgr
+    verb: book
+    description: Book an entry in a ledger.
+    input: { schema: { type: object } }
+    output: { schema: { type: object } }
+    profiles: []
+    traits: {}
+    authority: { required: true }
+    evidence: { supported: true, claims: [execution] }
+    risk: { default: medium }
+    effects: { mutating: true }
+    emits: []

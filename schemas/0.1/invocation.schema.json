@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:invocation",
+  "title": "Invocation",
+  "description": "What a runtime sends to a provider for one authorized execution. Never contains authority or policy decisions, never secret material. See spec/0.1/execution.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "invocation_id",
+    "execution_id",
+    "request_id",
+    "capability",
+    "traits",
+    "input",
+    "deadline",
+    "actor",
+    "evidence"
+  ],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "invocation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "execution_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "request_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+        "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" }
+      }
+    },
+    "profile": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyId" },
+    "traits": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+    "input": { "type": "object" },
+    "idempotency_key": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "deadline": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "actor": { "$ref": "urn:runtime-protocol:schemas:0.1:actor" },
+    "resource": { "$ref": "urn:runtime-protocol:schemas:0.1:resource" },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["require"],
+      "properties": {
+        "require": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/claimList" }
+      }
+    },
+    "credential": { "$ref": "urn:runtime-protocol:schemas:0.1:credential-ref" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "correlation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "trace_id": { "type": "string", "pattern": "^[A-Za-z0-9-]{1,64}$" }
+      }
+    },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  }
+}

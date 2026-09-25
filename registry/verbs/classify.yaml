@@ -1,0 +1,11 @@
+id: classify
+version: 0.1.0
+status: experimental
+definition: Assign one or more labels from a defined set.
+past_tense: classified
+mutating: false
+rejected_synonyms: [categorize, label, tag, triage]
+distinct_from:
+  - verb: evaluate
+    difference: evaluate grades against criteria rather than choosing labels
+rfc: "0001"

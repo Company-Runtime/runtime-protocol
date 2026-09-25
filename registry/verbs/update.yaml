@@ -1,0 +1,11 @@
+id: update
+version: 0.1.0
+status: experimental
+definition: Change an existing item while preserving its identity.
+past_tense: updated
+mutating: true
+rejected_synonyms: [modify, edit, patch, change, set, amend]
+distinct_from:
+  - verb: transform
+    difference: transform produces a new form of content without changing the source item
+rfc: "0001"

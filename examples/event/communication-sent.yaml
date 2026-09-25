@@ -1,0 +1,14 @@
+protocol: runtime/0.1
+id: evt_01
+type: communication.sent
+source: runtime://example-runtime
+time: 2026-01-01T00:00:01Z
+subject: { ref: resource://example-provider/outbox/msg-1 }
+causation: { execution_id: exec_01, request_id: req_01 }
+correlation_id: case-1234
+data:
+  capability: { id: communication.send, version: 0.1.0 }
+  profile: email
+  output:
+    message: { ref: resource://example-provider/outbox/msg-1 }
+    accepted_recipients: [identity://customer/981]

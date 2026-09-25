@@ -1,0 +1,11 @@
+id: complete
+version: 0.1.0
+status: experimental
+definition: Mark an activity as finished, with its outcome.
+past_tense: completed
+mutating: true
+rejected_synonyms: [finish, close, done, fulfill, finalize]
+distinct_from:
+  - verb: cancel
+    difference: cancel ends an activity without finishing it
+rfc: "0001"

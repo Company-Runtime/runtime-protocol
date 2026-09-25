@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:capability-request",
+  "title": "CapabilityRequest",
+  "description": "A document asking a runtime to fulfil a capability. See spec/0.1/requests.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "request_id", "capability", "actor", "input"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "request_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "capability": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/requestedCapability" },
+    "profile": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyId" },
+    "traits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "preferred": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" }
+      }
+    },
+    "actor": { "$ref": "urn:runtime-protocol:schemas:0.1:actor" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref"],
+      "properties": {
+        "ref": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/authorityRef" }
+      }
+    },
+    "resource": { "$ref": "urn:runtime-protocol:schemas:0.1:resource" },
+    "input": { "type": "object" },
+    "constraints": { "$ref": "urn:runtime-protocol:schemas:0.1:constraints" },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "require": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/claimList" }
+      }
+    },
+    "idempotency_key": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "credential": { "$ref": "urn:runtime-protocol:schemas:0.1:credential-ref#/$defs/selector" },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "correlation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "causation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "trace_id": { "type": "string", "pattern": "^[A-Za-z0-9-]{1,64}$" },
+        "labels": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/labels" }
+      }
+    },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  }
+}

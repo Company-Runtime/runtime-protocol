@@ -1,0 +1,214 @@
+- id: RP-RES-001
+  title: Profile, credential ownership and eligibility, with rejection reasons
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers:
+      [
+        fixtures/providers/example-email.yaml,
+        fixtures/providers/legacy-email.yaml,
+        fixtures/providers/chat-only.yaml,
+      ]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+    credentials:
+      - { provider: example-email, ref: secret://organization/providers/example-production }
+      - { provider: legacy-email, ref: secret://runtime/providers/legacy-shared }
+    secrets:
+      secret://organization/providers/example-production: canary-res-org-0001
+      secret://runtime/providers/legacy-shared: canary-res-runtime-0001
+  request: fixtures/requests/send-email.yaml
+  expect:
+    resolution:
+      eligible: [example-email]
+      rejected:
+        - { provider: chat-only, stage: 3, code: unsupported_profile }
+        - { provider: legacy-email, stage: 8, code: credential_unavailable }
+- id: RP-RES-002
+  title: Without preferences, eligible providers are ordered by identifier
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-us.yaml, fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request: fixtures/requests/search.yaml
+  expect: { resolution: { eligible: [kb-eu, kb-us], rejected: [] } }
+- id: RP-RES-003
+  title: Caller preferences come first
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-us.yaml, fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    {
+      $base: fixtures/requests/search.yaml,
+      $patch: { constraints: { providers: { prefer: [kb-us] } } },
+    }
+  expect: { resolution: { eligible: [kb-us, kb-eu], rejected: [] } }
+- id: RP-RES-004
+  title: Region constraints exclude providers deterministically
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-us.yaml, fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    { $base: fixtures/requests/search.yaml, $patch: { constraints: { regions: { allow: [eu] } } } }
+  expect:
+    resolution:
+      eligible: [kb-eu]
+      rejected: [{ provider: kb-us, stage: 7, code: constraint_unsatisfied }]
+- id: RP-RES-005
+  title: A maximum cost excludes providers whose estimate exceeds it
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-us.yaml, fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    {
+      $base: fixtures/requests/search.yaml,
+      $patch: { constraints: { max_cost: { amount: 0.001, currency: USD } } },
+    }
+  expect:
+    resolution:
+      eligible: [kb-eu]
+      rejected: [{ provider: kb-us, stage: 7, code: constraint_unsatisfied }]
+- id: RP-RES-006
+  title: Policy obligations restrict providers
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-us.yaml, fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/eu-knowledge.yaml
+  request: fixtures/requests/search.yaml
+  expect:
+    resolution:
+      eligible: [kb-eu]
+      rejected: [{ provider: kb-us, stage: 6, code: policy_denied }]
+- id: RP-RES-007
+  title: Provider-scoped policy rules make a provider ineligible
+  category: policy_denial
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/legacy-email.yaml, fixtures/providers/example-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/no-legacy-provider.yaml
+    credentials:
+      - { provider: example-email, ref: secret://organization/providers/example-production }
+      - { provider: legacy-email, ref: secret://runtime/providers/legacy-shared }
+    secrets:
+      secret://organization/providers/example-production: canary-res7-org-0001
+      secret://runtime/providers/legacy-shared: canary-res7-runtime-0001
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { credential: null } }
+  expect:
+    resolution:
+      eligible: [example-email]
+      rejected: [{ provider: legacy-email, stage: 6, code: policy_denied }]
+- id: RP-RES-008
+  title: Grants that restrict providers are enforced during resolution
+  category: authority_denial
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/legacy-email.yaml, fixtures/providers/example-email.yaml]
+    authority: fixtures/authority/email-via-org-only.yaml
+    policy: fixtures/policy/allow-all.yaml
+    credentials:
+      - { provider: example-email, ref: secret://organization/providers/example-production }
+      - { provider: legacy-email, ref: secret://runtime/providers/legacy-shared }
+    secrets:
+      secret://organization/providers/example-production: canary-res8-org-0001
+      secret://runtime/providers/legacy-shared: canary-res8-runtime-0001
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { credential: null } }
+  expect:
+    resolution:
+      eligible: [legacy-email]
+      rejected: [{ provider: example-email, stage: 5, code: authority_denied }]
+- id: RP-RES-009
+  title: A version range no provider implements
+  category: version_mismatch
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/future-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { credential: null } }
+  expect:
+    error: { code: unsupported_version }
+    resolution:
+      eligible: []
+      rejected: [{ provider: future-email, stage: 2, code: unsupported_version }]
+- id: RP-RES-010
+  title: No provider supports a required trait
+  category: missing_traits
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/chat-only.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { profile: null, credential: null }
+  expect:
+    error: { code: missing_trait }
+    resolution:
+      eligible: []
+      rejected: [{ provider: chat-only, stage: 4, code: missing_trait }]
+- id: RP-RES-011
+  title: With no providers registered, the capability is unavailable
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request: fixtures/requests/search.yaml
+  expect: { error: { code: provider_unavailable }, resolution: { eligible: [], rejected: [] } }
+- id: RP-RES-012
+  title: A provider known to be unavailable is not selected
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-eu.yaml, fixtures/providers/kb-us.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+    unavailable_providers: [kb-eu]
+  request: fixtures/requests/search.yaml
+  expect:
+    resolution:
+      eligible: [kb-us]
+      rejected: [{ provider: kb-eu, stage: 9, code: provider_unavailable }]
+- id: RP-RES-013
+  title: A request that names a credential needs a matching binding, even for providers that need none
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/search.yaml
+    $patch: { credential: { owner: user } }
+  expect:
+    error: { code: credential_unavailable }
+    resolution:
+      eligible: []
+      rejected: [{ provider: kb-eu, stage: 8, code: credential_unavailable }]

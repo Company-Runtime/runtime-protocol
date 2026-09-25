@@ -1,0 +1,6 @@
+protocol: runtime/0.1
+request_id: req_delete_01
+capability: { id: resource.delete, version: "^0.1" }
+actor: { ref: identity://agent/support-agent, type: agent }
+authority: { ref: authority://company/support-manager }
+input: { resource: resource://crm/accounts/981, reason: Customer asked to close the account. }

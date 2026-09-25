@@ -1,0 +1,33 @@
+id: support.answer
+version: 0.1.0
+status: experimental
+level: L2
+description: >-
+  Answer a customer question from the knowledge base: search for sources, draft an answer
+  grounded in them, and email it to the customer. A composition, not a new capability.
+inputs:
+  type: object
+  required: [question, customer]
+  properties:
+    question: { type: string }
+    customer: { type: string, description: Identity reference of the customer. }
+steps:
+  - id: find_sources
+    capability: knowledge.search
+    version: "^0.1"
+    input: { query: { $from: inputs.question }, limit: 3 }
+  - id: draft
+    capability: reasoning.generate
+    version: "^0.1"
+    input:
+      instructions: Answer the customer's question using only the provided sources, and cite them.
+      context: { $from: steps.find_sources.output.results }
+  - id: reply
+    capability: communication.send
+    version: "^0.1"
+    profile: email
+    traits: { required: [delivery_receipt] }
+    input:
+      recipients: [{ $from: inputs.customer }]
+      subject: "Re: your question"
+      content: { $from: steps.draft.output.content }

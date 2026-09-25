@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:health",
+  "title": "Health",
+  "description": "Provider availability. Never a proof of authorization. See spec/0.1/providers.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "status", "checked_at"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "status": { "enum": ["ok", "degraded", "unavailable"] },
+    "checked_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "detail": { "type": "string", "maxLength": 512 }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:authority-decision",
+  "title": "Authority decision",
+  "description": "The result of deny-by-default authority evaluation. See spec/0.1/authority.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "decision", "reason", "evaluated_at"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "decision": { "enum": ["allow", "deny"] },
+    "authority": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/authorityRef" },
+    "grant_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "detail": {
+      "enum": ["grant_matched", "no_matching_grant", "authority_not_held", "evaluator_unavailable"]
+    },
+    "providers": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" },
+    "evaluated_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "decision": { "const": "allow" } }, "required": ["decision"] },
+      "then": { "required": ["grant_id"] }
+    }
+  ]
+}

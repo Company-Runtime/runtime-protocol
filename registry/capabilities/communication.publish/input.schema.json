@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:communication.publish:0.1.0:input",
+  "title": "communication.publish input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "audience": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 100000
+    },
+    "rich_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": ["markdown", "html"]
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200000
+        }
+      },
+      "required": ["format", "body"]
+    },
+    "data": {
+      "type": "object"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "media_type": {
+            "type": "string",
+            "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+          },
+          "uri": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "digest": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/digest"
+          }
+        },
+        "required": ["name", "media_type", "uri"]
+      },
+      "minItems": 1,
+      "maxItems": 50
+    },
+    "thread": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    }
+  },
+  "required": ["audience"],
+  "anyOf": [
+    {
+      "required": ["content"]
+    },
+    {
+      "required": ["data"]
+    }
+  ]
+}

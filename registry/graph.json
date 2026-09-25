@@ -1,0 +1,1905 @@
+{
+  "protocol": "runtime/0.1",
+  "registry_version": "0.1",
+  "nodes": [
+    {
+      "id": "capability:approval.decide",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:approval.request",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:communication.publish",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:communication.receive",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:communication.send",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:event.publish",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:event.subscribe",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:evidence.record",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:evidence.verify",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:execution.cancel",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:execution.execute",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:identity.authenticate",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:identity.authorize",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:identity.resolve",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:identity.verify",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:knowledge.publish",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:knowledge.search",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:knowledge.validate",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:objective.create",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:objective.evaluate",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:objective.update",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:policy.evaluate",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:reasoning.classify",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:reasoning.evaluate",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:reasoning.generate",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:reasoning.transform",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:resource.create",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:resource.delete",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:resource.read",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:resource.search",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:resource.update",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:work.assign",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "capability:work.cancel",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:work.complete",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:work.create",
+      "kind": "capability"
+    },
+    {
+      "id": "capability:work.start",
+      "kind": "capability",
+      "status": "experimental"
+    },
+    {
+      "id": "claim:approval",
+      "kind": "claim"
+    },
+    {
+      "id": "claim:delivery",
+      "kind": "claim"
+    },
+    {
+      "id": "claim:execution",
+      "kind": "claim"
+    },
+    {
+      "id": "claim:state",
+      "kind": "claim"
+    },
+    {
+      "id": "domain:approval",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:communication",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:event",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:evidence",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:execution",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:identity",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:knowledge",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:objective",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:organization",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:policy",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:reasoning",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:resource",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "domain:work",
+      "kind": "domain",
+      "status": "experimental"
+    },
+    {
+      "id": "event:approval.decided",
+      "kind": "event"
+    },
+    {
+      "id": "event:approval.requested",
+      "kind": "event"
+    },
+    {
+      "id": "event:communication.published",
+      "kind": "event"
+    },
+    {
+      "id": "event:communication.sent",
+      "kind": "event"
+    },
+    {
+      "id": "event:evidence.recorded",
+      "kind": "event"
+    },
+    {
+      "id": "event:execution.cancelled",
+      "kind": "event"
+    },
+    {
+      "id": "event:execution.executed",
+      "kind": "event"
+    },
+    {
+      "id": "event:identity.authenticated",
+      "kind": "event"
+    },
+    {
+      "id": "event:identity.authorized",
+      "kind": "event"
+    },
+    {
+      "id": "event:knowledge.published",
+      "kind": "event"
+    },
+    {
+      "id": "event:objective.created",
+      "kind": "event"
+    },
+    {
+      "id": "event:objective.updated",
+      "kind": "event"
+    },
+    {
+      "id": "event:resource.created",
+      "kind": "event"
+    },
+    {
+      "id": "event:resource.deleted",
+      "kind": "event"
+    },
+    {
+      "id": "event:resource.updated",
+      "kind": "event"
+    },
+    {
+      "id": "event:work.assigned",
+      "kind": "event"
+    },
+    {
+      "id": "event:work.cancelled",
+      "kind": "event"
+    },
+    {
+      "id": "event:work.completed",
+      "kind": "event"
+    },
+    {
+      "id": "event:work.created",
+      "kind": "event"
+    },
+    {
+      "id": "event:work.started",
+      "kind": "event"
+    },
+    {
+      "id": "profile:broadcast",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "profile:chat",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "profile:conversational",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "profile:email",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "profile:push",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "profile:sms",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "profile:structured",
+      "kind": "profile",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:async",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:attachments",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:batch",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:delivery_receipt",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:idempotency",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:rich_text",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:streaming",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:structured_output",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:threading",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "trait:tool_use",
+      "kind": "trait",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:assign",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:authenticate",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:authorize",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:cancel",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:claim",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:classify",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:complete",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:create",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:decide",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:delete",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:evaluate",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:execute",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:generate",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:list",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:pause",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:publish",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:read",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:receive",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:record",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:release",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:request",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:resolve",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:resume",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:search",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:send",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:start",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:subscribe",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:transform",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:update",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:validate",
+      "kind": "verb",
+      "status": "experimental"
+    },
+    {
+      "id": "verb:verify",
+      "kind": "verb",
+      "status": "experimental"
+    }
+  ],
+  "edges": [
+    {
+      "from": "capability:approval.decide",
+      "to": "event:approval.decided",
+      "type": "emits"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "domain:approval",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "claim:approval",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "capability:approval.request",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "capability:policy.evaluate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "domain:identity",
+      "type": "requires_domain"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:approval.decide",
+      "to": "verb:decide",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "event:approval.requested",
+      "type": "emits"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "domain:approval",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "capability:approval.decide",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "domain:identity",
+      "type": "requires_domain"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:approval.request",
+      "to": "verb:request",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "event:communication.published",
+      "type": "emits"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "domain:communication",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "claim:delivery",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "capability:communication.send",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "capability:event.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "capability:knowledge.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "profile:broadcast",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "profile:chat",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "profile:structured",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "trait:attachments",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "trait:delivery_receipt",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "trait:rich_text",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "trait:threading",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.publish",
+      "to": "verb:publish",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "domain:communication",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "capability:communication.send",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "capability:event.subscribe",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "domain:identity",
+      "type": "requires_domain"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "profile:chat",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "profile:email",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "profile:sms",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "profile:structured",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "trait:threading",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.receive",
+      "to": "verb:receive",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "event:communication.sent",
+      "type": "emits"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "domain:communication",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "claim:delivery",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "capability:communication.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "capability:communication.receive",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "domain:identity",
+      "type": "requires_domain"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "profile:chat",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "profile:email",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "profile:push",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "profile:sms",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "profile:structured",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "trait:attachments",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "trait:delivery_receipt",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "trait:rich_text",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "trait:threading",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:communication.send",
+      "to": "verb:send",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:event.publish",
+      "to": "domain:event",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:event.publish",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:event.publish",
+      "to": "capability:communication.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:event.publish",
+      "to": "capability:event.subscribe",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:event.publish",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:event.publish",
+      "to": "verb:publish",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "domain:event",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "capability:communication.receive",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "capability:event.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:event.subscribe",
+      "to": "verb:subscribe",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "event:evidence.recorded",
+      "type": "emits"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "domain:evidence",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "capability:evidence.verify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:evidence.record",
+      "to": "verb:record",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:evidence.verify",
+      "to": "domain:evidence",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:evidence.verify",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:evidence.verify",
+      "to": "capability:evidence.record",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:evidence.verify",
+      "to": "capability:identity.verify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:evidence.verify",
+      "to": "verb:verify",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "event:execution.cancelled",
+      "type": "emits"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "domain:execution",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "capability:execution.execute",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "capability:work.cancel",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:execution.cancel",
+      "to": "verb:cancel",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "event:execution.executed",
+      "type": "emits"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "domain:execution",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "capability:execution.cancel",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "trait:async",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "trait:streaming",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:execution.execute",
+      "to": "verb:execute",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "event:identity.authenticated",
+      "type": "emits"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "domain:identity",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "capability:identity.verify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:identity.authenticate",
+      "to": "verb:authenticate",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "event:identity.authorized",
+      "type": "emits"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "domain:identity",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "capability:approval.decide",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:identity.authorize",
+      "to": "verb:authorize",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:identity.resolve",
+      "to": "domain:identity",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:identity.resolve",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.resolve",
+      "to": "capability:identity.verify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:identity.resolve",
+      "to": "verb:resolve",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:identity.verify",
+      "to": "domain:identity",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:identity.verify",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.verify",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:identity.verify",
+      "to": "capability:evidence.verify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:identity.verify",
+      "to": "capability:identity.authenticate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:identity.verify",
+      "to": "verb:verify",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "event:knowledge.published",
+      "type": "emits"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "domain:knowledge",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "capability:knowledge.validate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "capability:resource.create",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:knowledge.publish",
+      "to": "verb:publish",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:knowledge.search",
+      "to": "domain:knowledge",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:knowledge.search",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:knowledge.search",
+      "to": "capability:resource.search",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:knowledge.search",
+      "to": "verb:search",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:knowledge.validate",
+      "to": "domain:knowledge",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:knowledge.validate",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:knowledge.validate",
+      "to": "capability:evidence.verify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:knowledge.validate",
+      "to": "capability:knowledge.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:knowledge.validate",
+      "to": "verb:validate",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "event:objective.created",
+      "type": "emits"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "domain:objective",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "capability:objective.update",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "capability:work.create",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:objective.create",
+      "to": "verb:create",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:objective.evaluate",
+      "to": "domain:objective",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:objective.evaluate",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:objective.evaluate",
+      "to": "capability:reasoning.evaluate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:objective.evaluate",
+      "to": "capability:work.complete",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:objective.evaluate",
+      "to": "verb:evaluate",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "event:objective.updated",
+      "type": "emits"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "domain:objective",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "capability:objective.create",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:objective.update",
+      "to": "verb:update",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:policy.evaluate",
+      "to": "domain:policy",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:policy.evaluate",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:policy.evaluate",
+      "to": "capability:approval.request",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:policy.evaluate",
+      "to": "verb:evaluate",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:reasoning.classify",
+      "to": "domain:reasoning",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:reasoning.classify",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:reasoning.classify",
+      "to": "capability:reasoning.evaluate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:reasoning.classify",
+      "to": "trait:batch",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.classify",
+      "to": "verb:classify",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:reasoning.evaluate",
+      "to": "domain:reasoning",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:reasoning.evaluate",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:reasoning.evaluate",
+      "to": "capability:objective.evaluate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:reasoning.evaluate",
+      "to": "capability:reasoning.classify",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:reasoning.evaluate",
+      "to": "trait:structured_output",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.evaluate",
+      "to": "verb:evaluate",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "domain:reasoning",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "capability:reasoning.transform",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "profile:conversational",
+      "type": "supports_profile"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "trait:async",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "trait:streaming",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "trait:structured_output",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "trait:tool_use",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.generate",
+      "to": "verb:generate",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:reasoning.transform",
+      "to": "domain:reasoning",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:reasoning.transform",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:reasoning.transform",
+      "to": "capability:reasoning.generate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:reasoning.transform",
+      "to": "trait:streaming",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.transform",
+      "to": "trait:structured_output",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:reasoning.transform",
+      "to": "verb:transform",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "event:resource.created",
+      "type": "emits"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "domain:resource",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "capability:knowledge.publish",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "capability:resource.update",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:resource.create",
+      "to": "verb:create",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "event:resource.deleted",
+      "type": "emits"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "domain:resource",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "capability:resource.update",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:resource.delete",
+      "to": "verb:delete",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:resource.read",
+      "to": "domain:resource",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:resource.read",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.read",
+      "to": "capability:knowledge.search",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.read",
+      "to": "capability:resource.search",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.read",
+      "to": "verb:read",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:resource.search",
+      "to": "domain:resource",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:resource.search",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.search",
+      "to": "capability:knowledge.search",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.search",
+      "to": "capability:resource.read",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.search",
+      "to": "verb:search",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "event:resource.updated",
+      "type": "emits"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "domain:resource",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "capability:resource.create",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:resource.update",
+      "to": "verb:update",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "event:work.assigned",
+      "type": "emits"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "domain:work",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "capability:work.create",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "domain:identity",
+      "type": "requires_domain"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:work.assign",
+      "to": "verb:assign",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "event:work.cancelled",
+      "type": "emits"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "domain:work",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "capability:work.complete",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:work.cancel",
+      "to": "verb:cancel",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "event:work.completed",
+      "type": "emits"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "domain:work",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "capability:objective.evaluate",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "capability:work.cancel",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:work.complete",
+      "to": "verb:complete",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "event:work.created",
+      "type": "emits"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "domain:work",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "capability:objective.create",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "capability:work.assign",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:work.create",
+      "to": "verb:create",
+      "type": "uses_verb"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "event:work.started",
+      "type": "emits"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "domain:work",
+      "type": "in_domain"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "claim:execution",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "claim:state",
+      "type": "produces_claim"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "capability:work.complete",
+      "type": "related_to"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "trait:idempotency",
+      "type": "supports_trait"
+    },
+    {
+      "from": "capability:work.start",
+      "to": "verb:start",
+      "type": "uses_verb"
+    },
+    {
+      "from": "trait:delivery_receipt",
+      "to": "claim:delivery",
+      "type": "enables_claim"
+    }
+  ]
+}

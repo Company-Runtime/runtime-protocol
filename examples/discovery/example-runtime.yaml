@@ -1,0 +1,23 @@
+protocol: runtime/0.1
+runtime: { id: example-runtime, version: 0.1.0, name: Example Runtime }
+protocols: [runtime/0.1]
+registry: { version: "0.1" }
+capabilities:
+  - id: communication.send
+    version: 0.1.0
+    profiles: [email, chat]
+    traits: [attachments, delivery_receipt, idempotency]
+  - id: knowledge.search
+    version: 0.1.0
+    profiles: []
+    traits: []
+  - id: reasoning.classify
+    version: 0.1.0
+    profiles: []
+    traits: [batch]
+bindings:
+  - { type: http, version: "0.1", endpoint: "https://runtime.example.com/" }
+  - { type: mcp, version: "0.1", transport: stdio }
+  - { type: events, version: "0.1", format: cloudevents/1.0 }
+limits: { max_request_bytes: 1048576, max_timeout_ms: 3600000 }
+extensions: { namespaces: [vendor.example] }

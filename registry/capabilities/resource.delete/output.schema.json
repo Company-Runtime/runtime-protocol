@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:resource.delete:0.1.0:output",
+  "title": "resource.delete output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        }
+      },
+      "required": ["ref"]
+    },
+    "deleted_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["resource", "deleted_at"]
+}

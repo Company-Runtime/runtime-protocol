@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:error",
+  "title": "Error document",
+  "description": "A sanitized protocol error. See spec/0.1/errors.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "error"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "error": { "$ref": "#/$defs/error" }
+  },
+  "$defs": {
+    "stage": {
+      "enum": [
+        "validation",
+        "authority",
+        "policy",
+        "resolution",
+        "binding",
+        "execution",
+        "evidence"
+      ]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "retryable"],
+      "properties": {
+        "code": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/errorCode" },
+        "message": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "retryable": { "type": "boolean" },
+        "stage": { "$ref": "#/$defs/stage" },
+        "detail": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 64 },
+        "execution_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "request_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+      }
+    }
+  }
+}

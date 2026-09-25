@@ -1,0 +1,6 @@
+id: delivery_receipt
+version: 0.1.0
+status: experimental
+definition: The provider reports whether content reached each intended recipient and produces evidence for the delivery claim.
+enables_claims: [delivery]
+rfc: "0001"

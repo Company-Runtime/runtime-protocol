@@ -1,0 +1,11 @@
+id: resume
+version: 0.1.0
+status: experimental
+definition: Continue an activity that was paused.
+past_tense: resumed
+mutating: true
+rejected_synonyms: [continue, unpause, unfreeze]
+distinct_from:
+  - verb: start
+    difference: start begins an activity for the first time
+rfc: "0001"

@@ -1,0 +1,336 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:common",
+  "title": "Runtime Protocol v0.1 — common definitions",
+  "description": "Shared definitions referenced by every other v0.1 schema.",
+  "$defs": {
+    "protocol": {
+      "description": "Protocol identifier carried by every exchanged document.",
+      "const": "runtime/0.1"
+    },
+    "identifier": {
+      "description": "Opaque identifier (request, execution, evidence, receipt, event, …).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "timestamp": {
+      "description": "RFC 3339 date-time.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "semver": {
+      "description": "Semantic Versioning 2.0 version.",
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(?:\\+[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*)?$"
+    },
+    "versionRange": {
+      "description": "Version range: X.Y.Z, ^X.Y.Z, ^X.Y, ~X.Y.Z, X.Y, X or *. See spec/0.1/versioning.md.",
+      "type": "string",
+      "pattern": "^(?:\\*|(?:0|[1-9]\\d*)(?:\\.(?:0|[1-9]\\d*))?|\\^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)|[\\^~]?(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?)$"
+    },
+    "status": {
+      "description": "Lifecycle status of a registry definition.",
+      "enum": ["experimental", "candidate", "stable", "deprecated"]
+    },
+    "rfc": {
+      "description": "Number of the RFC that introduced or last changed a definition.",
+      "type": "string",
+      "pattern": "^[0-9]{4}$"
+    },
+    "domainId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "verbId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "capabilityId": {
+      "description": "Core (<domain>.<verb> or <domain>.<object>.<verb>) or namespaced capability identifier. Segments are lower snake case without leading, trailing or doubled underscores, so that '.' can be mapped reversibly to '__' (MCP binding). Namespace rules are enforced by semantic validation.",
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^(?:[a-z][a-z0-9]*(?:_[a-z0-9]+)*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*){1,2}|experimental(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*){2,3}|(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*){2,3})$"
+    },
+    "vocabularyId": {
+      "description": "Identifier of a profile, trait, evidence type or evidence claim: core single segment or namespaced.",
+      "type": "string",
+      "maxLength": 120,
+      "pattern": "^(?:[a-z][a-z0-9]*(?:_[a-z0-9]+)*|experimental\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*|(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*)$"
+    },
+    "eventType": {
+      "description": "Core event type <domain>.<past tense> or a namespaced event type.",
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^(?:[a-z][a-z0-9]*(?:_[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*|experimental(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*){2}|(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*){2,3})$"
+    },
+    "providerId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$"
+    },
+    "regionCode": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+    },
+    "uri": {
+      "description": "Absolute URI with a scheme.",
+      "type": "string",
+      "maxLength": 2048,
+      "pattern": "^[a-z][a-z0-9+.-]*:[^\\s]+$"
+    },
+    "identityRef": {
+      "type": "string",
+      "maxLength": 512,
+      "pattern": "^identity://[a-z0-9][a-z0-9._-]*/[^\\s]+$"
+    },
+    "authorityRef": {
+      "type": "string",
+      "maxLength": 512,
+      "pattern": "^authority://[^\\s/]+/[^\\s]+$"
+    },
+    "secretRef": {
+      "type": "string",
+      "maxLength": 512,
+      "pattern": "^secret://(?:organization|runtime|provider|workload|user)/[^\\s]+$"
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence://[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "executionRef": {
+      "type": "string",
+      "pattern": "^execution://[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "policyRef": {
+      "type": "string",
+      "maxLength": 512,
+      "pattern": "^policy://[^\\s]+$"
+    },
+    "resourceRef": {
+      "description": "Any absolute URI except secret references.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/uri"
+        },
+        {
+          "not": {
+            "pattern": "^secret:"
+          }
+        }
+      ]
+    },
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        }
+      }
+    },
+    "risk": {
+      "enum": ["none", "low", "medium", "high", "critical"]
+    },
+    "credentialOwner": {
+      "enum": ["organization", "runtime", "provider", "workload", "user"]
+    },
+    "namespacedVocabularyId": {
+      "type": "string",
+      "pattern": "^(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "evidenceType": {
+      "anyOf": [
+        {
+          "enum": [
+            "provider_receipt",
+            "state_observation",
+            "artifact",
+            "signature",
+            "external_reference",
+            "human_attestation"
+          ]
+        },
+        {
+          "$ref": "#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "evidenceClaim": {
+      "anyOf": [
+        {
+          "enum": ["execution", "delivery", "state", "approval"]
+        },
+        {
+          "$ref": "#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "executionState": {
+      "enum": [
+        "pending",
+        "awaiting_approval",
+        "authorized",
+        "running",
+        "unknown",
+        "completed",
+        "failed",
+        "cancelled",
+        "rejected"
+      ]
+    },
+    "receiptStatus": {
+      "enum": ["completed", "failed", "cancelled", "rejected", "unknown"]
+    },
+    "errorCode": {
+      "enum": [
+        "invalid_request",
+        "unknown_capability",
+        "unsupported_version",
+        "unsupported_profile",
+        "missing_trait",
+        "authority_denied",
+        "policy_denied",
+        "constraint_unsatisfied",
+        "credential_unavailable",
+        "provider_unavailable",
+        "execution_failed",
+        "evidence_missing",
+        "timeout",
+        "cancelled"
+      ]
+    },
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "enum": ["deprecated_alias", "deprecated_capability"]
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 512
+        }
+      }
+    },
+    "requestedCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "version": {
+          "$ref": "#/$defs/versionRange"
+        }
+      }
+    },
+    "resolvedCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "version": {
+          "$ref": "#/$defs/semver"
+        },
+        "requested_as": {
+          "$ref": "#/$defs/capabilityId"
+        }
+      }
+    },
+    "providerSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/providerId"
+        },
+        "version": {
+          "$ref": "#/$defs/semver"
+        }
+      }
+    },
+    "claimList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/evidenceClaim"
+      }
+    },
+    "vocabularyList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/vocabularyId"
+      }
+    },
+    "providerIdList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/providerId"
+      }
+    },
+    "labels": {
+      "type": "object",
+      "maxProperties": 64,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_.-]{0,62}$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 256
+      }
+    },
+    "extensions": {
+      "description": "Implementation-specific data keyed by namespace (experimental, community.<author>, vendor.<vendor>, org.<org>).",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^(?:experimental|(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*)$"
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "schemaSource": {
+      "description": "A JSON Schema given by a relative file reference (registry files) or inline (overlays).",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema_ref"],
+          "properties": {
+            "schema_ref": {
+              "type": "string",
+              "pattern": "^\\./[A-Za-z0-9._-]+\\.json$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema"],
+          "properties": {
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

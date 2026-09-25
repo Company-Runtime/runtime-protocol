@@ -1,0 +1,13 @@
+id: verify
+version: 0.1.0
+status: experimental
+definition: Confirm, using evidence, that a claim about identity, authenticity or integrity is true.
+past_tense: verified
+mutating: false
+rejected_synonyms: [confirm, attest, prove, certify]
+distinct_from:
+  - verb: validate
+    difference: validate checks conformance to rules, not the truth of a claim
+  - verb: authenticate
+    difference: authenticate establishes an actor's identity for a session
+rfc: "0001"

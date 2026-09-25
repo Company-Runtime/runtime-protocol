@@ -1,0 +1,10 @@
+protocol: runtime/0.1
+id: ev_02
+execution_id: exec_01
+type: provider_receipt
+claims: [delivery]
+produced_by: { provider: example-provider }
+observed_at: 2026-01-01T00:00:01Z
+subject: { ref: resource://example-provider/outbox/msg-1 }
+data: { delivered: [identity://customer/981], delivered_at: 2026-01-01T00:00:01Z }
+digest: sha256:3149a5be11e1f9f9557f20b3bc8f4cc7a9ecc2ba1f9842ec564672667150d5f2

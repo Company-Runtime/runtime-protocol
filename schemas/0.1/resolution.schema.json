@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:resolution",
+  "title": "Resolution result",
+  "description": "Ordered eligible providers and rejected providers with reasons. See spec/0.1/providers.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "capability", "eligible", "rejected"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "capability": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resolvedCapability" },
+    "eligible": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider"],
+        "properties": {
+          "provider": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerSummary" },
+          "credential_owner": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/credentialOwner"
+          }
+        }
+      }
+    },
+    "rejected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider", "stage", "code"],
+        "properties": {
+          "provider": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerSummary" },
+          "stage": { "type": "integer", "minimum": 1, "maximum": 9 },
+          "code": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/errorCode" },
+          "detail": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        }
+      }
+    },
+    "error": { "$ref": "urn:runtime-protocol:schemas:0.1:error#/$defs/error" }
+  }
+}

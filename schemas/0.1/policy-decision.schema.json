@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:policy-decision",
+  "title": "Policy decision",
+  "description": "allow, deny or require_approval, with obligations. See spec/0.1/policy.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "decision", "policy_refs", "matched_rules", "reason", "evaluated_at"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "decision": { "$ref": "urn:runtime-protocol:schemas:0.1:policy-set#/$defs/effect" },
+    "policy_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/policyRef" }
+    },
+    "matched_rules": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+    },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "obligations": { "$ref": "urn:runtime-protocol:schemas:0.1:policy-set#/$defs/obligations" },
+    "evaluated_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" }
+  }
+}

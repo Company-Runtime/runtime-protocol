@@ -1,0 +1,22 @@
+id: reasoning.generate
+version: 0.1.0
+status: experimental
+domain: reasoning
+verb: generate
+description: Produce new content from instructions and context.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: [conversational]
+traits:
+  optional: [streaming, structured_output, tool_use, async]
+  input_gates:
+    structured_output: [output_schema]
+    tool_use: [tools]
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [reasoning.transform]
+rfc: "0001"

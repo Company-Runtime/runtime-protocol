@@ -1,0 +1,13 @@
+id: evidence
+version: 0.1.0
+status: experimental
+definition: >-
+  Proof that something happened: recording evidence durably and verifying its integrity,
+  authenticity and claims.
+excludes:
+  - Assertions without proof.
+  - General-purpose storage of objects (resource).
+examples:
+  - Record a signed delivery confirmation.
+  - Verify that an artifact matches its recorded digest.
+rfc: "0001"

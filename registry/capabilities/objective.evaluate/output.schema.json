@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:objective.evaluate:0.1.0:output",
+  "title": "objective.evaluate output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "objective": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "attainment": {
+      "enum": ["achieved", "partially_achieved", "not_achieved", "indeterminate"]
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+          },
+          "status": {
+            "enum": ["met", "not_met", "indeterminate"]
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": ["id", "status"]
+      }
+    },
+    "evaluated_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["objective", "attainment", "criteria", "evaluated_at"]
+}

@@ -1,0 +1,13 @@
+id: receive
+version: 0.1.0
+status: experimental
+definition: Obtain information addressed to the actor or its channels.
+past_tense: received
+mutating: false
+rejected_synonyms: [inbox, collect]
+distinct_from:
+  - verb: read
+    difference: read obtains a specific item by reference
+  - verb: subscribe
+    difference: subscribe registers interest in future deliveries
+rfc: "0001"

@@ -1,0 +1,19 @@
+# The end-to-end smoke request: a support agent sends an account update by email,
+# asking for delivery evidence, using the organization's own credentials (BYOK).
+protocol: runtime/0.1
+request_id: req_01
+capability: { id: communication.send, version: "^0.1" }
+profile: email
+traits: { required: [delivery_receipt] }
+actor: { ref: identity://agent/support-agent, type: agent, on_behalf_of: identity://user/42 }
+authority: { ref: authority://company/support-manager }
+input:
+  recipients: [identity://customer/981]
+  subject: Account update
+  content: Your account has been updated.
+constraints:
+  timeout_ms: 30000
+  max_cost: { amount: 0.05, currency: USD }
+evidence: { require: [execution, delivery] }
+credential: { owner: organization }
+context: { correlation_id: case-1234, labels: { channel: support } }

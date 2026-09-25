@@ -1,0 +1,19 @@
+id: event.subscribe
+version: 0.1.0
+status: experimental
+domain: event
+verb: subscribe
+description: Register interest in receiving future events.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: []
+relations:
+  related: [event.publish, communication.receive]
+rfc: "0001"

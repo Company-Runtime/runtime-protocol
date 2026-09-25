@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:execution.cancel:0.1.0:output",
+  "title": "execution.cancel output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "execution": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "cancelled": {
+      "type": "boolean"
+    },
+    "cancelled_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 2000
+    }
+  },
+  "required": ["execution", "cancelled"]
+}

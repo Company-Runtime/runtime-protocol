@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:provider-result",
+  "title": "ProviderResult",
+  "description": "What a provider returns for an invocation. See spec/0.1/providers.md and spec/0.1/execution.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "invocation_id", "status"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "invocation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "status": { "enum": ["completed", "failed", "unknown", "running"] },
+    "output": { "type": "object" },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:evidence#/$defs/item" }
+    },
+    "cost": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["message"],
+      "properties": {
+        "code": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/errorCode" },
+        "message": { "type": "string", "maxLength": 512 },
+        "retryable": { "type": "boolean" }
+      }
+    },
+    "observed_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "completed" } }, "required": ["status"] },
+      "then": { "required": ["output", "evidence"] }
+    },
+    {
+      "if": {
+        "properties": { "status": { "enum": ["failed", "unknown"] } },
+        "required": ["status"]
+      },
+      "then": { "required": ["error"] }
+    }
+  ]
+}

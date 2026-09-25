@@ -1,0 +1,18 @@
+id: policy.evaluate
+version: 0.1.0
+status: experimental
+domain: policy
+verb: evaluate
+description: Evaluate a subject against policies and return a decision with reasons.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [approval.request]
+rfc: "0001"

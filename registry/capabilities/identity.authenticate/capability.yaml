@@ -1,0 +1,19 @@
+id: identity.authenticate
+version: 0.1.0
+status: experimental
+domain: identity
+verb: authenticate
+description: Establish that an actor is who it claims to be and produce an authentication assertion.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: high }
+effects: { mutating: true }
+emits: [identity.authenticated]
+relations:
+  related: [identity.verify]
+rfc: "0001"

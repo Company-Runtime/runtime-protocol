@@ -1,0 +1,16 @@
+# Fails with an error message that echoes the materialized credential; the runtime must redact it.
+manifest:
+  protocol: runtime/0.1
+  provider: { id: echo-email, version: 1.0.0 }
+  implements:
+    - capability: communication.send
+      versions: ["^0.1"]
+      profiles: [email]
+      traits: [delivery_receipt, idempotency]
+      cost: { estimate: { amount: 0.001, currency: USD } }
+  credentials: { required: true, accepts: [organization] }
+behavior:
+  communication.send:
+    result: failed
+    error:
+      { message: "upstream refused the credential {{secret}} before sending", retryable: false }

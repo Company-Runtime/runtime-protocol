@@ -1,0 +1,9 @@
+id: email
+version: 0.1.0
+status: experimental
+definition: Asynchronous message delivery to mailboxes, addressed to recipients and carrying a subject line.
+applies_to:
+  - capability: communication.send
+    input: { schema_ref: ./communication.send.input.schema.json }
+  - capability: communication.receive
+rfc: "0001"

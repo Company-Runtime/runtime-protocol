@@ -1,0 +1,12 @@
+protocol: runtime/0.1
+invocation_id: inv_05
+status: completed
+output:
+  message: { ref: resource://example-provider/outbox/msg-5 }
+  accepted_recipients: [identity://customer/981]
+evidence:
+  - type: state_observation
+    claims: [execution, delivery]
+    observed_at: 2026-01-01T00:02:00Z
+    subject: { ref: resource://example-provider/outbox/msg-5 }
+    data: { state: delivered, idempotency_key: identity://agent/support-agent/req_05 }

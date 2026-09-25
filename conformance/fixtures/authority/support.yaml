@@ -1,0 +1,14 @@
+protocol: runtime/0.1
+grants:
+  - id: support-agent
+    authority: authority://company/support-manager
+    subjects: [identity://agent/support-agent]
+    capabilities: [communication.send, knowledge.search, resource.delete]
+  - id: triage
+    authority: authority://company/triage
+    subjects: ["identity://agent/triage-*"]
+    capabilities: ["reasoning.*"]
+  - id: founder-approvals
+    authority: authority://company/founder
+    subjects: [identity://user/founder]
+    capabilities: [approval.decide]

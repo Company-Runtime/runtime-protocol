@@ -1,0 +1,14 @@
+protocol: runtime/0.1
+id: ev_09
+execution_id: exec_09
+type: artifact
+claims: [state]
+produced_by: { provider: example-browser }
+observed_at: 2026-01-01T00:09:00Z
+subject: { ref: https://status.example.com/ }
+content:
+  media_type: image/png
+  digest: sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+  size: 48213
+  uri: https://artifacts.example.com/ev_09.png
+digest: sha256:ad8a0acc62aaa124bc533adbba3b5a131594692fce59dfe41fcd2b42f8a7fa20

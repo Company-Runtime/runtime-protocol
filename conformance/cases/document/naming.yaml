@@ -1,0 +1,49 @@
+- id: RP-NAME-001
+  title: The core namespace is implicit and never written
+  category: canonical_naming
+  level: document
+  kind: request
+  request:
+    {
+      $base: fixtures/requests/send-email.yaml,
+      $patch: { capability: { id: core.communication.send } },
+    }
+  expect: { error: { code: invalid_request, detail: invalid_capability_id } }
+- id: RP-NAME-002
+  title: Identifiers are lower snake case
+  category: canonical_naming
+  level: document
+  kind: request
+  request:
+    { $base: fixtures/requests/send-email.yaml, $patch: { capability: { id: Communication.Send } } }
+  expect: { error: { code: invalid_request, detail: schema_invalid } }
+- id: RP-NAME-003
+  title: A rejected synonym is not a capability
+  category: canonical_naming
+  level: document
+  kind: request
+  request:
+    {
+      $base: fixtures/requests/send-email.yaml,
+      $patch: { capability: { id: communication.deliver } },
+    }
+  expect: { error: { code: unknown_capability, detail: not_registered } }
+- id: RP-DOMAIN-001
+  title: Overlay capabilities need a declared domain and a canonical verb
+  category: domain_verb_existence
+  level: document
+  kind: document
+  document_type: registry-overlay
+  document: fixtures/overlays/unknown-domain-verb.yaml
+  expect: { valid: false }
+- id: RP-DOMAIN-002
+  title: A capability that is not registered is unknown
+  category: domain_verb_existence
+  level: document
+  kind: request
+  request:
+    {
+      $base: fixtures/requests/send-email.yaml,
+      $patch: { capability: { id: communication.shout } },
+    }
+  expect: { error: { code: unknown_capability, detail: not_registered } }

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:communication.send:0.1.0:output",
+  "title": "communication.send output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "message": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        }
+      },
+      "required": ["ref"]
+    },
+    "accepted_recipients": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+      },
+      "uniqueItems": true
+    },
+    "rejected_recipients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "recipient": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          }
+        },
+        "required": ["recipient", "reason"]
+      }
+    }
+  },
+  "required": ["message", "accepted_recipients"]
+}

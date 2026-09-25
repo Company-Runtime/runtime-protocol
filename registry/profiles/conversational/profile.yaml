@@ -1,0 +1,8 @@
+id: conversational
+version: 0.1.0
+status: experimental
+definition: "A multi-turn dialogue context: the input carries the prior messages of the conversation."
+applies_to:
+  - capability: reasoning.generate
+    input: { schema_ref: ./reasoning.generate.input.schema.json }
+rfc: "0001"

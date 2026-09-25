@@ -1,0 +1,21 @@
+id: reasoning.evaluate
+version: 0.1.0
+status: experimental
+domain: reasoning
+verb: evaluate
+description: Judge a subject against criteria and produce an assessment.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [structured_output]
+  input_gates:
+    structured_output: [output_schema]
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [reasoning.classify, objective.evaluate]
+rfc: "0001"

@@ -1,0 +1,27 @@
+protocol: runtime/0.1
+receipt:
+  receipt_id: rcpt_01
+  request_id: req_01
+  execution_id: exec_01
+  capability: { id: communication.send, version: 0.1.0 }
+  profile: email
+  traits: [delivery_receipt]
+  provider: { id: example-provider, version: 1.0.0 }
+  actor: { ref: identity://agent/support-agent, type: agent, on_behalf_of: identity://user/42 }
+  authority:
+    { decision: allow, ref: authority://company/support-manager, grant_id: support-agent-email }
+  policy: { decision: allow, refs: [policy://company/default] }
+  credential_owner: organization
+  status: completed
+  idempotency_key: identity://agent/support-agent/req_01
+  created_at: 2026-01-01T00:00:00Z
+  started_at: 2026-01-01T00:00:00Z
+  completed_at: 2026-01-01T00:00:01Z
+  duration_ms: 1000
+  cost: { amount: 0.001, currency: USD }
+  evidence: [evidence://ev_01, evidence://ev_02]
+  events: [evt_01]
+  issued_at: 2026-01-01T00:00:01Z
+integrity:
+  canonicalization: RFC8785
+  digest: sha256:e729721c8af6c336689c23593b31f10e44617f86195b8125024a53635e1abe8c

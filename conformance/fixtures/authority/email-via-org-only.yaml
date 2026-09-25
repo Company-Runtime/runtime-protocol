@@ -1,0 +1,7 @@
+protocol: runtime/0.1
+grants:
+  - id: support-agent-restricted
+    authority: authority://company/support-manager
+    subjects: [identity://agent/support-agent]
+    capabilities: [communication.send]
+    providers: [legacy-email]

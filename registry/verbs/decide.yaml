@@ -1,0 +1,13 @@
+id: decide
+version: 0.1.0
+status: experimental
+definition: Record an accountable decision on a pending request.
+past_tense: decided
+mutating: true
+rejected_synonyms: [approve, reject, rule, adjudicate]
+distinct_from:
+  - verb: evaluate
+    difference: evaluate produces an assessment without accountability
+  - verb: authorize
+    difference: authorize grants standing rights
+rfc: "0001"

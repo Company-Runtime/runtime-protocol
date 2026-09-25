@@ -1,0 +1,25 @@
+manifest:
+  protocol: runtime/0.1
+  provider: { id: records, version: 1.0.0 }
+  implements:
+    - capability: resource.delete
+      versions: ["^0.1"]
+      traits: [idempotency]
+      evidence: { claims: [execution, state], types: [provider_receipt, state_observation] }
+  credentials: { required: false, accepts: [] }
+behavior:
+  resource.delete:
+    result: completed
+    output: { resource: { ref: resource://crm/accounts/981 }, deleted_at: "2026-01-01T00:05:01Z" }
+    evidence:
+      - {
+          type: provider_receipt,
+          claims: [execution],
+          observed_at: "2026-01-01T00:05:01Z",
+          data: { deleted: true },
+        }
+      - type: state_observation
+        claims: [state]
+        observed_at: "2026-01-01T00:05:02Z"
+        subject: { ref: resource://crm/accounts/981 }
+        data: { exists: false }

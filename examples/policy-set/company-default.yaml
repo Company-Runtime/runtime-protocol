@@ -1,0 +1,19 @@
+protocol: runtime/0.1
+id: policy://company/default
+version: 1
+description: Default governance for the example company.
+default: allow
+rules:
+  - id: approve-high-risk
+    match: { risk: { at_least: high } }
+    effect: require_approval
+    obligations: { approvers: [identity://user/founder] }
+    reason: High-risk capabilities require approval.
+  - id: no-legacy-provider
+    match: { capabilities: ["communication.*"], providers: [legacy-provider] }
+    effect: deny
+    reason: The legacy provider is being retired.
+  - id: eu-knowledge
+    match: { capabilities: ["knowledge.*"] }
+    effect: allow
+    obligations: { regions: { allow: [eu] } }

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:evidence.record:0.1.0:input",
+  "title": "evidence.record input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "evidence": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:evidence#/$defs/item"
+    },
+    "execution": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionRef"
+    }
+  },
+  "required": ["evidence"]
+}

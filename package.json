@@ -1,0 +1,50 @@
+{
+  "name": "@runtime-protocol/spec",
+  "version": "0.1.0",
+  "description": "Runtime Protocol specification, JSON Schemas, semantic registry, bindings and conformance fixtures.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Company-Runtime/runtime-protocol.git"
+  },
+  "files": [
+    "spec",
+    "schemas",
+    "registry",
+    "bindings",
+    "extensions",
+    "recipes",
+    "examples",
+    "conformance",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=22.18"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc -p tooling",
+    "validate:schemas": "node tooling/src/cli.ts schemas",
+    "validate:registry": "node tooling/src/cli.ts registry && node tooling/src/cli.ts graph --check",
+    "lint:semantic": "node tooling/src/cli.ts lint",
+    "check:compat": "node tooling/src/cli.ts compat",
+    "validate:conformance": "node tooling/src/cli.ts conformance",
+    "validate:examples": "node tooling/src/cli.ts examples",
+    "validate:bindings": "node tooling/src/cli.ts bindings",
+    "docs:check": "node tooling/src/cli.ts docs",
+    "registry:graph": "node tooling/src/cli.ts graph",
+    "test": "node --test \"tooling/test/**/*.test.ts\"",
+    "ci": "pnpm run format:check && pnpm run typecheck && pnpm run validate:schemas && pnpm run validate:registry && pnpm run lint:semantic && pnpm run check:compat && pnpm run validate:conformance && pnpm run validate:examples && pnpm run validate:bindings && pnpm run docs:check && pnpm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.3",
+    "yaml": "^2.9.1"
+  }
+}

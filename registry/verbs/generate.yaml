@@ -1,0 +1,11 @@
+id: generate
+version: 0.1.0
+status: experimental
+definition: Produce new content from instructions and context.
+past_tense: generated
+mutating: false
+rejected_synonyms: [compose, write, draft, synthesize, produce]
+distinct_from:
+  - verb: transform
+    difference: transform preserves the meaning of existing content
+rfc: "0001"

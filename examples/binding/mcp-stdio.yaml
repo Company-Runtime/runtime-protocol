@@ -1,0 +1,5 @@
+type: mcp
+version: "0.1"
+transport: stdio
+command: example-mcp-server
+args: [--read-only]

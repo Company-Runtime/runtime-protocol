@@ -1,0 +1,15 @@
+id: identity
+version: 0.1.0
+status: experimental
+definition: >-
+  Who or what an actor is: identifiers and their resolution, verification of identity
+  claims, authentication of actors, and granting access rights to identities.
+excludes:
+  - Creating, updating or deleting identity records — use resource.* with an identity resource type.
+  - Organizational structure such as units, roles and reporting lines (organization).
+  - The runtime's evaluation of a request's authority, which is a protocol primitive, not a capability.
+examples:
+  - Resolve an email address to a canonical identity.
+  - Verify that a person controls a phone number.
+  - Grant a role to a new employee.
+rfc: "0001"

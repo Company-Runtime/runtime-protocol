@@ -1,0 +1,9 @@
+protocol: runtime/0.1
+id: policy://conformance/eu-knowledge
+version: 1
+default: allow
+rules:
+  - id: eu-knowledge
+    match: { capabilities: ["knowledge.*"] }
+    effect: allow
+    obligations: { regions: { allow: [eu] } }

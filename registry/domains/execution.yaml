@@ -1,0 +1,13 @@
+id: execution
+version: 0.1.0
+status: experimental
+definition: >-
+  Running procedures, programs and jobs in execution environments, and controlling the
+  lifecycle of executions, including executions of capability requests.
+excludes:
+  - Cognitive operations by models (reasoning).
+  - Units of work tracked for people (work).
+examples:
+  - Run a test suite in a sandbox.
+  - Cancel a long-running export job.
+rfc: "0001"

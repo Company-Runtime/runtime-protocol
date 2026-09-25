@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:authority-grants",
+  "title": "Authority grants",
+  "description": "The portable, deterministic grant format. Absence of a matching grant is a denial. See spec/0.1/authority.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "grants"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "grants": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/grant" }
+    }
+  },
+  "$defs": {
+    "pattern": {
+      "description": "Exact string, or a string ending in * that matches any suffix.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^[^\\s*]*\\*?$"
+    },
+    "grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "authority", "subjects", "capabilities"],
+      "properties": {
+        "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "description": { "type": "string", "maxLength": 500 },
+        "authority": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/authorityRef" },
+        "subjects": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "allOf": [{ "$ref": "#/$defs/pattern" }, { "pattern": "^identity://" }] }
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "allOf": [
+              { "$ref": "#/$defs/pattern" },
+              { "pattern": "^(?:\\*|[a-z][a-z0-9_.-]*\\*?)$" }
+            ]
+          }
+        },
+        "profiles": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "resources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/pattern" }
+        },
+        "providers": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" },
+        "valid_from": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+        "valid_until": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" }
+      }
+    }
+  }
+}

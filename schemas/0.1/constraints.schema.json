@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:constraints",
+  "title": "Constraints",
+  "description": "Caller limits on an execution. See spec/0.1/requests.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "timeout_ms": { "type": "integer", "minimum": 1, "maximum": 3600000 },
+    "deadline": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "max_cost": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" },
+    "providers": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "allow": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" },
+        "deny": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" },
+        "prefer": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" }
+      }
+    },
+    "regions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allow"],
+      "properties": {
+        "allow": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/regionCode" }
+        }
+      }
+    }
+  }
+}

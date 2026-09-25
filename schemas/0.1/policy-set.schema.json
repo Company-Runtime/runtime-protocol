@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:policy-set",
+  "title": "Policy set",
+  "description": "The minimal portable policy format. Not a complete policy language. See spec/0.1/policy.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "id", "version", "default", "rules"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/policyRef" },
+    "version": { "type": "integer", "minimum": 1 },
+    "description": { "type": "string", "maxLength": 1000 },
+    "default": { "$ref": "#/$defs/effect" },
+    "rules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rule" }
+    }
+  },
+  "$defs": {
+    "effect": { "enum": ["allow", "deny", "require_approval"] },
+    "obligations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "providers": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "allow": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" },
+            "deny": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" }
+          }
+        },
+        "regions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allow"],
+          "properties": {
+            "allow": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/regionCode" }
+            }
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["require"],
+          "properties": {
+            "require": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/claimList" }
+          }
+        },
+        "approvers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef" }
+        }
+      }
+    },
+    "match": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:authority-grants#/$defs/pattern" }
+        },
+        "actors": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:authority-grants#/$defs/pattern" }
+        },
+        "profiles": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "mutating": { "type": "boolean" },
+        "risk": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "at_least": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/risk" },
+            "at_most": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/risk" }
+          }
+        },
+        "providers": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList" }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "effect"],
+      "properties": {
+        "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "description": { "type": "string", "maxLength": 500 },
+        "match": { "$ref": "#/$defs/match" },
+        "effect": { "$ref": "#/$defs/effect" },
+        "obligations": { "$ref": "#/$defs/obligations" },
+        "reason": { "type": "string", "maxLength": 512 }
+      },
+      "allOf": [
+        {
+          "if": { "required": ["match"], "properties": { "match": { "required": ["providers"] } } },
+          "then": { "properties": { "effect": { "not": { "const": "require_approval" } } } }
+        }
+      ]
+    }
+  }
+}

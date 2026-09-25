@@ -1,0 +1,115 @@
+- id: RP-EVID-001
+  title: A mutating completion without required evidence is unknown, not completed
+  category: evidence_requirement
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/silent-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { credential: null } }
+  expect:
+    state: unknown
+    error: { code: evidence_missing }
+    provider_invocations: 1
+    events: []
+    receipt: { status: unknown }
+- id: RP-EVID-002
+  title: A non-mutating completion without required evidence fails
+  category: evidence_requirement
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/bare-kb.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request: { $base: fixtures/requests/search.yaml, $patch: { evidence: { require: [execution] } } }
+  expect:
+    state: failed
+    error: { code: evidence_missing }
+    receipt: { status: failed }
+- id: RP-EVID-003
+  title: Reconciliation that cannot conclude keeps the execution unknown
+  category: uncertain_outcome
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/silent-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request: { $base: fixtures/requests/send-email.yaml, $patch: { credential: null } }
+  then:
+    - reconcile: true
+  expect:
+    state: unknown
+    provider_invocations: 1
+    reconcile_invocations: 1
+- id: RP-UNK-001
+  title: A timeout after dispatch is unknown, and resubmission never re-sends
+  category: uncertain_outcome
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/slow-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { credential: null, constraints: { timeout_ms: 50 } }
+  then:
+    - resubmit: true
+  expect:
+    state: unknown
+    error: { code: timeout }
+    provider_invocations: 1
+    executions: 1
+    receipt: { status: unknown }
+- id: RP-UNK-003
+  title: A request reusing the idempotency key of an unknown execution is rejected before dispatch
+  category: uncertain_outcome
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/slow-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { credential: null, idempotency_key: order-981-update, constraints: { timeout_ms: 50 } }
+  then:
+    - submit:
+        $base: fixtures/requests/send-email.yaml
+        $patch:
+          request_id: req_smoke_02
+          credential: null
+          idempotency_key: order-981-update
+          constraints: { timeout_ms: 50 }
+  expect:
+    state: rejected
+    error: { code: invalid_request, detail: idempotency_conflict }
+    executions: 2
+    provider_invocations: 1
+    receipt: { status: rejected }
+- id: RP-UNK-002
+  title: Reconciliation with evidence completes an unknown execution without re-sending
+  category: uncertain_outcome
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/slow-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { credential: null, constraints: { timeout_ms: 50 } }
+  expect_initial: { state: unknown }
+  then:
+    - reconcile: true
+  expect:
+    state: completed
+    history: [pending, authorized, running, unknown, completed]
+    provider_invocations: 1
+    reconcile_invocations: 1
+    evidence_claims: [delivery, execution]
+    events: [communication.sent]
+    receipt: { status: completed }
