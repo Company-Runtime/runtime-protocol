@@ -23,6 +23,7 @@
     "time": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
     "subject": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef" },
     "subjecttype": { "type": "string" },
+    "subjectversion": { "type": "string", "minLength": 1, "maxLength": 128 },
     "datacontenttype": { "const": "application/json" },
     "data": { "type": "object" },
     "runtimeprotocol": { "const": "runtime/0.1" },

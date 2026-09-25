@@ -30,7 +30,7 @@ test("CloudEvents mapping is lossless, extensions included", () => {
     type: "org.acme.machine.overheated",
     source: "runtime://plant-runtime",
     time: "2026-01-01T00:00:00Z",
-    subject: { ref: "resource://plant/machine-7", type: "machine" },
+    subject: { ref: "resource://plant/machine-7", type: "machine", version: "firmware-4.2" },
     causation: { observation_id: "obs_1" },
     data: { temperature: 92 },
     extensions: { "org.acme": { line: 3, shift: "night" } },
@@ -38,6 +38,7 @@ test("CloudEvents mapping is lossless, extensions included", () => {
   const cloud = toCloudEvent(event);
   assert.equal(cloud["specversion"], "1.0");
   assert.equal(cloud["observationid"], "obs_1");
+  assert.equal(cloud["subjectversion"], "firmware-4.2");
   assert.equal(cloud["runtimeextensions"], '{"org.acme":{"line":3,"shift":"night"}}');
   assert.deepEqual(fromCloudEvent(cloud), event);
 });

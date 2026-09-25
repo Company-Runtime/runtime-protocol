@@ -21,6 +21,7 @@ back yields the same event.
 | `time`                     | `time`                                                            |
 | `subject.ref`              | `subject`                                                         |
 | `subject.type`             | `subjecttype` (extension)                                         |
+| `subject.version`          | `subjectversion` (extension)                                      |
 | `data`                     | `data`, with `datacontenttype: application/json`                  |
 | `causation.execution_id`   | `executionid` (extension)                                         |
 | `causation.request_id`     | `requestid` (extension)                                           |

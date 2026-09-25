@@ -23,6 +23,7 @@ export function toCloudEvent(event: Record<string, unknown>): Record<string, unk
   if (isRecord(subject)) {
     out["subject"] = subject["ref"];
     if (subject["type"] !== undefined) out["subjecttype"] = subject["type"];
+    if (subject["version"] !== undefined) out["subjectversion"] = subject["version"];
   }
   out["datacontenttype"] = "application/json";
   out["runtimeprotocol"] = event["protocol"];
@@ -53,6 +54,8 @@ export function fromCloudEvent(cloudEvent: Record<string, unknown>): Record<stri
   if (cloudEvent["subject"] !== undefined) {
     const subject: Record<string, unknown> = { ref: cloudEvent["subject"] };
     if (cloudEvent["subjecttype"] !== undefined) subject["type"] = cloudEvent["subjecttype"];
+    if (cloudEvent["subjectversion"] !== undefined)
+      subject["version"] = cloudEvent["subjectversion"];
     event["subject"] = subject;
   }
   const causation: Record<string, unknown> = {};
