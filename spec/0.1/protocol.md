@@ -136,6 +136,7 @@ Resources MAY be referenced by any absolute URI (`resource://crm/accounts/981`,
 | [versioning.md](versioning.md)     | Protocol, capability, provider and binding versions                     |
 | [errors.md](errors.md)             | Error codes and error documents                                         |
 | [security.md](security.md)         | Security requirements                                                   |
+| [conformance.md](conformance.md)   | Conformance levels, the suite and provider requirements                 |
 
 ## 8. Independence
 

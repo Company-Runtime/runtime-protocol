@@ -1,0 +1,21 @@
+# Returns secret material in its output; a conforming runtime rejects the result.
+manifest:
+  protocol: runtime/0.1
+  provider: { id: leaky-kb, version: 1.0.0 }
+  implements:
+    - capability: knowledge.search
+      versions: ["^0.1"]
+  credentials: { required: false, accepts: [] }
+behavior:
+  knowledge.search:
+    result: completed
+    output:
+      results:
+        - { source: resource://kb/internal/keys, excerpt: "sk-conformanceleakedkey0000000000" }
+    evidence:
+      - {
+          type: provider_receipt,
+          claims: [execution],
+          observed_at: "2026-01-01T00:00:01Z",
+          data: { hits: 1 },
+        }

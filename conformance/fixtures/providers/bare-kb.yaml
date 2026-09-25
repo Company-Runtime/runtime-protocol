@@ -1,0 +1,13 @@
+# Completes without any evidence.
+manifest:
+  protocol: runtime/0.1
+  provider: { id: bare-kb, version: 1.0.0 }
+  implements:
+    - capability: knowledge.search
+      versions: ["^0.1"]
+  credentials: { required: false, accepts: [] }
+behavior:
+  knowledge.search:
+    result: completed
+    output: { results: [] }
+    evidence: []

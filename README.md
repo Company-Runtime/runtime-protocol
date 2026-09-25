@@ -51,7 +51,7 @@ and must follow what is written here — never the other way around.
 | [`recipes/`](recipes/)                           | Example compositions of capabilities (recipes are not primitives)                |
 | [`examples/`](examples/)                         | Valid example documents                                                          |
 | [`rfcs/`](rfcs/)                                 | Proposals that change the protocol                                               |
-| `conformance/`                                   | Language-neutral conformance suite and fixtures                                  |
+| [`conformance/`](conformance/)                   | Language-neutral conformance suite and fixtures                                  |
 | [`tooling/`](tooling/)                           | Deterministic validators: schemas, registry, semantic lint, compatibility, docs  |
 
 ## Ecosystem

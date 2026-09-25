@@ -19,3 +19,4 @@ governs every other document.
 | [versioning.md](versioning.md)     | Versions and ranges                                                     |
 | [errors.md](errors.md)             | Error codes and warnings                                                |
 | [security.md](security.md)         | Mandatory security properties                                           |
+| [conformance.md](conformance.md)   | Conformance levels, suite and provider requirements                     |

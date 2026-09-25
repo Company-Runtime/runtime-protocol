@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:conformance:0.1:provider-fixture",
+  "title": "Scripted provider fixture",
+  "description": "A provider manifest and the scripted behaviour a conformance runner gives it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest", "behavior"],
+  "properties": {
+    "manifest": { "$ref": "urn:runtime-protocol:schemas:0.1:provider-manifest" },
+    "behavior": {
+      "type": "object",
+      "propertyNames": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["result"],
+        "properties": {
+          "result": {
+            "description": "completed, failed, unknown and running are returned as provider results; timeout never answers before the deadline; unreachable fails before the provider receives the invocation.",
+            "enum": ["completed", "failed", "unknown", "running", "timeout", "unreachable"]
+          },
+          "output": { "type": "object" },
+          "evidence": {
+            "type": "array",
+            "items": { "$ref": "urn:runtime-protocol:schemas:0.1:evidence#/$defs/item" }
+          },
+          "cost": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" },
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["message"],
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "{{secret}} is replaced by the materialized credential."
+              },
+              "retryable": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "reconcile": {
+      "type": "object",
+      "propertyNames": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status"],
+        "properties": {
+          "status": { "enum": ["completed", "failed", "inconclusive"] },
+          "output": { "type": "object" },
+          "evidence": {
+            "type": "array",
+            "items": { "$ref": "urn:runtime-protocol:schemas:0.1:evidence#/$defs/item" }
+          },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

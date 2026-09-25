@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:conformance:0.1:case",
+  "title": "Conformance case",
+  "description": "One language-neutral conformance case. Paths are relative to conformance/. See spec/0.1/conformance.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "category", "level", "kind", "expect"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^RP-[A-Z0-9]+-[0-9]{3}$" },
+    "title": { "type": "string", "minLength": 5, "maxLength": 200 },
+    "description": { "type": "string" },
+    "category": { "$ref": "#/$defs/category" },
+    "level": { "enum": ["document", "runtime"] },
+    "kind": { "enum": ["document", "request", "state_machine", "resolution", "execution"] },
+    "given": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "overlays": { "type": "array", "items": { "$ref": "#/$defs/path" } },
+        "providers": { "type": "array", "items": { "$ref": "#/$defs/path" } },
+        "authority": { "$ref": "#/$defs/path" },
+        "policy": { "$ref": "#/$defs/path" },
+        "credentials": {
+          "type": "array",
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:credential-ref#/$defs/binding" }
+        },
+        "secrets": {
+          "description": "Secret material the credential broker can materialize, by reference. Values are canaries that must never leak.",
+          "type": "object",
+          "propertyNames": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/secretRef" },
+          "additionalProperties": { "type": "string", "minLength": 8 }
+        },
+        "unavailable_providers": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerIdList"
+        }
+      }
+    },
+    "document_type": { "type": "string", "pattern": "^[a-z][a-z-]*$" },
+    "document": { "$ref": "#/$defs/source" },
+    "request": { "$ref": "#/$defs/source" },
+    "transitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "valid"],
+        "properties": {
+          "from": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionState" },
+          "to": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionState" },
+          "valid": { "type": "boolean" }
+        }
+      }
+    },
+    "then": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "minProperties": 1,
+        "maxProperties": 1,
+        "properties": {
+          "approve": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["decided_by", "decision"],
+            "properties": {
+              "decided_by": {
+                "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+              },
+              "decision": { "enum": ["approved", "rejected"] }
+            }
+          },
+          "reconcile": { "const": true },
+          "resubmit": { "const": true },
+          "cancel": { "const": true }
+        },
+        "additionalProperties": false
+      }
+    },
+    "expect_initial": { "$ref": "#/$defs/expectation" },
+    "expect": { "$ref": "#/$defs/expectation" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "document" } } },
+      "then": { "required": ["document_type", "document"] }
+    },
+    {
+      "if": { "properties": { "kind": { "enum": ["request", "resolution", "execution"] } } },
+      "then": { "required": ["request"] }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "state_machine" } } },
+      "then": { "required": ["transitions"] }
+    }
+  ],
+  "$defs": {
+    "category": {
+      "enum": [
+        "schema_validation",
+        "canonical_naming",
+        "domain_verb_existence",
+        "unknown_profiles",
+        "missing_traits",
+        "version_mismatch",
+        "authority_denial",
+        "policy_denial",
+        "invalid_state_transition",
+        "raw_secret_rejection",
+        "provider_resolution",
+        "receipt_generation",
+        "evidence_requirement",
+        "deprecated_alias",
+        "namespace_isolation",
+        "end_to_end",
+        "uncertain_outcome",
+        "approval",
+        "request_identity",
+        "cancellation"
+      ]
+    },
+    "path": { "type": "string", "pattern": "^(?:\\.\\./)?[a-z0-9._/-]+\\.ya?ml$" },
+    "source": {
+      "description": "A path, an inline document, or a base document with a JSON Merge Patch (RFC 7396).",
+      "oneOf": [
+        { "$ref": "#/$defs/path" },
+        {
+          "type": "object",
+          "required": ["$base"],
+          "additionalProperties": false,
+          "properties": { "$base": { "$ref": "#/$defs/path" }, "$patch": { "type": "object" } }
+        },
+        { "type": "object", "not": { "required": ["$base"] } }
+      ]
+    },
+    "expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "valid": { "type": "boolean" },
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code"],
+          "properties": {
+            "code": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/errorCode" },
+            "detail": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+          }
+        },
+        "capability": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+            "requested_as": {
+              "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId"
+            }
+          }
+        },
+        "state": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionState" },
+        "history": {
+          "type": "array",
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionState" }
+        },
+        "provider": { "type": ["string", "null"] },
+        "provider_invocations": { "type": "integer", "minimum": 0 },
+        "reconcile_invocations": { "type": "integer", "minimum": 0 },
+        "executions": { "type": "integer", "minimum": 1 },
+        "evidence_claims": { "type": "array", "items": { "type": "string" } },
+        "events": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "forbidden": { "type": "array", "items": { "type": "string", "minLength": 4 } },
+        "receipt": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/receiptStatus" },
+            "provider": { "type": ["string", "null"] },
+            "credential_owner": { "type": ["string", "null"] },
+            "requested_as": { "type": "string" },
+            "has": { "type": "array", "items": { "type": "string" } },
+            "lacks": { "type": "array", "items": { "type": "string" } },
+            "forbidden": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "resolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["eligible", "rejected"],
+          "properties": {
+            "eligible": { "type": "array", "items": { "type": "string" } },
+            "rejected": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["provider", "stage", "code"],
+                "properties": {
+                  "provider": { "type": "string" },
+                  "stage": { "type": "integer", "minimum": 1, "maximum": 9 },
+                  "code": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/errorCode" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

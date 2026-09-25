@@ -1,0 +1,28 @@
+# Never answers before the deadline; reconciliation later proves delivery.
+manifest:
+  protocol: runtime/0.1
+  provider: { id: slow-email, version: 1.0.0 }
+  implements:
+    - capability: communication.send
+      versions: ["^0.1"]
+      profiles: [email]
+      traits: [delivery_receipt]
+      reconciliation: supported
+  credentials: { required: false, accepts: [] }
+behavior:
+  communication.send:
+    result: timeout
+reconcile:
+  communication.send:
+    status: completed
+    output:
+      {
+        message: { ref: resource://conformance/outbox/msg-1 },
+        accepted_recipients: [identity://customer/981],
+      }
+    evidence:
+      - type: state_observation
+        claims: [execution, delivery]
+        observed_at: "2026-01-01T00:02:00Z"
+        subject: { ref: resource://conformance/outbox/msg-1 }
+        data: { state: delivered }

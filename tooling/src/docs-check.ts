@@ -21,6 +21,7 @@ export const REQUIRED_SPEC = [
   "versioning.md",
   "errors.md",
   "security.md",
+  "conformance.md",
 ];
 
 /** GitHub-style heading anchor. */

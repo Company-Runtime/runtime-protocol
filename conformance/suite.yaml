@@ -1,0 +1,36 @@
+protocol: runtime/0.1
+suite: runtime-protocol-conformance
+version: 0.1.0
+description: >-
+  Language-neutral conformance suite for runtime/0.1. Document-level cases are executed by
+  this repository's tooling; runtime-level cases are executed by implementations with a
+  runner (the reference runner ships with the reference SDK).
+required_categories:
+  - schema_validation
+  - canonical_naming
+  - domain_verb_existence
+  - unknown_profiles
+  - missing_traits
+  - version_mismatch
+  - authority_denial
+  - policy_denial
+  - invalid_state_transition
+  - raw_secret_rejection
+  - provider_resolution
+  - receipt_generation
+  - evidence_requirement
+  - deprecated_alias
+  - namespace_isolation
+  - end_to_end
+files:
+  - cases/document/schema-validation.yaml
+  - cases/document/naming.yaml
+  - cases/document/profiles-traits-versions.yaml
+  - cases/document/secrets-namespaces-aliases.yaml
+  - cases/state-machine.yaml
+  - cases/resolution/resolution.yaml
+  - cases/runtime/end-to-end.yaml
+  - cases/runtime/authority.yaml
+  - cases/runtime/policy.yaml
+  - cases/runtime/evidence-and-outcomes.yaml
+  - cases/runtime/receipts-secrets-identity.yaml

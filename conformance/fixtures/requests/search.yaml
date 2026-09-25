@@ -1,0 +1,5 @@
+protocol: runtime/0.1
+request_id: req_search_01
+capability: { id: knowledge.search, version: "^0.1" }
+actor: { ref: identity://agent/support-agent, type: agent }
+input: { query: How do I reset my password?, limit: 2 }

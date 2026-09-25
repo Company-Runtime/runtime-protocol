@@ -1,0 +1,5 @@
+protocol: runtime/0.1
+id: policy://conformance/allow-all
+version: 1
+default: allow
+rules: []

@@ -1,0 +1,9 @@
+protocol: runtime/0.1
+request_id: req_classify_01
+capability: { id: reasoning.classify, version: "^0.1" }
+actor: { ref: identity://agent/triage-agent, type: agent }
+input:
+  input: I was charged twice this month.
+  labels:
+    - { id: billing, description: "Payments, charges and refunds" }
+    - { id: access, description: "Login and account access" }

@@ -1,0 +1,33 @@
+- id: RP-E2E-001
+  title: "Smoke: support agent emails a customer with delivery evidence through BYOK"
+  description: >-
+    support-agent → communication.send → profile=email → trait=delivery_receipt → authority
+    allowed → policy satisfied → organization BYOK ref → reference adapter → completed →
+    provider evidence → canonical receipt → communication.sent event.
+  category: end_to_end
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/example-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+    credentials:
+      [{ provider: example-email, ref: secret://organization/providers/example-production }]
+    secrets:
+      { secret://organization/providers/example-production: canary-e2e-organization-key-0001 }
+  request: fixtures/requests/send-email.yaml
+  expect:
+    state: completed
+    history: [pending, authorized, running, completed]
+    provider: example-email
+    provider_invocations: 1
+    evidence_claims: [delivery, execution]
+    events: [communication.sent]
+    receipt:
+      status: completed
+      provider: example-email
+      credential_owner: organization
+      has: [started_at, completed_at, cost, policy, authority, evidence, events]
+      forbidden:
+        [secret://organization/providers/example-production, canary-e2e-organization-key-0001]
+    forbidden: [canary-e2e-organization-key-0001]

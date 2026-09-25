@@ -1,0 +1,8 @@
+protocol: runtime/0.1
+id: policy://conformance/no-legacy-provider
+version: 1
+default: allow
+rules:
+  - id: no-legacy-provider
+    match: { capabilities: ["communication.*"], providers: [legacy-email] }
+    effect: deny

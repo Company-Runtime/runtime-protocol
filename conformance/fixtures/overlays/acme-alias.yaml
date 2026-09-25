@@ -1,0 +1,5 @@
+protocol: runtime/0.1
+id: acme-aliases
+description: An organization migrating from its own name for sending messages.
+aliases:
+  - { alias: org.acme.message.dispatch, canonical: communication.send, since: 0.1.0 }

@@ -35,3 +35,6 @@ Initial experimental version, introduced by
 - Governance tooling: semantic lint (`SL001`–`SL020`) with recorded human
   acknowledgments, compatibility check against a base ref, docs consistency check, CI
   workflow, pull request and proposal templates, code owners and extension directories.
+- Conformance suite 0.1.0: 55 language-neutral cases covering every required category
+  and the end-to-end smoke scenario, scripted provider fixtures, case schemas,
+  provider requirements `PC-001`–`PC-010`, and `spec/0.1/conformance.md`.

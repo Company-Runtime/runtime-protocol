@@ -33,6 +33,8 @@ jobs:
         env:
           COMPAT_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
         run: pnpm run check:compat
+      - name: Conformance suite
+        run: pnpm run validate:conformance
       - name: Examples and bindings validation
         run: pnpm run validate:examples && pnpm run validate:bindings
       - name: Docs validation

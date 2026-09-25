@@ -1,0 +1,39 @@
+- id: RP-STATE-001
+  title: Only the transitions of the execution state machine are allowed
+  category: invalid_state_transition
+  level: runtime
+  kind: state_machine
+  transitions:
+    - { from: pending, to: authorized, valid: true }
+    - { from: pending, to: awaiting_approval, valid: true }
+    - { from: pending, to: rejected, valid: true }
+    - { from: pending, to: cancelled, valid: true }
+    - { from: awaiting_approval, to: authorized, valid: true }
+    - { from: awaiting_approval, to: rejected, valid: true }
+    - { from: awaiting_approval, to: cancelled, valid: true }
+    - { from: authorized, to: running, valid: true }
+    - { from: authorized, to: rejected, valid: true }
+    - { from: authorized, to: cancelled, valid: true }
+    - { from: running, to: completed, valid: true }
+    - { from: running, to: failed, valid: true }
+    - { from: running, to: unknown, valid: true }
+    - { from: running, to: cancelled, valid: true }
+    - { from: unknown, to: completed, valid: true }
+    - { from: unknown, to: failed, valid: true }
+    - { from: pending, to: running, valid: false }
+    - { from: pending, to: completed, valid: false }
+    - { from: awaiting_approval, to: running, valid: false }
+    - { from: authorized, to: completed, valid: false }
+    - { from: running, to: rejected, valid: false }
+    - { from: running, to: authorized, valid: false }
+    - { from: unknown, to: running, valid: false }
+    - { from: unknown, to: cancelled, valid: false }
+    - { from: unknown, to: rejected, valid: false }
+    - { from: completed, to: running, valid: false }
+    - { from: completed, to: failed, valid: false }
+    - { from: failed, to: running, valid: false }
+    - { from: failed, to: completed, valid: false }
+    - { from: cancelled, to: running, valid: false }
+    - { from: rejected, to: authorized, valid: false }
+    - { from: rejected, to: pending, valid: false }
+  expect: {}

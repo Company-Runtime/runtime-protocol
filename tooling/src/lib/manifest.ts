@@ -7,6 +7,8 @@ import type { SchemaSet } from "./schemas.ts";
 export interface ManifestFinding {
   code: string;
   message: string;
+  /** Warnings do not invalidate a manifest: the provider registers but cannot be resolved for them. */
+  severity?: "warning";
 }
 
 interface Implementation {
@@ -20,7 +22,8 @@ interface Implementation {
 
 /**
  * Semantic validation of a provider manifest against the registry
- * (spec/0.1/providers.md §2). Returns findings; an empty list means valid.
+ * (spec/0.1/providers.md §2). A manifest is valid when no finding is an error;
+ * a version range the registry cannot satisfy is only a warning.
  */
 export function validateManifest(
   manifest: unknown,
@@ -69,6 +72,7 @@ export function validateManifest(
       findings.push({
         code: "unsupported_version",
         message: `${id}: no declared range contains ${capability.version}`,
+        severity: "warning",
       });
     for (const profile of implementation.profiles ?? [])
       if (!capability.profiles.includes(profile))
@@ -101,3 +105,6 @@ export function validateManifest(
   }
   return findings;
 }
+
+export const manifestErrors = (findings: ManifestFinding[]) =>
+  findings.filter((f) => f.severity !== "warning");

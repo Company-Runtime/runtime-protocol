@@ -6,7 +6,7 @@ import { loadSchemas, type SchemaSet } from "./lib/schemas.ts";
 import { digestWithout, digest } from "./lib/canonical.ts";
 import { loadRegistry, type Registry } from "./lib/registry.ts";
 import { validateRequest } from "./lib/request.ts";
-import { validateManifest } from "./lib/manifest.ts";
+import { manifestErrors, validateManifest } from "./lib/manifest.ts";
 import { findSecrets } from "./lib/secrets.ts";
 
 export const EXAMPLES_DIR = fromRoot("examples");
@@ -53,7 +53,7 @@ export function checkSemantics(
       report.error("EXAMPLE_SEMANTIC", file, `${result.error?.code}: ${result.error?.message}`);
   }
   if (schema === "provider-manifest") {
-    for (const finding of validateManifest(document, registry, schemas))
+    for (const finding of manifestErrors(validateManifest(document, registry, schemas)))
       report.error("EXAMPLE_SEMANTIC", file, `${finding.code}: ${finding.message}`);
   }
 }

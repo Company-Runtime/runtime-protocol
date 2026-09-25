@@ -6,6 +6,7 @@ import { validateBindings } from "./validate-bindings.ts";
 import { semanticLint, loadExtensions } from "./semantic-lint.ts";
 import { compatibilityCheck } from "./compat.ts";
 import { docsCheck } from "./docs-check.ts";
+import { validateConformance } from "./validate-conformance.ts";
 
 type Command = () => number;
 
@@ -26,6 +27,10 @@ const commands: Record<string, Command> = {
     const at = process.argv.indexOf("--base");
     const base = at > 0 ? process.argv[at + 1] : process.env["COMPAT_BASE"];
     return compatibilityCheck(base ?? "origin/main");
+  },
+  conformance: () => {
+    const { report, summary } = validateConformance();
+    return report.print("conformance", summary);
   },
   docs: () => {
     const { report, count } = docsCheck();
