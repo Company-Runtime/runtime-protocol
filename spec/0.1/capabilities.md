@@ -23,7 +23,7 @@ identity organization resource knowledge communication event
 work objective approval policy reasoning execution evidence
 ```
 
-Domain identifiers match `^[a-z][a-z0-9_]*$` and MUST NOT equal a namespace keyword
+Domain identifiers are single lower-snake-case segments and MUST NOT equal a namespace keyword
 (`core`, `experimental`, `community`, `vendor`, `org`).
 
 ## 2. Verbs
@@ -107,8 +107,10 @@ principle 8 in [semantics.md](semantics.md).
   composition cannot express the intent. The definition MUST include
   `object_justification`.
 - Vendor names, product names and transport terms are prohibited in core identifiers.
-- Identifier segments match `^[a-z][a-z0-9_]*$`. Namespaced identifiers are defined
-  in [extensions.md](extensions.md).
+- Identifier segments are lower snake case, `^[a-z][a-z0-9]*(_[a-z0-9]+)*$`: no leading,
+  trailing or doubled underscores, so that `.` maps reversibly to `__` in the
+  [MCP binding](../../bindings/mcp/README.md). Namespaced identifiers are defined in
+  [extensions.md](extensions.md).
 - Core identifiers are written without a prefix. `core.` MUST NOT be written; the
   core namespace is implicit.
 

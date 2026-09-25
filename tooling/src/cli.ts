@@ -2,6 +2,7 @@ import { validateSchemas } from "./validate-schemas.ts";
 import { validateExamples } from "./validate-examples.ts";
 import { validateRegistry } from "./validate-registry.ts";
 import { syncGraph } from "./graph.ts";
+import { validateBindings } from "./validate-bindings.ts";
 
 type Command = () => number;
 
@@ -11,6 +12,10 @@ const commands: Record<string, Command> = {
     return report.print("registry", summary);
   },
   graph: () => syncGraph(process.argv.includes("--check")),
+  bindings: () => {
+    const { report, count } = validateBindings();
+    return report.print("bindings", `${count} binding document(s)`);
+  },
   schemas: () => validateSchemas().print("schemas", "schemas/0.1"),
   examples: () => {
     const { report, count } = validateExamples();

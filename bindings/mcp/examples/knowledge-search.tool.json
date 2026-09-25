@@ -1,0 +1,44 @@
+{
+  "name": "knowledge__search",
+  "title": "knowledge.search",
+  "description": "Find information relevant to a question, with provenance and citations.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["query"],
+        "properties": {
+          "query": { "type": "string", "minLength": 1, "maxLength": 2000 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 50 }
+        }
+      },
+      "constraints": { "type": "object" },
+      "evidence": { "type": "object" }
+    },
+    "required": ["input"]
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["protocol", "execution_id", "status"],
+    "properties": {
+      "protocol": { "const": "runtime/0.1" },
+      "execution_id": { "type": "string" },
+      "status": { "type": "string" },
+      "output": { "type": "object" },
+      "receipt": { "type": "object" },
+      "error": { "type": "object" }
+    }
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": true
+  },
+  "_meta": {
+    "runtime-protocol/capability": "knowledge.search",
+    "runtime-protocol/version": "0.1.0"
+  }
+}

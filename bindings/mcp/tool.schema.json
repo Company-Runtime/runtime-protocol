@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:bindings:mcp:0.1:tool",
+  "title": "MCP tool generated from a capability",
+  "description": "Shape of the tools/list entries produced by the mcp/0.1 binding.",
+  "type": "object",
+  "required": [
+    "name",
+    "title",
+    "description",
+    "inputSchema",
+    "outputSchema",
+    "annotations",
+    "_meta"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*(?:_[a-z0-9-]+)*(?:__[a-z][a-z0-9]*(?:_[a-z0-9]+)*)+$"
+    },
+    "title": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+    "description": { "type": "string", "minLength": 1 },
+    "inputSchema": {
+      "type": "object",
+      "required": ["type", "properties", "required"],
+      "properties": {
+        "type": { "const": "object" },
+        "properties": {
+          "type": "object",
+          "required": ["input"],
+          "propertyNames": {
+            "enum": ["input", "profile", "traits", "constraints", "evidence", "idempotency_key"]
+          }
+        },
+        "required": { "const": ["input"] }
+      }
+    },
+    "outputSchema": { "type": "object" },
+    "annotations": {
+      "type": "object",
+      "required": ["readOnlyHint", "destructiveHint", "idempotentHint", "openWorldHint"],
+      "properties": {
+        "readOnlyHint": { "type": "boolean" },
+        "destructiveHint": { "type": "boolean" },
+        "idempotentHint": { "type": "boolean" },
+        "openWorldHint": { "const": true }
+      }
+    },
+    "_meta": {
+      "type": "object",
+      "required": ["runtime-protocol/capability", "runtime-protocol/version"],
+      "properties": {
+        "runtime-protocol/capability": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId"
+        },
+        "runtime-protocol/version": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver"
+        }
+      }
+    }
+  }
+}

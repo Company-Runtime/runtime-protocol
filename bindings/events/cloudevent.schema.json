@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:bindings:events:0.1:cloudevent",
+  "title": "Protocol event as a CloudEvent",
+  "description": "CloudEvents 1.0 structured JSON representation of a Runtime Protocol event (events/0.1).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "specversion",
+    "id",
+    "source",
+    "type",
+    "time",
+    "runtimeprotocol",
+    "datacontenttype",
+    "data"
+  ],
+  "properties": {
+    "specversion": { "const": "1.0" },
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "source": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri" },
+    "type": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/eventType" },
+    "time": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "subject": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef" },
+    "subjecttype": { "type": "string" },
+    "datacontenttype": { "const": "application/json" },
+    "data": { "type": "object" },
+    "runtimeprotocol": { "const": "runtime/0.1" },
+    "executionid": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "requestid": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "observationid": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "causationid": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "correlationid": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "runtimeextensions": { "type": "string" }
+  }
+}

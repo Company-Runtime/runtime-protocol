@@ -8,16 +8,17 @@
 
 ## 1. Mandatory properties
 
-| Property               | Requirement                                                                                                                                         |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Credential references  | Secrets are referenced with `CredentialRef` (`secret://…`) and never transported ([providers.md](providers.md))                                     |
-| Deny-by-default        | Authority denies unless a grant matches ([authority.md](authority.md))                                                                              |
-| Schema validation      | Every received document is validated against its schema before use                                                                                  |
-| Timeouts               | Every invocation has a deadline; default 30 s, maximum 1 h                                                                                          |
-| Payload limits         | Requests larger than the runtime limit (default 1 MiB) or nested deeper than 32 levels are rejected                                                 |
-| Sanitized errors       | Errors never contain secrets, credential references, stack traces or raw provider responses                                                         |
-| Traceability           | Executions and receipts carry request and execution identifiers, actor, capability, provider, policy and evidence references, timestamps and status |
-| No custom cryptography | Integrity uses SHA-256 over RFC 8785 canonical JSON; signatures use standard formats                                                                |
+| Property               | Requirement                                                                                                                                                                         |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Credential references  | Secrets are referenced with `CredentialRef` (`secret://…`) and never transported ([providers.md](providers.md))                                                                     |
+| Actor binding          | Before evaluating authority, the runtime establishes that the authenticated caller may act as `actor.ref`; the mechanism is binding-specific ([bindings](../../bindings/README.md)) |
+| Deny-by-default        | Authority denies unless a grant matches ([authority.md](authority.md))                                                                                                              |
+| Schema validation      | Every received document is validated against its schema before use                                                                                                                  |
+| Timeouts               | Every invocation has a deadline; default 30 s, maximum 1 h                                                                                                                          |
+| Payload limits         | Requests larger than the runtime limit (default 1 MiB) or nested deeper than 32 levels are rejected                                                                                 |
+| Sanitized errors       | Errors never contain secrets, credential references, stack traces or raw provider responses                                                                                         |
+| Traceability           | Executions and receipts carry request and execution identifiers, actor, capability, provider, policy and evidence references, timestamps and status                                 |
+| No custom cryptography | Integrity uses SHA-256 over RFC 8785 canonical JSON; signatures use standard formats                                                                                                |
 
 ## 2. Raw secret rejection
 

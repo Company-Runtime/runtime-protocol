@@ -1,6 +1,6 @@
 import { NAMESPACES } from "./registry.ts";
 
-const SEGMENT = /^[a-z][a-z0-9_]*$/;
+const SEGMENT = /^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$/;
 const OWNER = /^[a-z0-9][a-z0-9-]*$/;
 
 export interface ParsedCapabilityId {

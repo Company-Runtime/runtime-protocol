@@ -1,0 +1,237 @@
+openapi: 3.1.0
+info:
+  title: Runtime Protocol — HTTP binding
+  version: "0.1"
+  summary: The http/0.1 binding of the Runtime Protocol runtime/0.1.
+  description: >-
+    Normative HTTP mapping of the Runtime Protocol. Protocol documents are defined by the
+    JSON Schemas in schemas/0.1 and referenced here by URN. See bindings/http/README.md.
+  license:
+    name: Apache-2.0
+    identifier: Apache-2.0
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+tags:
+  - name: runtime
+    description: Caller to runtime.
+  - name: provider
+    description: Runtime to remote provider.
+paths:
+  /.well-known/runtime:
+    get:
+      tags: [runtime]
+      operationId: getDiscovery
+      summary: Describe the runtime.
+      responses:
+        "200":
+          description: Discovery document.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:discovery" }
+  /executions:
+    post:
+      tags: [runtime]
+      operationId: createExecution
+      summary: Submit a capability request.
+      parameters:
+        - $ref: "#/components/parameters/Prefer"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "urn:runtime-protocol:schemas:0.1:capability-request" }
+      responses:
+        "200": { $ref: "#/components/responses/Envelope" }
+        "202": { $ref: "#/components/responses/Envelope" }
+        "400": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Envelope" }
+        "409": { $ref: "#/components/responses/Envelope" }
+        "413": { $ref: "#/components/responses/Error" }
+        "422": { $ref: "#/components/responses/Envelope" }
+        "502": { $ref: "#/components/responses/Envelope" }
+        "503": { $ref: "#/components/responses/Envelope" }
+        "504": { $ref: "#/components/responses/Envelope" }
+  /executions/{execution_id}:
+    get:
+      tags: [runtime]
+      operationId: getExecution
+      parameters: [{ $ref: "#/components/parameters/ExecutionId" }]
+      responses:
+        "200": { $ref: "#/components/responses/Envelope" }
+        "202": { $ref: "#/components/responses/Envelope" }
+        "404": { $ref: "#/components/responses/Error" }
+  /executions/{execution_id}/approval:
+    post:
+      tags: [runtime]
+      operationId: decideApproval
+      parameters: [{ $ref: "#/components/parameters/ExecutionId" }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "urn:runtime-protocol:schemas:0.1:approval-decision" }
+      responses:
+        "200": { $ref: "#/components/responses/Envelope" }
+        "202": { $ref: "#/components/responses/Envelope" }
+        "403": { $ref: "#/components/responses/Envelope" }
+        "409": { $ref: "#/components/responses/Error" }
+  /executions/{execution_id}/cancel:
+    post:
+      tags: [runtime]
+      operationId: cancelExecution
+      parameters: [{ $ref: "#/components/parameters/ExecutionId" }]
+      responses:
+        "200": { $ref: "#/components/responses/Envelope" }
+        "202": { $ref: "#/components/responses/Envelope" }
+        "409": { $ref: "#/components/responses/Envelope" }
+  /executions/{execution_id}/reconcile:
+    post:
+      tags: [runtime]
+      operationId: reconcileExecution
+      parameters: [{ $ref: "#/components/parameters/ExecutionId" }]
+      responses:
+        "200": { $ref: "#/components/responses/Envelope" }
+        "202": { $ref: "#/components/responses/Envelope" }
+  /executions/{execution_id}/receipt:
+    get:
+      tags: [runtime]
+      operationId: getReceipt
+      parameters: [{ $ref: "#/components/parameters/ExecutionId" }]
+      responses:
+        "200":
+          description: The latest receipt of the execution.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:execution-receipt" }
+        "404": { $ref: "#/components/responses/Error" }
+  /evidence/{evidence_id}:
+    get:
+      tags: [runtime]
+      operationId: getEvidence
+      parameters:
+        - name: evidence_id
+          in: path
+          required: true
+          schema: { $ref: "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+      responses:
+        "200":
+          description: An evidence document.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:evidence" }
+        "404": { $ref: "#/components/responses/Error" }
+  /resolutions:
+    post:
+      tags: [runtime]
+      operationId: resolveProviders
+      summary: Dry-run resolution; nothing executes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "urn:runtime-protocol:schemas:0.1:capability-request" }
+      responses:
+        "200":
+          description: Eligible and rejected providers.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:resolution" }
+        "400": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+  /.well-known/runtime-provider:
+    get:
+      tags: [provider]
+      operationId: describeProvider
+      responses:
+        "200":
+          description: Provider manifest.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:provider-manifest" }
+  /invocations:
+    post:
+      tags: [provider]
+      operationId: executeInvocation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "urn:runtime-protocol:schemas:0.1:invocation" }
+      responses:
+        "200":
+          description: The provider result, including failed and unknown results.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:provider-result" }
+        "400": { $ref: "#/components/responses/Error" }
+  /invocations/{invocation_id}/reconcile:
+    post:
+      tags: [provider]
+      operationId: reconcileInvocation
+      parameters:
+        - name: invocation_id
+          in: path
+          required: true
+          schema: { $ref: "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "urn:runtime-protocol:schemas:0.1:invocation" }
+      responses:
+        "200":
+          description: The reconciliation of the original invocation.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:reconciliation" }
+  /health:
+    get:
+      tags: [provider]
+      operationId: getHealth
+      responses:
+        "200":
+          description: Provider health.
+          content:
+            application/json:
+              schema: { $ref: "urn:runtime-protocol:schemas:0.1:health" }
+components:
+  parameters:
+    ExecutionId:
+      name: execution_id
+      in: path
+      required: true
+      schema: { $ref: "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+    Prefer:
+      name: Prefer
+      in: header
+      required: false
+      schema: { type: string, enum: [respond-async] }
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      schema: { type: string, minLength: 1, maxLength: 255 }
+  responses:
+    Envelope:
+      description: Execution envelope.
+      headers:
+        Runtime-Protocol:
+          schema: { type: string, const: runtime/0.1 }
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ExecutionEnvelope" }
+    Error:
+      description: Protocol error.
+      content:
+        application/json:
+          schema: { $ref: "urn:runtime-protocol:schemas:0.1:error" }
+  schemas:
+    ExecutionEnvelope:
+      type: object
+      additionalProperties: false
+      required: [protocol, execution]
+      properties:
+        protocol: { $ref: "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" }
+        execution: { $ref: "urn:runtime-protocol:schemas:0.1:execution" }
+        receipt: { $ref: "urn:runtime-protocol:schemas:0.1:execution-receipt" }
+        error: { $ref: "urn:runtime-protocol:schemas:0.1:error#/$defs/error" }

@@ -26,13 +26,15 @@ rules an allowed request may proceed_ ([policy.md](policy.md)).
 
 A runtime MUST:
 
-1. evaluate authority for every request, before any provider is contacted;
-2. deny when no grant matches, when the evaluator fails, or when the evaluator is
+1. establish, through the binding, that the authenticated caller may act as
+   `actor.ref` — a request cannot grant itself an identity;
+2. evaluate authority for every request, before any provider is contacted;
+3. deny when no grant matches, when the evaluator fails, or when the evaluator is
    absent;
-3. record the decision (`allow` or `deny`, the authority reference and the matching
+4. record the decision (`allow` or `deny`, the authority reference and the matching
    grant) in the execution and in the receipt;
-4. never pass authority decisions or grants to providers;
-5. never let a provider, a language model or a request field widen a decision.
+5. never pass authority decisions or grants to providers;
+6. never let a provider, a language model or a request field widen a decision.
 
 Runtimes MAY use any authority system (role-based, attribute-based, delegation
 chains) as long as it produces an `authority-decision` with these properties.

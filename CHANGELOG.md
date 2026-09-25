@@ -26,3 +26,9 @@ Initial experimental version, introduced by
 - Deterministic protocol validation: request validation steps 1–11, raw-secret
   detection, namespace isolation, version ranges, registry overlays and provider
   manifest checks, applied to every example.
+- Bindings: HTTP (`http/0.1`, with an OpenAPI 3.1 contract), MCP (`mcp/0.1`, runtime
+  as MCP server and MCP servers as adapters) and events (`events/0.1`, lossless
+  CloudEvents 1.0 mapping); discovery and binding descriptor examples.
+- Identifier segments are lower snake case without doubled underscores, so that MCP
+  tool names map reversibly.
+- Actor binding: runtimes establish that the caller may act as `actor.ref`.
