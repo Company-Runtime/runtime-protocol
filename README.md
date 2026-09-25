@@ -44,15 +44,15 @@ and must follow what is written here — never the other way around.
 | ------------------------------------------------ | -------------------------------------------------------------------------------- |
 | [`spec/0.1/`](spec/0.1/)                         | Normative specification (start with [`protocol.md`](spec/0.1/protocol.md))       |
 | [`spec/0.1/semantics.md`](spec/0.1/semantics.md) | The semantic constitution — the twelve principles every change must respect      |
-| `schemas/0.1/`                                   | JSON Schemas (Draft 2020-12) for every exchanged document                        |
+| [`schemas/0.1/`](schemas/0.1/)                   | JSON Schemas (Draft 2020-12) for every exchanged document                        |
 | `registry/`                                      | The canonical semantic registry: domains, verbs, capabilities, profiles, traits  |
 | `bindings/`                                      | Transport bindings: HTTP, MCP and events                                         |
 | `extensions/`                                    | Registered extensions in the `experimental`, `community` and `vendor` namespaces |
 | `recipes/`                                       | Example compositions of capabilities (recipes are not primitives)                |
-| `examples/`                                      | Valid example documents                                                          |
+| [`examples/`](examples/)                         | Valid example documents                                                          |
 | [`rfcs/`](rfcs/)                                 | Proposals that change the protocol                                               |
 | `conformance/`                                   | Language-neutral conformance suite and fixtures                                  |
-| `tooling/`                                       | Deterministic validators: schemas, registry, semantic lint, compatibility, docs  |
+| [`tooling/`](tooling/)                           | Deterministic validators: schemas, registry, semantic lint, compatibility, docs  |
 
 ## Ecosystem
 

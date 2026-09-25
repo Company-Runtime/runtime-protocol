@@ -1,0 +1,5 @@
+protocol: runtime/0.1
+decision: deny
+reason: no grant allows this request
+detail: no_matching_grant
+evaluated_at: 2026-01-01T00:00:00Z

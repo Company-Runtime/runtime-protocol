@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:event",
+  "title": "Event",
+  "description": "A fact that occurred. Events never carry authority. See spec/0.1/execution.md and bindings/events.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "id", "type", "source", "time", "data"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "type": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/eventType" },
+    "source": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri" },
+    "time": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "subject": { "$ref": "urn:runtime-protocol:schemas:0.1:resource" },
+    "data": { "type": "object" },
+    "causation": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "execution_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "request_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "observation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "event_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+      }
+    },
+    "correlation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  }
+}

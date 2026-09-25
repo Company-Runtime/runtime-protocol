@@ -1,0 +1,9 @@
+protocol: runtime/0.1
+error:
+  code: authority_denied
+  message: The actor is not authorized to request this capability.
+  retryable: false
+  stage: authority
+  detail: no_matching_grant
+  execution_id: exec_02
+  request_id: req_99

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:capability",
+  "title": "Capability definition",
+  "description": "A versioned intent in the registry. Capability definitions are closed: they cannot carry policy. See spec/0.1/capabilities.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "status",
+    "domain",
+    "verb",
+    "description",
+    "input",
+    "output",
+    "profiles",
+    "traits",
+    "authority",
+    "evidence",
+    "risk",
+    "effects",
+    "emits"
+  ],
+  "properties": {
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+    "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+    "status": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/status" },
+    "domain": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/domainId" },
+    "verb": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/verbId" },
+    "description": { "type": "string", "minLength": 10, "maxLength": 400 },
+    "object_justification": { "type": "string", "minLength": 20, "maxLength": 1000 },
+    "input": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/schemaSource" },
+    "output": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/schemaSource" },
+    "profiles": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+    "traits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "optional": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "input_gates": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyId"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+          }
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required"],
+      "properties": { "required": { "const": true } }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supported", "claims"],
+      "properties": {
+        "supported": { "type": "boolean" },
+        "claims": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/claimList" }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default"],
+      "properties": { "default": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/risk" } }
+    },
+    "effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mutating"],
+      "properties": { "mutating": { "type": "boolean" } }
+    },
+    "emits": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/eventType" }
+    },
+    "relations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requires": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/domainId" }
+        },
+        "related": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" }
+        }
+      }
+    },
+    "deprecation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["replaced_by", "since"],
+      "properties": {
+        "replaced_by": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+        "since": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+        "remove_after": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" }
+      }
+    },
+    "proposal_ref": { "type": "string", "pattern": "^\\./[A-Za-z0-9._-]+\\.md$" },
+    "rfc": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/rfc" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "deprecated" } }, "required": ["status"] },
+      "then": { "required": ["deprecation"] }
+    },
+    {
+      "if": { "properties": { "effects": { "properties": { "mutating": { "const": true } } } } },
+      "then": {
+        "properties": {
+          "evidence": {
+            "properties": {
+              "supported": { "const": true },
+              "claims": { "contains": { "const": "execution" } }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

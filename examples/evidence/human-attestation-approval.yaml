@@ -1,0 +1,11 @@
+protocol: runtime/0.1
+id: ev_07
+execution_id: exec_07
+type: human_attestation
+claims: [approval]
+produced_by: { actor: identity://user/founder }
+observed_at: 2026-01-01T00:05:00Z
+data:
+  statement: Approved resource.delete for resource://crm/accounts/981.
+  decision: approved
+digest: sha256:becd96da00d73d88073a936aead90262e0efc2e44007f51aaae184a8312f97f3

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:discovery",
+  "title": "Runtime discovery document",
+  "description": "Describes a runtime without revealing secrets, credential references, grants or policies. See spec/0.1/discovery.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "runtime", "protocols", "capabilities", "bindings"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerId" },
+        "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 }
+      }
+    },
+    "protocols": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^runtime/[0-9]+\\.[0-9]+$" }
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+        "digest": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/digest" },
+        "source": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "version", "profiles", "traits"],
+        "properties": {
+          "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId" },
+          "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+          "profiles": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+          "traits": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" }
+        }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "version"],
+        "properties": {
+          "type": { "enum": ["http", "mcp", "events"] },
+          "version": { "const": "0.1" },
+          "endpoint": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri" },
+          "transport": { "enum": ["stdio", "streamable_http"] },
+          "format": { "const": "cloudevents/1.0" }
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_request_bytes": { "type": "integer", "minimum": 1024 },
+        "max_timeout_ms": { "type": "integer", "minimum": 1, "maximum": 3600000 }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "namespaces": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?:experimental|(?:community|vendor|org)\\.[a-z0-9][a-z0-9-]*)$"
+          }
+        }
+      }
+    }
+  }
+}

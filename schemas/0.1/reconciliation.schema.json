@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:reconciliation",
+  "title": "Reconciliation",
+  "description": "A provider's answer establishing the outcome of an unknown or running invocation without repeating it. See spec/0.1/execution.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "invocation_id", "status"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "invocation_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "status": { "enum": ["completed", "failed", "inconclusive"] },
+    "output": { "type": "object" },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:evidence#/$defs/item" }
+    },
+    "final": { "const": true },
+    "reason": { "type": "string", "maxLength": 512 },
+    "cost": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "completed" } }, "required": ["status"] },
+      "then": {
+        "required": ["output", "evidence"],
+        "properties": { "evidence": { "minItems": 1 } }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "failed" } }, "required": ["status"] },
+      "then": {
+        "required": ["final", "evidence", "reason"],
+        "properties": { "evidence": { "minItems": 1 } }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "inconclusive" } }, "required": ["status"] },
+      "then": { "required": ["reason"] }
+    }
+  ]
+}

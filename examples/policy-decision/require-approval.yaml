@@ -1,0 +1,7 @@
+protocol: runtime/0.1
+decision: require_approval
+policy_refs: [policy://company/default]
+matched_rules: [approve-high-risk]
+reason: High-risk capabilities require approval.
+obligations: { approvers: [identity://user/founder] }
+evaluated_at: 2026-01-01T00:00:00Z

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:execution-receipt",
+  "title": "ExecutionReceipt",
+  "description": "The canonical, vendor-neutral, auditable record of an execution. See spec/0.1/evidence.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "receipt", "integrity"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "receipt": { "$ref": "#/$defs/receipt" },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonicalization", "digest"],
+      "properties": {
+        "canonicalization": { "const": "RFC8785" },
+        "digest": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/digest" }
+      }
+    }
+  },
+  "$defs": {
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receipt_id",
+        "request_id",
+        "execution_id",
+        "capability",
+        "actor",
+        "authority",
+        "status",
+        "created_at",
+        "evidence",
+        "issued_at"
+      ],
+      "properties": {
+        "receipt_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "request_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "execution_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+        "capability": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resolvedCapability"
+        },
+        "profile": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyId" },
+        "traits": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+        "provider": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerSummary" },
+        "actor": { "$ref": "urn:runtime-protocol:schemas:0.1:actor" },
+        "authority": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:execution#/$defs/authoritySummary"
+        },
+        "policy": { "$ref": "urn:runtime-protocol:schemas:0.1:execution#/$defs/policySummary" },
+        "approval": { "$ref": "urn:runtime-protocol:schemas:0.1:execution#/$defs/approvalSummary" },
+        "credential_owner": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/credentialOwner"
+        },
+        "status": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/receiptStatus" },
+        "error": { "$ref": "urn:runtime-protocol:schemas:0.1:error#/$defs/error" },
+        "warnings": {
+          "type": "array",
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/warning" }
+        },
+        "idempotency_key": { "type": "string", "minLength": 1, "maxLength": 255 },
+        "created_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+        "started_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+        "completed_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "cost": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" },
+        "evidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef" }
+        },
+        "events": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+        },
+        "issued_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+        "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "completed" } }, "required": ["status"] },
+          "then": { "required": ["provider", "policy", "started_at", "completed_at"] }
+        },
+        {
+          "if": {
+            "properties": { "status": { "enum": ["failed", "rejected", "unknown", "cancelled"] } },
+            "required": ["status"]
+          },
+          "then": { "required": ["error"] }
+        },
+        {
+          "if": { "properties": { "status": { "const": "rejected" } }, "required": ["status"] },
+          "then": { "not": { "required": ["started_at"] } }
+        },
+        {
+          "if": {
+            "properties": { "authority": { "properties": { "decision": { "const": "deny" } } } },
+            "required": ["authority"]
+          },
+          "then": { "properties": { "status": { "const": "rejected" } } }
+        }
+      ]
+    }
+  }
+}

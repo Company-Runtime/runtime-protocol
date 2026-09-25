@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:verb",
+  "title": "Verb",
+  "description": "A canonical action word with a definition and rejected synonyms. See spec/0.1/capabilities.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "status",
+    "definition",
+    "past_tense",
+    "mutating",
+    "rejected_synonyms"
+  ],
+  "properties": {
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/verbId" },
+    "version": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/semver" },
+    "status": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/status" },
+    "definition": { "type": "string", "minLength": 10, "maxLength": 400 },
+    "past_tense": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "mutating": { "enum": [true, false, "varies"] },
+    "rejected_synonyms": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/verbId" }
+    },
+    "distinct_from": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["verb", "difference"],
+        "properties": {
+          "verb": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/verbId" },
+          "difference": { "type": "string", "minLength": 5, "maxLength": 300 }
+        }
+      }
+    },
+    "rfc": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/rfc" }
+  }
+}

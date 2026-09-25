@@ -1,0 +1,13 @@
+protocol: runtime/0.1
+grants:
+  - id: support-agent-email
+    description: Support agents may email customers and search the knowledge base.
+    authority: authority://company/support-manager
+    subjects: [identity://agent/support-agent]
+    capabilities: [communication.send, knowledge.search]
+    valid_from: 2026-01-01T00:00:00Z
+    valid_until: 2027-01-01T00:00:00Z
+  - id: triage-classify
+    authority: authority://company/triage
+    subjects: ["identity://agent/triage-*"]
+    capabilities: ["reasoning.*"]

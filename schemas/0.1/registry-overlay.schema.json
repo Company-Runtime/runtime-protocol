@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:registry-overlay",
+  "title": "Registry overlay",
+  "description": "Namespaced definitions an implementation adds on top of the core registry (extensions, organization vocabulary, test fixtures). Overlays cannot redefine core identifiers. See spec/0.1/extensions.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "id"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "description": { "type": "string", "maxLength": 1000 },
+    "domains": { "type": "array", "items": { "$ref": "urn:runtime-protocol:schemas:0.1:domain" } },
+    "capabilities": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:capability" }
+    },
+    "profiles": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:profile" }
+    },
+    "traits": { "type": "array", "items": { "$ref": "urn:runtime-protocol:schemas:0.1:trait" } },
+    "aliases": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:registry#/$defs/alias" }
+    }
+  }
+}

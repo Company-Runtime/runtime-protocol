@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:approval-decision",
+  "title": "Approval decision",
+  "description": "A decision on an execution awaiting approval. See spec/0.1/policy.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "execution_id", "decision", "decided_by", "decided_at"],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "execution_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "decision": { "enum": ["approved", "rejected"] },
+    "decided_by": { "$ref": "urn:runtime-protocol:schemas:0.1:actor" },
+    "decided_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "rationale": { "type": "string", "maxLength": 2000 }
+  }
+}

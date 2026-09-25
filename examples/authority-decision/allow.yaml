@@ -1,0 +1,7 @@
+protocol: runtime/0.1
+decision: allow
+authority: authority://company/support-manager
+grant_id: support-agent-email
+reason: grant support-agent-email matched
+detail: grant_matched
+evaluated_at: 2026-01-01T00:00:00Z

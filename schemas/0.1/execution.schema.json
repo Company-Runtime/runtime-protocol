@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:execution",
+  "title": "Execution",
+  "description": "The lifecycle record of one capability request. History is append-only. See spec/0.1/execution.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "execution_id",
+    "request_id",
+    "state",
+    "capability",
+    "actor",
+    "history",
+    "evidence",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "protocol": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol" },
+    "execution_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "request_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" },
+    "state": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionState" },
+    "capability": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resolvedCapability" },
+    "profile": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyId" },
+    "traits": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/vocabularyList" },
+    "actor": { "$ref": "urn:runtime-protocol:schemas:0.1:actor" },
+    "authority": { "$ref": "#/$defs/authoritySummary" },
+    "policy": { "$ref": "#/$defs/policySummary" },
+    "approval": { "$ref": "#/$defs/approvalSummary" },
+    "provider": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerSummary" },
+    "credential_owner": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/credentialOwner"
+    },
+    "idempotency_key": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "history": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["state", "at"],
+        "properties": {
+          "state": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionState" },
+          "at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+          "reason": { "type": "string", "maxLength": 512 },
+          "error_code": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/errorCode" }
+        }
+      }
+    },
+    "output": { "type": "object" },
+    "error": { "$ref": "urn:runtime-protocol:schemas:0.1:error#/$defs/error" },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/warning" }
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef" }
+    },
+    "cost": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/money" },
+    "created_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "updated_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "started_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "completed_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" },
+    "extensions": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions" }
+  },
+  "$defs": {
+    "authoritySummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision"],
+      "properties": {
+        "decision": { "enum": ["allow", "deny"] },
+        "ref": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/authorityRef" },
+        "grant_id": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+      }
+    },
+    "policySummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "refs"],
+      "properties": {
+        "decision": { "$ref": "urn:runtime-protocol:schemas:0.1:policy-set#/$defs/effect" },
+        "refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/policyRef" }
+        },
+        "matched_rules": {
+          "type": "array",
+          "items": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier" }
+        }
+      }
+    },
+    "approvalSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "decided_by", "decided_at"],
+      "properties": {
+        "decision": { "enum": ["approved", "rejected"] },
+        "decided_by": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef" },
+        "decided_at": { "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp" }
+      }
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:schemas:0.1:evidence",
+  "title": "Evidence",
+  "description": "Typed, integrity-protected proof supporting claims about an execution. See spec/0.1/evidence.md.",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["protocol", "id", "execution_id", "produced_by", "digest"],
+  "properties": {
+    "protocol": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/protocol"
+    },
+    "id": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier"
+    },
+    "execution_id": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identifier"
+    },
+    "produced_by": {
+      "$ref": "#/$defs/producer"
+    },
+    "digest": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/digest"
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/$defs/body"
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "human_attestation"
+          }
+        },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": {
+          "produced_by": {
+            "required": ["actor"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": ["provider"]
+        },
+        {
+          "required": ["actor"]
+        }
+      ],
+      "properties": {
+        "provider": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/providerId"
+        },
+        "actor": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["media_type", "digest"],
+      "properties": {
+        "media_type": {
+          "type": "string",
+          "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+        },
+        "digest": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/digest"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uri": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format"],
+      "properties": {
+        "format": {
+          "enum": ["jws", "cose", "openpgp", "x509-cms"]
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 65536
+        },
+        "key_ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+        }
+      }
+    },
+    "body": {
+      "description": "Fields shared by stored evidence and evidence items reported by providers.",
+      "type": "object",
+      "required": ["type", "claims", "observed_at"],
+      "properties": {
+        "type": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceType"
+        },
+        "claims": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceClaim"
+          }
+        },
+        "observed_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        },
+        "subject": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:resource"
+        },
+        "data": {
+          "type": "object"
+        },
+        "external_ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+        },
+        "content": {
+          "$ref": "#/$defs/content"
+        },
+        "signature": {
+          "$ref": "#/$defs/signature"
+        },
+        "extensions": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/extensions"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "provider_receipt"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": ["data"]
+              },
+              {
+                "required": ["external_ref"]
+              }
+            ],
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/claimsProviderReceipt"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "state_observation"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["subject", "data"],
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/claimsStateObservation"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "artifact"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["content"],
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/claimsArtifact"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "signature"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["signature"],
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/claimsSignature"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "external_reference"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["external_ref"],
+            "properties": {
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/claimsExternalReference"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "human_attestation"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["data"],
+            "properties": {
+              "data": {
+                "required": ["statement"],
+                "properties": {
+                  "statement": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "claims": {
+                "items": {
+                  "$ref": "#/$defs/claimsHumanAttestation"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "item": {
+      "description": "An evidence item reported by a provider; the runtime assigns id, execution_id, produced_by and digest.",
+      "type": "object",
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/body"
+        }
+      ]
+    },
+    "claimsProviderReceipt": {
+      "anyOf": [
+        {
+          "enum": ["execution", "delivery"]
+        },
+        {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "claimsStateObservation": {
+      "anyOf": [
+        {
+          "enum": ["execution", "delivery", "state"]
+        },
+        {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "claimsArtifact": {
+      "anyOf": [
+        {
+          "enum": ["state"]
+        },
+        {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "claimsSignature": {
+      "anyOf": [
+        {
+          "enum": ["execution", "approval"]
+        },
+        {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "claimsExternalReference": {
+      "anyOf": [
+        {
+          "enum": ["execution", "delivery", "state"]
+        },
+        {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/namespacedVocabularyId"
+        }
+      ]
+    },
+    "claimsHumanAttestation": {
+      "anyOf": [
+        {
+          "enum": ["approval"]
+        },
+        {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/namespacedVocabularyId"
+        }
+      ]
+    }
+  }
+}
