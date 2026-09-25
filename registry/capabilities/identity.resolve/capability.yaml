@@ -1,0 +1,18 @@
+id: identity.resolve
+version: 0.1.0
+status: experimental
+domain: identity
+verb: resolve
+description: Determine the canonical identity referred to by an identifier, handle or description.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [identity.verify]
+rfc: "0001"

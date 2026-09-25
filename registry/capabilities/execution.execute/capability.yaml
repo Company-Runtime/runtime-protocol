@@ -1,0 +1,19 @@
+id: execution.execute
+version: 0.1.0
+status: experimental
+domain: execution
+verb: execute
+description: Run a defined procedure, program or job in an execution environment.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [async, streaming, idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: high }
+effects: { mutating: true }
+emits: [execution.executed]
+relations:
+  related: [execution.cancel]
+rfc: "0001"

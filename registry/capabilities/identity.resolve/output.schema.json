@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:identity.resolve:0.1.0:output",
+  "title": "identity.resolve output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "matches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": ["ref"]
+      }
+    }
+  },
+  "required": ["matches"]
+}

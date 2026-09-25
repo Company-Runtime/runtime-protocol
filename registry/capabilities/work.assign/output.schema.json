@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:work.assign:0.1.0:output",
+  "title": "work.assign output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "work": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        }
+      },
+      "required": ["ref"]
+    },
+    "assignee": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+    },
+    "assigned_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["work", "assignee", "assigned_at"]
+}

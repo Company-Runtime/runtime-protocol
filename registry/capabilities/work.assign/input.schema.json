@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:work.assign:0.1.0:input",
+  "title": "work.assign input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "work": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "assignee": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": ["work", "assignee"]
+}

@@ -1,0 +1,13 @@
+id: read
+version: 0.1.0
+status: experimental
+definition: Obtain the current content or state of one specific, identified item.
+past_tense: read
+mutating: false
+rejected_synonyms: [get, fetch, retrieve, load, view, show]
+distinct_from:
+  - verb: search
+    difference: search finds items that are not yet identified
+  - verb: receive
+    difference: receive obtains items addressed to the actor
+rfc: "0001"

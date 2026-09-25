@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:resource.search:0.1.0:output",
+  "title": "resource.search output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+          },
+          "type": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "snippet": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "score": {
+            "type": "number"
+          }
+        },
+        "required": ["ref"]
+      }
+    },
+    "next_cursor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    }
+  },
+  "required": ["items"]
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:communication.receive:0.1.0:output",
+  "title": "communication.receive output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+          },
+          "sender": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+          },
+          "received_at": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+          },
+          "subject": {
+            "type": "string",
+            "maxLength": 998
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 100000
+          },
+          "data": {
+            "type": "object"
+          },
+          "thread": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                },
+                "media_type": {
+                  "type": "string",
+                  "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+                },
+                "uri": {
+                  "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+                },
+                "size": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "digest": {
+                  "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/digest"
+                }
+              },
+              "required": ["name", "media_type", "uri"]
+            }
+          }
+        },
+        "required": ["ref", "sender", "received_at"]
+      }
+    },
+    "next_cursor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    }
+  },
+  "required": ["messages"]
+}

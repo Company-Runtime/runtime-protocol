@@ -1,0 +1,7 @@
+id: attachments
+version: 0.1.0
+status: experimental
+definition: The provider accepts files attached to the content and delivers or publishes them together with it.
+excludes:
+  - Links to files placed inside the content body, which need no trait.
+rfc: "0001"

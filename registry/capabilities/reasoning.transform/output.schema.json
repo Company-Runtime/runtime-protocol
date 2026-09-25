@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:reasoning.transform:0.1.0:output",
+  "title": "reasoning.transform output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "output": {
+      "type": ["string", "object"]
+    },
+    "media_type": {
+      "type": "string",
+      "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "input_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["unit"]
+    }
+  },
+  "required": ["output"]
+}

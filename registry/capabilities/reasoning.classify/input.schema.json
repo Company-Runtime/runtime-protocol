@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:reasoning.classify:0.1.0:input",
+  "title": "reasoning.classify input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "input": {
+      "type": ["string", "object"]
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": ["string", "object"]
+      },
+      "minItems": 1,
+      "maxItems": 1000
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "required": ["id"]
+      },
+      "minItems": 2
+    },
+    "multi_label": {
+      "type": "boolean"
+    },
+    "rationale": {
+      "type": "boolean"
+    }
+  },
+  "required": ["labels"],
+  "oneOf": [
+    {
+      "required": ["input"]
+    },
+    {
+      "required": ["inputs"]
+    }
+  ]
+}

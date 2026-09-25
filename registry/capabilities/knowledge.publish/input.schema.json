@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:knowledge.publish:0.1.0:input",
+  "title": "knowledge.publish input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000000
+        },
+        "media_type": {
+          "type": "string",
+          "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "uniqueItems": true
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+        }
+      },
+      "required": ["title", "content"]
+    },
+    "collection": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "supersedes": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    }
+  },
+  "required": ["item"]
+}

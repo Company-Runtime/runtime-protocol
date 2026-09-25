@@ -1,0 +1,18 @@
+id: identity.verify
+version: 0.1.0
+status: experimental
+domain: identity
+verb: verify
+description: Confirm, with evidence, that a claim about an identity is true.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: medium }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [identity.authenticate, evidence.verify]
+rfc: "0001"

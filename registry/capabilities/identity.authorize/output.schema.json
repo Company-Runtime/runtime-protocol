@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:identity.authorize:0.1.0:output",
+  "title": "identity.authorize output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+        },
+        "granted_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "required": ["ref", "granted_at"]
+    }
+  },
+  "required": ["authorization"]
+}

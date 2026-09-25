@@ -1,0 +1,18 @@
+id: resource.read
+version: 0.1.0
+status: experimental
+domain: resource
+verb: read
+description: Obtain the current content or state of an identified resource.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [resource.search, knowledge.search]
+rfc: "0001"

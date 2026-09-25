@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:work.create:0.1.0:input",
+  "title": "work.create input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 100000
+    },
+    "assignee": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+    },
+    "due": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    },
+    "priority": {
+      "enum": ["low", "normal", "high", "urgent"]
+    },
+    "parent": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "container": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": ["title"]
+}

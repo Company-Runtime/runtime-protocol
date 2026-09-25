@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:resource.delete:0.1.0:input",
+  "title": "resource.delete input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "resource": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "expected_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": ["resource"]
+}

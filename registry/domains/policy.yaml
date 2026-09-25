@@ -1,0 +1,13 @@
+id: policy
+version: 0.1.0
+status: experimental
+definition: >-
+  Rules that govern whether and how actions may occur, and their evaluation by policy
+  engines.
+excludes:
+  - Standing access rights of identities (identity) and the runtime's authority step.
+  - Accountable human decisions (approval).
+  - Capability definitions, which never embed policy.
+examples:
+  - Evaluate whether a data export complies with residency rules.
+rfc: "0001"

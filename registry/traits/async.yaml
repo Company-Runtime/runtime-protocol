@@ -1,0 +1,7 @@
+id: async
+version: 0.1.0
+status: experimental
+definition: The provider may accept an invocation and complete it later; the runtime establishes the outcome through reconciliation.
+excludes:
+  - Incremental delivery of partial output (streaming).
+rfc: "0001"

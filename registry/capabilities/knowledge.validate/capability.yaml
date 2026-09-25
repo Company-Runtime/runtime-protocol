@@ -1,0 +1,18 @@
+id: knowledge.validate
+version: 0.1.0
+status: experimental
+domain: knowledge
+verb: validate
+description: Check a knowledge item against quality rules such as freshness, citations and required sections.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: none }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [knowledge.publish, evidence.verify]
+rfc: "0001"

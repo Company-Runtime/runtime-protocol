@@ -1,0 +1,21 @@
+id: reasoning.transform
+version: 0.1.0
+status: experimental
+domain: reasoning
+verb: transform
+description: Convert content into another form while preserving its meaning.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [streaming, structured_output]
+  input_gates:
+    structured_output: [output_schema]
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [reasoning.generate]
+rfc: "0001"

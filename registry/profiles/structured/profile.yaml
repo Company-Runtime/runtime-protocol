@@ -1,0 +1,13 @@
+id: structured
+version: 0.1.0
+status: experimental
+definition: "Machine-readable messages for machine recipients: the payload is structured data rather than prose."
+applies_to:
+  - capability: communication.send
+    input: { schema_ref: ./communication.send.input.schema.json }
+  - capability: communication.receive
+  - capability: communication.publish
+    input: { schema_ref: ./communication.publish.input.schema.json }
+excludes:
+  - Guarantees about the shape of generated content, which is the structured_output trait.
+rfc: "0001"

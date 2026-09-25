@@ -1,0 +1,18 @@
+id: resource.search
+version: 0.1.0
+status: experimental
+domain: resource
+verb: search
+description: Find resources that match a query or attribute filters.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [knowledge.search, resource.read]
+rfc: "0001"

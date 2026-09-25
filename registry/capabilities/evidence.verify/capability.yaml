@@ -1,0 +1,18 @@
+id: evidence.verify
+version: 0.1.0
+status: experimental
+domain: evidence
+verb: verify
+description: Verify the integrity, authenticity and claims of recorded evidence.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits: {}
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [evidence.record, identity.verify]
+rfc: "0001"

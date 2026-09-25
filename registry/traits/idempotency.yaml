@@ -1,0 +1,5 @@
+id: idempotency
+version: 0.1.0
+status: experimental
+definition: The provider guarantees that invocations repeated with the same idempotency key produce at most one effect and return the original result.
+rfc: "0001"

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:approval.request:0.1.0:input",
+  "title": "approval.request input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "resource": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        },
+        "execution": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/executionRef"
+        }
+      },
+      "required": ["description"]
+    },
+    "approvers": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "expires_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["subject", "approvers"]
+}

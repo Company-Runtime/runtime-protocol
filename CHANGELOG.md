@@ -19,3 +19,7 @@ Initial experimental version, introduced by
 - Valid example documents for requests, manifests, decisions, invocations, results,
   executions, evidence, receipts, events, observations and errors.
 - Deterministic tooling: schema and example validation, RFC 8785 canonical digests.
+- Canonical semantic registry: 13 domains, 31 verbs, 36 capabilities, 7 profiles and
+  10 traits, all experimental, with input/output schemas, trait gates, evidence claims
+  and relations; the deterministic registry graph `registry/graph.json`.
+- Example recipes `employee.onboard` and `support.answer`.

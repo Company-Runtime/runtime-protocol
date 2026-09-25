@@ -1,0 +1,11 @@
+id: subscribe
+version: 0.1.0
+status: experimental
+definition: Register interest in receiving future events or messages.
+past_tense: subscribed
+mutating: true
+rejected_synonyms: [listen, watch, follow]
+distinct_from:
+  - verb: receive
+    difference: receive obtains messages already addressed to the actor
+rfc: "0001"

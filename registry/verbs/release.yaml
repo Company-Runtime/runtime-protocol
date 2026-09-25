@@ -1,0 +1,11 @@
+id: release
+version: 0.1.0
+status: experimental
+definition: Give up responsibility for a previously claimed or held item.
+past_tense: released
+mutating: true
+rejected_synonyms: [unclaim, relinquish, yield]
+distinct_from:
+  - verb: cancel
+    difference: cancel stops the activity itself
+rfc: "0001"

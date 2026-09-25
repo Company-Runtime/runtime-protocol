@@ -1,9 +1,16 @@
 import { validateSchemas } from "./validate-schemas.ts";
 import { validateExamples } from "./validate-examples.ts";
+import { validateRegistry } from "./validate-registry.ts";
+import { syncGraph } from "./graph.ts";
 
 type Command = () => number;
 
 const commands: Record<string, Command> = {
+  registry: () => {
+    const { report, summary } = validateRegistry();
+    return report.print("registry", summary);
+  },
+  graph: () => syncGraph(process.argv.includes("--check")),
   schemas: () => validateSchemas().print("schemas", "schemas/0.1"),
   examples: () => {
     const { report, count } = validateExamples();

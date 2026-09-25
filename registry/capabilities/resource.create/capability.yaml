@@ -1,0 +1,19 @@
+id: resource.create
+version: 0.1.0
+status: experimental
+domain: resource
+verb: create
+description: Bring a new resource into existence.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: [resource.created]
+relations:
+  related: [resource.update, knowledge.publish]
+rfc: "0001"

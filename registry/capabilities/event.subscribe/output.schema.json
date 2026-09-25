@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:event.subscribe:0.1.0:output",
+  "title": "event.subscribe output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "subscription": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        },
+        "created_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "required": ["ref", "created_at"]
+    }
+  },
+  "required": ["subscription"]
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:profile:conversational:0.1.0:reasoning.generate:input",
+  "title": "conversational profile constraints for reasoning.generate input",
+  "type": "object",
+  "required": ["messages"]
+}

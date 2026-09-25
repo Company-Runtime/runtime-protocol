@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:identity.verify:0.1.0:output",
+  "title": "identity.verify output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verified": {
+      "type": "boolean"
+    },
+    "method": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "verified_at": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 512
+    }
+  },
+  "required": ["verified", "verified_at"]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:policy.evaluate:0.1.0:output",
+  "title": "policy.evaluate output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": ["allow", "deny", "require_approval"]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      }
+    },
+    "policy_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/policyRef"
+      },
+      "uniqueItems": true
+    },
+    "matched_rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+      }
+    }
+  },
+  "required": ["decision", "reasons"]
+}

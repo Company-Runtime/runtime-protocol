@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:reasoning.evaluate:0.1.0:output",
+  "title": "reasoning.evaluate output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+          },
+          "score": {
+            "type": "number"
+          },
+          "verdict": {
+            "enum": ["pass", "fail", "indeterminate"]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000
+          }
+        },
+        "required": ["criterion", "rationale"]
+      }
+    },
+    "overall": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "score": {
+          "type": "number"
+        },
+        "verdict": {
+          "enum": ["pass", "fail", "indeterminate"]
+        }
+      },
+      "minProperties": 1
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "input_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["unit"]
+    }
+  },
+  "required": ["results"]
+}

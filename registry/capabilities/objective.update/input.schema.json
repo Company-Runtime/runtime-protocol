@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:objective.update:0.1.0:input",
+  "title": "objective.update input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "objective": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "measure": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "metric": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "target": {
+                    "type": ["number", "string"]
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 32
+                  }
+                },
+                "required": ["metric", "target"]
+              }
+            },
+            "required": ["id", "description"]
+          },
+          "minItems": 1
+        },
+        "owner": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+        },
+        "due": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "minProperties": 1
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 2000
+    }
+  },
+  "required": ["objective", "changes"]
+}

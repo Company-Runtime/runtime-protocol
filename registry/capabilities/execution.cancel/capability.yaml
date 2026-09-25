@@ -1,0 +1,19 @@
+id: execution.cancel
+version: 0.1.0
+status: experimental
+domain: execution
+verb: cancel
+description: Stop a running execution before it completes.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: [execution.cancelled]
+relations:
+  related: [execution.execute, work.cancel]
+rfc: "0001"

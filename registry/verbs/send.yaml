@@ -1,0 +1,13 @@
+id: send
+version: 0.1.0
+status: experimental
+definition: Deliver information to specific, intended recipients.
+past_tense: sent
+mutating: true
+rejected_synonyms: [deliver, dispatch, message, notify, transmit, email, text]
+distinct_from:
+  - verb: publish
+    difference: publish targets an audience rather than specific recipients
+  - verb: request
+    difference: request asks for a decision or action and creates a pending request
+rfc: "0001"

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:communication.publish:0.1.0:output",
+  "title": "communication.publish output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        },
+        "published_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "required": ["ref", "published_at"]
+    }
+  },
+  "required": ["publication"]
+}

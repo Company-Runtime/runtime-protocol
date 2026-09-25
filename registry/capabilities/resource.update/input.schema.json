@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:resource.update:0.1.0:input",
+  "title": "resource.update input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "resource": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "content": {
+      "type": ["string", "object", "array", "number", "boolean"]
+    },
+    "patch": {
+      "type": "object",
+      "description": "JSON Merge Patch (RFC 7396)."
+    },
+    "expected_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    }
+  },
+  "required": ["resource"],
+  "oneOf": [
+    {
+      "required": ["content"]
+    },
+    {
+      "required": ["patch"]
+    }
+  ]
+}

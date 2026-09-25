@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:identity.authenticate:0.1.0:input",
+  "title": "identity.authenticate input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "subject": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/identityRef"
+    },
+    "method": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "credential": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:credential-ref"
+    }
+  },
+  "required": ["subject", "method"]
+}

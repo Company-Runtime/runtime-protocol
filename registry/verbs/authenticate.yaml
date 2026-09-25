@@ -1,0 +1,13 @@
+id: authenticate
+version: 0.1.0
+status: experimental
+definition: Establish that an actor is who it claims to be.
+past_tense: authenticated
+mutating: true
+rejected_synonyms: [login, signin, logon]
+distinct_from:
+  - verb: verify
+    difference: verify confirms a claim without establishing a session
+  - verb: authorize
+    difference: authorize grants rights to an identity
+rfc: "0001"

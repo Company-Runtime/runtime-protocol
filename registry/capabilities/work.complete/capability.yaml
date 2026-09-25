@@ -1,0 +1,19 @@
+id: work.complete
+version: 0.1.0
+status: experimental
+domain: work
+verb: complete
+description: Mark a unit of work as finished, with its resolution.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: low }
+effects: { mutating: true }
+emits: [work.completed]
+relations:
+  related: [work.cancel, objective.evaluate]
+rfc: "0001"

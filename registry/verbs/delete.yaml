@@ -1,0 +1,11 @@
+id: delete
+version: 0.1.0
+status: experimental
+definition: Remove an existing item.
+past_tense: deleted
+mutating: true
+rejected_synonyms: [remove, destroy, erase, purge, drop]
+distinct_from:
+  - verb: cancel
+    difference: cancel stops an activity; delete removes an item
+rfc: "0001"

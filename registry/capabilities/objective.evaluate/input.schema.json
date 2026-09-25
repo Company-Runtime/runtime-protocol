@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:objective.evaluate:0.1.0:input",
+  "title": "objective.evaluate input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "objective": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/evidenceRef"
+      },
+      "uniqueItems": true
+    },
+    "as_of": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+    }
+  },
+  "required": ["objective"]
+}

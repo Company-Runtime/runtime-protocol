@@ -1,0 +1,13 @@
+id: evaluate
+version: 0.1.0
+status: experimental
+definition: Judge something against criteria and produce an assessment.
+past_tense: evaluated
+mutating: false
+rejected_synonyms: [assess, score, rate, grade, judge, review]
+distinct_from:
+  - verb: classify
+    difference: classify assigns labels from a defined set
+  - verb: decide
+    difference: decide records an accountable decision
+rfc: "0001"

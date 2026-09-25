@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:event.subscribe:0.1.0:input",
+  "title": "event.subscribe input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_.-]*\\*?$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "filter": {
+      "type": "object"
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": ["push", "pull"]
+        },
+        "endpoint": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/uri"
+        }
+      },
+      "required": ["mode"]
+    }
+  },
+  "required": ["types", "delivery"]
+}

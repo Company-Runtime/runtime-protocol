@@ -1,0 +1,11 @@
+id: record
+version: 0.1.0
+status: experimental
+definition: Append a durable, immutable account of something that happened.
+past_tense: recorded
+mutating: true
+rejected_synonyms: [log, store, capture, journal, register]
+distinct_from:
+  - verb: create
+    difference: create brings a mutable item into existence
+rfc: "0001"

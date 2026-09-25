@@ -1,0 +1,5 @@
+id: rich_text
+version: 0.1.0
+status: experimental
+definition: The provider renders formatted content (Markdown or HTML) supplied in rich_content, keeping the plain-text content as fallback.
+rfc: "0001"

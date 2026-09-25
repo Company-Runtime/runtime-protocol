@@ -1,0 +1,9 @@
+id: sms
+version: 0.1.0
+status: experimental
+definition: Short text message delivery to phone numbers.
+applies_to:
+  - capability: communication.send
+    input: { schema_ref: ./communication.send.input.schema.json }
+  - capability: communication.receive
+rfc: "0001"

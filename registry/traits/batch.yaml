@@ -1,0 +1,5 @@
+id: batch
+version: 0.1.0
+status: experimental
+definition: The provider processes several independent items supplied in one request as one execution, returning one result per item.
+rfc: "0001"

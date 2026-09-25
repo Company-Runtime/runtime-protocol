@@ -1,0 +1,19 @@
+id: resource.delete
+version: 0.1.0
+status: experimental
+domain: resource
+verb: delete
+description: Remove an existing resource.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: high }
+effects: { mutating: true }
+emits: [resource.deleted]
+relations:
+  related: [resource.update]
+rfc: "0001"

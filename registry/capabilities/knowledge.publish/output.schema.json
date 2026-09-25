@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:knowledge.publish:0.1.0:output",
+  "title": "knowledge.publish output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "published_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "required": ["ref", "version", "published_at"]
+    }
+  },
+  "required": ["item"]
+}

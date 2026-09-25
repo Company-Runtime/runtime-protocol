@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:reasoning.generate:0.1.0:output",
+  "title": "reasoning.generate output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "content": {
+      "type": ["string", "object"]
+    },
+    "media_type": {
+      "type": "string",
+      "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+    },
+    "tool_requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/capabilityId"
+          },
+          "input": {
+            "type": "object"
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 5000
+          }
+        },
+        "required": ["capability", "input"]
+      }
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "input_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["unit"]
+    }
+  },
+  "required": ["content"]
+}

@@ -1,0 +1,23 @@
+id: communication.publish
+version: 0.1.0
+status: experimental
+domain: communication
+verb: publish
+description: Make information available to an audience rather than to specific recipients.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: [chat, broadcast, structured]
+traits:
+  optional: [attachments, delivery_receipt, rich_text, threading, idempotency]
+  input_gates:
+    attachments: [attachments]
+    rich_text: [rich_content]
+    threading: [thread]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, delivery, state] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: [communication.published]
+relations:
+  related: [communication.send, event.publish, knowledge.publish]
+rfc: "0001"

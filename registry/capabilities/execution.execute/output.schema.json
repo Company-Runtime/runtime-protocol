@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:execution.execute:0.1.0:output",
+  "title": "execution.execute output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        }
+      },
+      "required": ["ref"]
+    },
+    "exit_status": {
+      "type": "integer"
+    },
+    "outputs": {
+      "type": "object"
+    },
+    "logs": {
+      "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+    }
+  },
+  "required": ["execution"]
+}

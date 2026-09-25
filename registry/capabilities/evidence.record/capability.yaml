@@ -1,0 +1,19 @@
+id: evidence.record
+version: 0.1.0
+status: experimental
+domain: evidence
+verb: record
+description: Append a durable, integrity-protected evidence record.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: low }
+effects: { mutating: true }
+emits: [evidence.recorded]
+relations:
+  related: [evidence.verify]
+rfc: "0001"

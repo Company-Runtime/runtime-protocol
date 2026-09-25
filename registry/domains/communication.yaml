@@ -1,0 +1,14 @@
+id: communication
+version: 0.1.0
+status: experimental
+definition: >-
+  Conveying information between actors: sending to intended recipients, receiving
+  addressed messages, and publishing to audiences.
+excludes:
+  - Distributing machine facts to subscribers (event).
+  - Storing documents for later retrieval (resource, knowledge).
+  - Requesting an accountable decision (approval).
+examples:
+  - Email a customer about an account change.
+  - Post an announcement to a company channel.
+rfc: "0001"

@@ -1,0 +1,21 @@
+id: reasoning.classify
+version: 0.1.0
+status: experimental
+domain: reasoning
+verb: classify
+description: Assign one or more labels from a defined set to an input.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [batch]
+  input_gates:
+    batch: [inputs]
+authority: { required: true }
+evidence: { supported: true, claims: [execution] }
+risk: { default: low }
+effects: { mutating: false }
+emits: []
+relations:
+  related: [reasoning.evaluate]
+rfc: "0001"

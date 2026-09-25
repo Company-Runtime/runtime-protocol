@@ -1,0 +1,5 @@
+id: threading
+version: 0.1.0
+status: experimental
+definition: The provider places content in, or reads content from, an existing conversation thread identified by thread.
+rfc: "0001"

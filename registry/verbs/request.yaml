@@ -1,0 +1,13 @@
+id: request
+version: 0.1.0
+status: experimental
+definition: Ask another actor for a decision, action or resource, creating a pending request.
+past_tense: requested
+mutating: true
+rejected_synonyms: [ask, solicit, petition]
+distinct_from:
+  - verb: send
+    difference: send delivers information without creating a pending request
+  - verb: decide
+    difference: decide answers a pending request
+rfc: "0001"

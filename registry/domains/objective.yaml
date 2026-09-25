@@ -1,0 +1,13 @@
+id: objective
+version: 0.1.0
+status: experimental
+definition: >-
+  Desired outcomes with measurable success criteria: defining them, revising them and
+  evaluating whether they were attained.
+excludes:
+  - The tasks performed to reach an objective (work).
+  - Judging arbitrary content against criteria (reasoning).
+examples:
+  - Create an objective to reduce first-response time below one hour.
+  - Evaluate whether a quarterly objective was attained.
+rfc: "0001"

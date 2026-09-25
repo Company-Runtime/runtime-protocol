@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:runtime-protocol:registry:capability:resource.update:0.1.0:output",
+  "title": "resource.update output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/resourceRef"
+        },
+        "version": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "updated_at": {
+          "$ref": "urn:runtime-protocol:schemas:0.1:common#/$defs/timestamp"
+        }
+      },
+      "required": ["ref", "updated_at"]
+    }
+  },
+  "required": ["resource"]
+}

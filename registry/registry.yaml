@@ -1,0 +1,6 @@
+protocol: runtime/0.1
+version: "0.1"
+description: >-
+  The canonical semantic registry of the Runtime Protocol v0.1. Every definition is
+  experimental and was introduced by RFC 0001.
+aliases: []

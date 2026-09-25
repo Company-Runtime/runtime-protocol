@@ -1,0 +1,13 @@
+id: validate
+version: 0.1.0
+status: experimental
+definition: Check that something conforms to rules, schemas or requirements.
+past_tense: validated
+mutating: false
+rejected_synonyms: [lint, check, conform]
+distinct_from:
+  - verb: verify
+    difference: verify establishes that a claim is true
+  - verb: evaluate
+    difference: evaluate produces a graded assessment
+rfc: "0001"

@@ -1,0 +1,13 @@
+id: create
+version: 0.1.0
+status: experimental
+definition: Bring a new item into existence.
+past_tense: created
+mutating: true
+rejected_synonyms: [add, make, new, insert, provision, spawn]
+distinct_from:
+  - verb: publish
+    difference: publish makes information available to an audience
+  - verb: record
+    difference: record appends an immutable account of something that happened
+rfc: "0001"

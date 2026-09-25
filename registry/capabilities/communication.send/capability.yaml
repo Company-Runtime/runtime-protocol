@@ -1,0 +1,24 @@
+id: communication.send
+version: 0.1.0
+status: experimental
+domain: communication
+verb: send
+description: Deliver information to intended recipients.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: [email, chat, sms, push, structured]
+traits:
+  optional: [attachments, delivery_receipt, rich_text, threading, idempotency]
+  input_gates:
+    attachments: [attachments]
+    rich_text: [rich_content]
+    threading: [thread]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, delivery] }
+risk: { default: low }
+effects: { mutating: true }
+emits: [communication.sent]
+relations:
+  requires: [identity]
+  related: [communication.publish, communication.receive]
+rfc: "0001"

@@ -1,0 +1,11 @@
+id: list
+version: 0.1.0
+status: experimental
+definition: Enumerate the items of a collection without a relevance query.
+past_tense: listed
+mutating: false
+rejected_synonyms: [enumerate, browse, index]
+distinct_from:
+  - verb: search
+    difference: search ranks or filters items by a query
+rfc: "0001"

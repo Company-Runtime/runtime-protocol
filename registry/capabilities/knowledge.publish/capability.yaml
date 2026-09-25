@@ -1,0 +1,19 @@
+id: knowledge.publish
+version: 0.1.0
+status: experimental
+domain: knowledge
+verb: publish
+description: Make a knowledge item available to its audience as a new version.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: medium }
+effects: { mutating: true }
+emits: [knowledge.published]
+relations:
+  related: [knowledge.validate, resource.create]
+rfc: "0001"

@@ -1,0 +1,11 @@
+id: resolve
+version: 0.1.0
+status: experimental
+definition: Determine the canonical referent of an identifier, name or description.
+past_tense: resolved
+mutating: false
+rejected_synonyms: [lookup, dereference, identify, match]
+distinct_from:
+  - verb: search
+    difference: search returns candidate items ranked by relevance
+rfc: "0001"

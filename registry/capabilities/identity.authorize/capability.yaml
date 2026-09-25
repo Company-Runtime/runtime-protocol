@@ -1,0 +1,19 @@
+id: identity.authorize
+version: 0.1.0
+status: experimental
+domain: identity
+verb: authorize
+description: Grant an identity rights to act on resources or capabilities.
+input: { schema_ref: ./input.schema.json }
+output: { schema_ref: ./output.schema.json }
+profiles: []
+traits:
+  optional: [idempotency]
+authority: { required: true }
+evidence: { supported: true, claims: [execution, state] }
+risk: { default: high }
+effects: { mutating: true }
+emits: [identity.authorized]
+relations:
+  related: [approval.decide]
+rfc: "0001"

@@ -1,0 +1,13 @@
+id: cancel
+version: 0.1.0
+status: experimental
+definition: Stop an activity or request before it completes, without completing it.
+past_tense: cancelled
+mutating: true
+rejected_synonyms: [abort, stop, terminate, kill, revoke, withdraw]
+distinct_from:
+  - verb: delete
+    difference: delete removes an item
+  - verb: pause
+    difference: pause keeps the activity resumable
+rfc: "0001"
