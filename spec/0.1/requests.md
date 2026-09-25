@@ -71,6 +71,10 @@ resource:
 
 `ref` is any absolute URI except `secret://`. `type` is a free-form hint.
 
+When `resource` is absent and the capability input has a top-level `resource` reference,
+that reference is the request resource for authority. When both are present they MUST
+be equal (`invalid_request`, `detail: resource_mismatch`).
+
 ## 4. Constraints
 
 | Field        | Meaning                                                                              |
@@ -102,6 +106,11 @@ The first failing step determines the error.
 | 9    | Traits exist and effective required traits are declared by the capability   | `missing_trait`       |
 | 10   | Evidence claims exist and are supported by the capability                   | `invalid_request`     |
 | 11   | `input` validates against the effective input schema (capability ∧ profile) | `invalid_request`     |
+
+Step 4 also rejects a credential selector whose `owner` differs from the owner segment
+of its `ref` (`detail: credential_owner_mismatch`). Step 5 rejects identifiers that
+write `core.`, use a reserved namespace word as a domain, or shadow a core capability
+from an extension namespace (`detail: namespace_violation`).
 
 Validation is deterministic: the same request against the same registry always yields
 the same result.

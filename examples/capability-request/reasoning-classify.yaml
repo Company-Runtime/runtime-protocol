@@ -5,8 +5,8 @@ actor: { ref: identity://agent/triage-agent, type: agent }
 input:
   input: I was charged twice for my subscription this month.
   labels:
-    - { id: billing, description: Payments, invoices, charges and refunds }
-    - { id: access, description: Login, passwords and account access }
+    - { id: billing, description: "Payments, invoices, charges and refunds" }
+    - { id: access, description: "Login, passwords and account access" }
     - { id: bug, description: Product defects }
 constraints:
   providers: { prefer: [example-provider] }

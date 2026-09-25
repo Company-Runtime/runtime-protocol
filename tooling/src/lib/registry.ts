@@ -15,12 +15,14 @@ export interface Entry<T = Record<string, unknown>> {
 
 export interface Domain {
   id: string;
+  version: string;
   definition: string;
   excludes: string[];
   status: string;
 }
 export interface Verb {
   id: string;
+  version: string;
   definition: string;
   past_tense: string;
   mutating: boolean | "varies";
@@ -29,12 +31,14 @@ export interface Verb {
 }
 export interface Trait {
   id: string;
+  version: string;
   definition: string;
   enables_claims?: string[];
   status: string;
 }
 export interface Profile {
   id: string;
+  version: string;
   definition: string;
   status: string;
   applies_to: Array<{ capability: string; input?: { schema_ref?: string; schema?: object } }>;

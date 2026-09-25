@@ -23,3 +23,6 @@ Initial experimental version, introduced by
   10 traits, all experimental, with input/output schemas, trait gates, evidence claims
   and relations; the deterministic registry graph `registry/graph.json`.
 - Example recipes `employee.onboard` and `support.answer`.
+- Deterministic protocol validation: request validation steps 1–11, raw-secret
+  detection, namespace isolation, version ranges, registry overlays and provider
+  manifest checks, applied to every example.

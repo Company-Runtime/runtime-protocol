@@ -4,6 +4,10 @@ import { Report } from "./lib/findings.ts";
 import { fromRoot } from "./lib/paths.ts";
 import { loadSchemas, type SchemaSet } from "./lib/schemas.ts";
 import { digestWithout, digest } from "./lib/canonical.ts";
+import { loadRegistry, type Registry } from "./lib/registry.ts";
+import { validateRequest } from "./lib/request.ts";
+import { validateManifest } from "./lib/manifest.ts";
+import { findSecrets } from "./lib/secrets.ts";
 
 export const EXAMPLES_DIR = fromRoot("examples");
 
@@ -32,7 +36,32 @@ export function checkIntegrity(
   }
 }
 
-export function validateExamples(schemas: SchemaSet = loadSchemas()): {
+/** Semantic checks beyond the schema: requests and manifests against the registry, no secrets. */
+export function checkSemantics(
+  schema: string,
+  document: unknown,
+  file: string,
+  report: Report,
+  registry: Registry,
+  schemas: SchemaSet,
+): void {
+  for (const secret of findSecrets(document))
+    report.error("EXAMPLE_SECRET", file, `raw secret (${secret.kind}) at ${secret.path}`);
+  if (schema === "capability-request") {
+    const result = validateRequest(document, registry, schemas);
+    if (!result.ok)
+      report.error("EXAMPLE_SEMANTIC", file, `${result.error?.code}: ${result.error?.message}`);
+  }
+  if (schema === "provider-manifest") {
+    for (const finding of validateManifest(document, registry, schemas))
+      report.error("EXAMPLE_SEMANTIC", file, `${finding.code}: ${finding.message}`);
+  }
+}
+
+export function validateExamples(
+  schemas: SchemaSet = loadSchemas(),
+  registry: Registry = loadRegistry(),
+): {
   report: Report;
   count: number;
 } {
@@ -59,6 +88,7 @@ export function validateExamples(schemas: SchemaSet = loadSchemas()): {
       report.error("EXAMPLE_INVALID", file, `${schema}: ${message}`);
     }
     checkIntegrity(schema, document, file, report);
+    checkSemantics(schema, document, file, report, registry, schemas);
   }
   return { report, count: files.length };
 }

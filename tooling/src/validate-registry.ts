@@ -119,7 +119,7 @@ export function validateRegistry(
           report,
           file,
           target.input,
-          `urn:runtime-protocol:registry:profile:${id}:${String((doc as unknown as Record<string, unknown>)["version"])}:${target.capability}:input`,
+          `urn:runtime-protocol:registry:profile:${id}:${doc.version}:${target.capability}:input`,
           "REG_PROFILE",
         );
       }
