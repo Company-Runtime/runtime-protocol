@@ -32,3 +32,6 @@ Initial experimental version, introduced by
 - Identifier segments are lower snake case without doubled underscores, so that MCP
   tool names map reversibly.
 - Actor binding: runtimes establish that the caller may act as `actor.ref`.
+- Governance tooling: semantic lint (`SL001`–`SL020`) with recorded human
+  acknowledgments, compatibility check against a base ref, docs consistency check, CI
+  workflow, pull request and proposal templates, code owners and extension directories.

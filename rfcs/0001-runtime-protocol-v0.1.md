@@ -106,17 +106,18 @@ capability after this RFC answers the ten questions individually.
 
 Boundaries decided in this RFC, recorded in the domain `excludes` lists:
 
-| Pair                                           | Boundary                                                              |
-| ---------------------------------------------- | --------------------------------------------------------------------- |
-| `resource.search` / `knowledge.search`         | Objects by attributes vs. information by meaning with citations       |
-| `communication.send` / `communication.publish` | Intended recipients vs. an audience                                   |
-| `communication.publish` / `event.publish`      | Information for people vs. facts for systems                          |
-| `reasoning.generate` / `reasoning.transform`   | New content vs. same meaning in another form                          |
-| `reasoning.evaluate` / `objective.evaluate`    | Any subject against criteria vs. attainment of an objective           |
-| `verify` / `validate`                          | Truth of a claim with evidence vs. conformance to rules               |
-| `identity.authorize` / Authority               | Granting rights (a capability) vs. evaluating a request (a primitive) |
-| `policy.evaluate` / Policy                     | Policy engines as providers vs. the runtime's policy step             |
-| `execution.execute` / Execution                | Running a workload vs. the lifecycle of a capability request          |
+| Pair                                           | Boundary                                                                      |
+| ---------------------------------------------- | ----------------------------------------------------------------------------- |
+| `resource.search` / `knowledge.search`         | Objects by attributes vs. information by meaning with citations               |
+| `communication.send` / `communication.publish` | Intended recipients vs. an audience                                           |
+| `communication.publish` / `event.publish`      | Information for people vs. facts for systems                                  |
+| `reasoning.generate` / `reasoning.transform`   | New content vs. same meaning in another form                                  |
+| `reasoning.evaluate` / `objective.evaluate`    | Any subject against criteria vs. attainment of an objective                   |
+| `verify` / `validate`                          | Truth of a claim with evidence vs. conformance to rules                       |
+| `identity.authorize` / Authority               | Granting rights (a capability) vs. evaluating a request (a primitive)         |
+| `policy.evaluate` / Policy                     | Policy engines as providers vs. the runtime's policy step                     |
+| `execution.execute` / Execution                | Running a workload vs. the lifecycle of a capability request                  |
+| `approval.request` / `approval.decide`         | Creating a pending approval vs. answering it — complementary, not overlapping |
 
 ## Compatibility
 

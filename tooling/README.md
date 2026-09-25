@@ -8,6 +8,10 @@ TypeScript type stripping) and no network access.
 | `pnpm run validate:schemas`  | Every schema is Draft 2020-12, has a URN `$id` matching its file, and compiles                                          |
 | `pnpm run validate:registry` | Registry definitions: schemas, file names, references, trait gates, claims, aliases, recipes, graph                     |
 | `pnpm run validate:examples` | Examples validate against their schema; requests and manifests validate against the registry; digests match; no secrets |
+| `pnpm run lint:semantic`     | The semantic constitution's lint rules `SL001`–`SL020` over the registry and `extensions/`                              |
+| `pnpm run check:compat`      | Compatibility against a base ref (`COMPAT_BASE`, default `origin/main`): removals, version bumps, status regressions    |
+| `pnpm run validate:bindings` | HTTP OpenAPI references, MCP tool-name reversibility, lossless CloudEvents mapping, binding examples                    |
+| `pnpm run docs:check`        | Links and anchors; spec tables equal the schemas, registry and lint rules                                               |
 | `pnpm run registry:graph`    | Regenerates `registry/graph.json`                                                                                       |
 | `pnpm test`                  | Unit tests of the tooling itself                                                                                        |
 | `pnpm run ci`                | The full pipeline, as run in CI                                                                                         |
@@ -29,6 +33,10 @@ TypeScript type stripping) and no network access.
 
 These are document validators for this repository, not a runtime. Runtime
 implementations live in SDKs.
+
+Similarity findings (`SL008`, `SL010`) are warnings for human review; accepted ones are
+recorded in `tooling/data/lint-acknowledgments.yaml` with a link to the decision.
+Vendor and transport term lists live in `tooling/data/`.
 
 Language models are never called by this tooling. Every result is reproducible from
 the repository content alone.

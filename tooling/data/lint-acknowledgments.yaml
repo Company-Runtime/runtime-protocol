@@ -1,0 +1,7 @@
+# Human decisions on similarity findings (SL008, SL010). A finding listed here was
+# reviewed and accepted; the linked record holds the rationale. Only rules that
+# require human review can be acknowledged — deterministic errors cannot.
+- rule: SL008
+  subjects: [approval.decide, approval.request]
+  record: rfcs/0001-runtime-protocol-v0.1.md
+  rationale: Complementary halves of one exchange — request creates a pending approval, decide answers it.

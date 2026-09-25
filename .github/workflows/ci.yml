@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Format and lint
+        run: pnpm run format:check && pnpm run typecheck
+      - name: Schema validation
+        run: pnpm run validate:schemas
+      - name: Registry validation
+        run: pnpm run validate:registry
+      - name: Semantic lint
+        run: pnpm run lint:semantic
+      - name: Compatibility check
+        env:
+          COMPAT_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
+        run: pnpm run check:compat
+      - name: Examples and bindings validation
+        run: pnpm run validate:examples && pnpm run validate:bindings
+      - name: Docs validation
+        run: pnpm run docs:check
+      - name: Tooling tests
+        run: pnpm test

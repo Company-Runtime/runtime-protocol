@@ -47,7 +47,7 @@ and must follow what is written here — never the other way around.
 | [`schemas/0.1/`](schemas/0.1/)                   | JSON Schemas (Draft 2020-12) for every exchanged document                        |
 | [`registry/`](registry/)                         | The canonical semantic registry: domains, verbs, capabilities, profiles, traits  |
 | [`bindings/`](bindings/)                         | Transport bindings: HTTP, MCP and events                                         |
-| `extensions/`                                    | Registered extensions in the `experimental`, `community` and `vendor` namespaces |
+| [`extensions/`](extensions/)                     | Registered extensions in the `experimental`, `community` and `vendor` namespaces |
 | [`recipes/`](recipes/)                           | Example compositions of capabilities (recipes are not primitives)                |
 | [`examples/`](examples/)                         | Valid example documents                                                          |
 | [`rfcs/`](rfcs/)                                 | Proposals that change the protocol                                               |

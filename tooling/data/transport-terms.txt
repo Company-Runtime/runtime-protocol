@@ -1,0 +1,20 @@
+# Transport and protocol terms that must not appear in core vocabulary (SL019).
+# Ordinary words that double as transport names (for example "rest") are excluded.
+amqp
+graphql
+grpc
+http
+https
+imap
+jsonrpc
+kafka
+mcp
+mqtt
+pop3
+smtp
+soap
+sse
+webhook
+webhooks
+websocket
+websockets
