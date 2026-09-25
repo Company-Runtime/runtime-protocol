@@ -7,6 +7,7 @@ manifest:
       versions: ["^0.1"]
       profiles: [email]
       traits: [delivery_receipt, idempotency]
+      cost: { estimate: { amount: 0.001, currency: USD } }
   credentials: { required: true, accepts: [organization] }
 behavior:
   communication.send:
