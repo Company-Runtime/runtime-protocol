@@ -121,7 +121,7 @@ the same result.
 - Resubmitting an identical request MUST return the existing execution; it MUST NOT
   create a second execution.
 - Resubmitting a different document with the same identity MUST fail with
-  `invalid_request` (`detail: request_id_conflict`).
+  `invalid_request` (`detail: request_id_conflict`) and MUST NOT create an execution.
 
 ## 7. Idempotency
 

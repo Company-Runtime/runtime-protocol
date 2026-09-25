@@ -104,7 +104,8 @@ material.
 
 - A runtime MUST NOT re-send an invocation for an execution in `unknown`, and MUST NOT
   send a new invocation with the same idempotency key while another execution with that
-  key is `unknown`.
+  key is `running` or `unknown`. Such a request is `rejected` with `invalid_request`
+  (`detail: idempotency_conflict`) before any provider is invoked.
 - The outcome is established only by **reconciliation**: the runtime calls the
   provider's `reconcile` operation with the original invocation.
   - `completed` with evidence → `completed`;

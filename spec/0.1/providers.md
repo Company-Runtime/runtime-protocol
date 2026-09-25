@@ -111,7 +111,11 @@ organization. Credential selection for a provider is deterministic:
    `runtime`, `provider`, then by `ref` in code-point order.
 4. The first binding whose owner is in `credentials.accepts` and whose reference the
    broker can resolve is selected.
-5. A provider with `credentials.required: false` is eligible without a binding.
+5. When the request names no credential, a provider with `credentials.required: false`
+   is eligible without a binding. A request that names `credential.ref` or
+   `credential.owner` is served only through a selected binding, even by a provider
+   that does not require one: a caller that asks for a specific account never runs on
+   another account, or on none.
 
 The selected owner is recorded in the receipt as `credential_owner`; the reference
 itself is not.
