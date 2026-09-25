@@ -69,6 +69,13 @@ provider's `timeout` behaviour never answers before the deadline; `unreachable` 
 before the provider receives the invocation; `{{secret}}` in an error message is
 replaced by the materialized credential, to test redaction.
 
+The `then` actions of an `execution` case run in order against the current execution:
+`approve`, `reconcile`, `cancel`, `resubmit` (the same request again) and `submit`
+(another request, given as a document source; its execution becomes the current one).
+When an action is refused with an error and no execution — for example
+`request_id_conflict` — the current execution stays the same and the error is the one
+`expect.error` asserts.
+
 `expect` lists only what the case asserts: state and history, error code and detail,
 provider and reconciliation invocation counts, the number of executions, evidence
 claims, events, warnings, resolution order and rejections, receipt fields, and

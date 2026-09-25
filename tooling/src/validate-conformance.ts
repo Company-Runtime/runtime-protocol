@@ -25,6 +25,7 @@ interface Case {
   document?: unknown;
   request?: unknown;
   transitions?: Array<{ from: string; to: string; valid: boolean }>;
+  then?: Array<Record<string, unknown>>;
   expect: {
     valid?: boolean;
     error?: { code: string; detail?: string };
@@ -197,6 +198,7 @@ export function validateConformance(schemas: SchemaSet = loadSchemas()): {
         ...(testCase.given?.policy ? [testCase.given.policy] : []),
         ...sourcePaths(testCase.request),
         ...sourcePaths(testCase.document),
+        ...(testCase.then ?? []).flatMap((action) => sourcePaths(action["submit"])),
       ];
       for (const path of referenced)
         if (!existsSync(join(CONFORMANCE_DIR, path)))

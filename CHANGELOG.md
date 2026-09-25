@@ -35,6 +35,12 @@ Initial experimental version, introduced by
 - Governance tooling: semantic lint (`SL001`–`SL020`) with recorded human
   acknowledgments, compatibility check against a base ref, docs consistency check, CI
   workflow, pull request and proposal templates, code owners and extension directories.
-- Conformance suite 0.1.0: 55 language-neutral cases covering every required category
+- Conformance suite 0.1.0: 58 language-neutral cases covering every required category
   and the end-to-end smoke scenario, scripted provider fixtures, case schemas,
   provider requirements `PC-001`–`PC-010`, and `spec/0.1/conformance.md`.
+- Clarifications found by the reference implementation: a request that names a
+  credential is served only through a matching binding; a request reusing the
+  idempotency key of a `running` or `unknown` execution is rejected with
+  `idempotency_conflict`; a `request_id_conflict` creates no execution; the events
+  binding maps `subject.version` to `subjectversion`, keeping the mapping lossless; the
+  conformance `submit` action.

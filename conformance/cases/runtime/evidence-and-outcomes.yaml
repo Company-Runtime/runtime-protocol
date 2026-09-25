@@ -64,6 +64,32 @@
     provider_invocations: 1
     executions: 1
     receipt: { status: unknown }
+- id: RP-UNK-003
+  title: A request reusing the idempotency key of an unknown execution is rejected before dispatch
+  category: uncertain_outcome
+  level: runtime
+  kind: execution
+  given:
+    providers: [fixtures/providers/slow-email.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/send-email.yaml
+    $patch: { credential: null, idempotency_key: order-981-update, constraints: { timeout_ms: 50 } }
+  then:
+    - submit:
+        $base: fixtures/requests/send-email.yaml
+        $patch:
+          request_id: req_smoke_02
+          credential: null
+          idempotency_key: order-981-update
+          constraints: { timeout_ms: 50 }
+  expect:
+    state: rejected
+    error: { code: invalid_request, detail: idempotency_conflict }
+    executions: 2
+    provider_invocations: 1
+    receipt: { status: rejected }
 - id: RP-UNK-002
   title: Reconciliation with evidence completes an unknown execution without re-sending
   category: uncertain_outcome

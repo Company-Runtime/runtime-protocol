@@ -73,6 +73,7 @@
           },
           "reconcile": { "const": true },
           "resubmit": { "const": true },
+          "submit": { "$ref": "#/$defs/source" },
           "cancel": { "const": true }
         },
         "additionalProperties": false

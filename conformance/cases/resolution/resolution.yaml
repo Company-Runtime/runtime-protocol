@@ -195,3 +195,20 @@
     resolution:
       eligible: [kb-us]
       rejected: [{ provider: kb-eu, stage: 9, code: provider_unavailable }]
+- id: RP-RES-013
+  title: A request that names a credential needs a matching binding, even for providers that need none
+  category: provider_resolution
+  level: runtime
+  kind: resolution
+  given:
+    providers: [fixtures/providers/kb-eu.yaml]
+    authority: fixtures/authority/support.yaml
+    policy: fixtures/policy/allow-all.yaml
+  request:
+    $base: fixtures/requests/search.yaml
+    $patch: { credential: { owner: user } }
+  expect:
+    error: { code: credential_unavailable }
+    resolution:
+      eligible: []
+      rejected: [{ provider: kb-eu, stage: 8, code: credential_unavailable }]
